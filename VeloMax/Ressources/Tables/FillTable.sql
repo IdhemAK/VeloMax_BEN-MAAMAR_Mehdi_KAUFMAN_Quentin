@@ -657,5 +657,3 @@ INSERT INTO liste_velo_commande VALUES (29,13,4);
 
 
 
-
-
