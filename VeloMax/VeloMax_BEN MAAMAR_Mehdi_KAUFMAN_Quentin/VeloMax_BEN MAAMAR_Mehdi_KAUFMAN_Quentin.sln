@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin", "VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.csproj", "{F5AA003D-F9E2-4A3C-BCAC-16E94C5CD7B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Program_Velomax", "Program_Velomax\Program_Velomax.csproj", "{7C7B89C0-0D06-48F1-9AD1-F9A9546AB29B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5AA003D-F9E2-4A3C-BCAC-16E94C5CD7B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5AA003D-F9E2-4A3C-BCAC-16E94C5CD7B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5AA003D-F9E2-4A3C-BCAC-16E94C5CD7B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5AA003D-F9E2-4A3C-BCAC-16E94C5CD7B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C7B89C0-0D06-48F1-9AD1-F9A9546AB29B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C7B89C0-0D06-48F1-9AD1-F9A9546AB29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C7B89C0-0D06-48F1-9AD1-F9A9546AB29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C7B89C0-0D06-48F1-9AD1-F9A9546AB29B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF1C2ABD-FB41-4E4C-A7D9-A3557ED73CCB}
+	EndGlobalSection
+EndGlobal
