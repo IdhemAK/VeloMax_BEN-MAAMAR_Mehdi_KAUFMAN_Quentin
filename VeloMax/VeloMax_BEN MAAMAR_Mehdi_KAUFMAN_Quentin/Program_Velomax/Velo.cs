@@ -7,10 +7,19 @@ using MySql.Data.MySqlClient;
 
 namespace Program_Velomax
 {
-    class Velo
+
+
+    public class Velo
     {
+        //Noms des variables de Velo
+        /*
+        private List<string> variables_velo =
+            new List<string>() { "numero_velo", "nom_velo", "grandeur_velo", "prix_velo", "ligne_produit_velo," +
+                "date_introduction_velo", "date_discontinuation_velo", "stock_velo" };
+                */
+
         #region Attributs
-        private int numero_velo;
+        private int numero_velo;    //clé primaire
         private string nom_velo;
         private string grandeur_velo;
         private float prix_velo;
@@ -20,10 +29,19 @@ namespace Program_Velomax
         private int stock_velo;
         #endregion Attributs
 
+        /*
+        public enum variables_velo
+        {
+            numero_velo = Numero_velo, nom_velo, grandeur_velo, prix_velo, ligne_produit_velo,
+            date_introduction_velo, date_discontinuation_velo, stock_velo
+        }
+        */
+
 
         #region Constructeurs
+        public Velo() { }
         public Velo(int numero_velo, string nom_velo, string grandeur_velo, float prix_velo,
-            string ligne_produit_velo, DateTime date_introduction_velo, DateTime date_discontinuation_velo, 
+            string ligne_produit_velo, DateTime date_introduction_velo, DateTime date_discontinuation_velo,
             int stock_velo)
         {
             this.numero_velo = numero_velo;

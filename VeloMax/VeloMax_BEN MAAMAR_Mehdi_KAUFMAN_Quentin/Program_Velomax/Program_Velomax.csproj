@@ -45,6 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adresse.cs" />
+    <Compile Include="Interfaces\IQueries.cs" />
+    <Compile Include="VeloMax.cs" />
+    <Compile Include="Programme.cs" />
+    <Compile Include="Client_particulier.cs" />
+    <Compile Include="Client_entreprise.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="Fournisseur.cs" />
     <Compile Include="Commande.cs" />
     <Compile Include="Piece.cs" />
     <Compile Include="Interfaces\Maj.cs" />
