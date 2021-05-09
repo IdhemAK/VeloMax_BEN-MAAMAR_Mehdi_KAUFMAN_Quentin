@@ -5,6 +5,8 @@
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
 -- Velos (20 Tuples)
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+# Old insert with 8888-08-08 instead of null
 INSERT INTO velo VALUES (1,'Kilimandjaro','Adulte',410,'Vélo_de_course','2012-01-01','2016-12-01',30);
 INSERT INTO velo VALUES (2,'Kilimandjaro','Adolescent',278,'Vélo_de_course','2012-01-01','2016-12-01',103);
 INSERT INTO velo VALUES (3,'Kilimandjaro','Adolescent',71,'BMX','2012-01-01','2016-12-01',64);
@@ -26,11 +28,36 @@ INSERT INTO velo VALUES (18,'BlueJay','Enfant',234,'Vélo_de_course','2020-01-01
 INSERT INTO velo VALUES (19,'Trail_Explorer','Enfant',73,'Classique','2020-01-01','8888-08-08',65);
 INSERT INTO velo VALUES (20,'Trail_Explorer','Adolescent',167,'BMX','2020-01-01','8888-08-08',129);
 #select * from velo;
+*/
+INSERT INTO velo VALUES (1,'Kilimandjaro','Adulte',419,'Classique','2012-01-01','2016-12-01',164);
+INSERT INTO velo VALUES (2,'Kilimandjaro','Adolescent',252,'BMX','2012-01-01','2016-12-01',249);
+INSERT INTO velo VALUES (3,'Kilimandjaro','Adolescent',61,'Vélo_de_course','2012-01-01','2016-12-01',197);
+INSERT INTO velo VALUES (4,'NorthPole','Adolescent',350,'BMX','2013-01-01','2017-12-02',118);
+INSERT INTO velo VALUES (5,'MontBlanc','Adolescent',414,'Vélo_de_course','2014-01-01','2018-12-02',202);
+INSERT INTO velo VALUES (6,'Hooligan','Enfant',144,'Classique','2014-01-01','2018-12-02',108);
+INSERT INTO velo VALUES (7,'Orléans','Adulte',100,'VTT','2015-01-01','2019-12-02',173);
+INSERT INTO velo VALUES (8,'BlueJay','Enfant',125,'Classique','2015-01-01','2019-12-02',214);
+INSERT INTO velo VALUES (9,'Trail_Explorer','Enfant',147,'BMX','2015-01-01','2019-12-02',84);
+INSERT INTO velo VALUES (10,'Night_Hawk','Adolescent',243,'BMX','2015-01-01','2019-12-02',157);
+INSERT INTO velo VALUES (11,'Tierra_Verde','Adolescent',287,'Classique','2016-01-01',null,233);
+INSERT INTO velo VALUES (12,'Mud_Zinger_I','Adulte',154,'BMX','2017-01-01',null,292);
+INSERT INTO velo VALUES (13,'Mud_Zinger_II','Enfant',478,'Classique','2018-01-01',null,157);
+INSERT INTO velo VALUES (14,'NorthPole','Adolescent',74,'Vélo_de_course','2018-01-01',null,220);
+INSERT INTO velo VALUES (15,'MontBlanc','Adolescent',262,'Classique','2018-01-01',null,221);
+INSERT INTO velo VALUES (16,'Hooligan','Adolescent',198,'Classique','2019-01-01',null,101);
+INSERT INTO velo VALUES (17,'Orléans','Enfant',218,'BMX','2019-01-01',null,225);
+INSERT INTO velo VALUES (18,'BlueJay','Enfant',402,'Vélo_de_course','2020-01-01',null,76);
+INSERT INTO velo VALUES (19,'Trail_Explorer','Enfant',269,'Classique','2020-01-01',null,215);
+INSERT INTO velo VALUES (20,'Trail_Explorer','Adolescent',197,'VTT','2020-01-01',null,33);
+#select * from velo;
+
 
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
 -- Pieces (20 tuples)
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+# Old insert with 8888-08-08 instead of null
 INSERT INTO piece VALUES ('RS_P1','P1','cadre','2010-01-01','2014-12-02',79,7,50);
 INSERT INTO piece VALUES ('Farnell_P2','P2','cadre','2012-01-01','2016-12-01',48,25,120);
 INSERT INTO piece VALUES ('Digikey_P3','P3','cadre','2017-01-01','8888-08-08',126,25,30);
@@ -52,6 +79,29 @@ INSERT INTO piece VALUES ('Farnell_P18','P18','pedalier','2010-01-01','2014-12-0
 INSERT INTO piece VALUES ('Digikey_P19','P19','ordinateur','2010-01-01','2014-12-02',179,90,50);
 INSERT INTO piece VALUES ('Mouser_P20','P20','panier','2010-01-01','2014-12-02',14,2,70);
 #select * from piece;
+*/
+INSERT INTO piece VALUES ('RS_P1','P1','cadre','2010-01-01','2014-12-02',79,7,50);
+INSERT INTO piece VALUES ('Farnell_P2','P2','cadre','2012-01-01','2016-12-01',48,25,120);
+INSERT INTO piece VALUES ('Digikey_P3','P3','cadre','2017-01-01',null,126,25,30);
+INSERT INTO piece VALUES ('Mouser_P4','P4','cadre','2020-01-01',null,29,25,20);
+INSERT INTO piece VALUES ('RS_P5','P5','guidon','2010-01-01','2014-12-02',30,90,40);
+INSERT INTO piece VALUES ('Farnell_P6','P6','guidon','2012-01-01','2016-12-01',56,1,40);
+INSERT INTO piece VALUES ('Digikey_P7','P7','guidon','2017-01-01',null,40,3,40);
+INSERT INTO piece VALUES ('Mouser_P8','P8','freins','2010-01-01','2014-12-02',119,5,20);
+INSERT INTO piece VALUES ('RS_P9','P9','freins','2012-01-01','2016-12-01',48,1,35);
+INSERT INTO piece VALUES ('Farnell_P10','P10','freins','2017-01-01',null,18,3,50);
+INSERT INTO piece VALUES ('Digikey_P11','P11','selle','2010-01-01','2014-12-02',32,7,200);
+INSERT INTO piece VALUES ('Mouser_P12','P12','derailleur avant','2010-01-01','2014-12-02',25,15,180);
+INSERT INTO piece VALUES ('RS_P13','P13','derailleur arriere','2010-01-01','2014-12-02',20,90,180);
+INSERT INTO piece VALUES ('Farnell_P14','P14','roue avant','2010-01-01','2014-12-02',55,5,220);
+INSERT INTO piece VALUES ('Digikey_P15','P15','roue avant','2012-01-01','2016-12-01',32,1,200);
+INSERT INTO piece VALUES ('Mouser_P16','P16','roue arriere','2010-01-01','2014-12-02',63,15,400);
+INSERT INTO piece VALUES ('RS_P17','P17','reflecteurs','2010-01-01','2014-12-02',9,3,1000);
+INSERT INTO piece VALUES ('Farnell_P18','P18','pedalier','2010-01-01','2014-12-02',38,2,120);
+INSERT INTO piece VALUES ('Digikey_P19','P19','ordinateur','2010-01-01','2014-12-02',179,90,50);
+INSERT INTO piece VALUES ('Mouser_P20','P20','panier','2010-01-01','2014-12-02',14,2,70);
+#select * from piece;
+
 
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,6 +130,7 @@ INSERT INTO adresse VALUES (20,'17 carrefour de la feuille','Genève','89910','G
 #select * from adresse;
 
 
+
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
 -- Fournisseurs (4 tuples)
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,6 +139,7 @@ INSERT INTO fournisseur VALUES ('46513890001294','Farnell','bon','Anatole_Maire'
 INSERT INTO fournisseur VALUES ('78313890001294','Digikey','moyen','Auguste_Kartofen',4);
 INSERT INTO fournisseur VALUES ('10213890001294','Mouser','bon','Antoine_Poll',6);
 #select * from fournisseur;
+
 
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -116,6 +168,7 @@ INSERT INTO catalogue VALUES ('Mouser_P20','10213890001294',9621);
 #select * from catalogue;
 
 
+
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
 -- Programmes (4 tuples)
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -124,6 +177,7 @@ INSERT INTO programme VALUES (2,'Fidélio Or',25,2,0.08);
 INSERT INTO programme VALUES (3,'Fidélio Platine',60,2,0.10);
 INSERT INTO programme VALUES (4,'Fidélio Max',100,3,0.12);
 #select * from programme;
+
 
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -140,6 +194,7 @@ INSERT INTO client_particulier VALUES ('cliP_8','Legrand','Thomas','2019-02-18',
 INSERT INTO client_particulier VALUES ('cliP_9','Finot','Théo','2011-12-09','ThéoFinot@gmail.com','0649082877',2,9);
 INSERT INTO client_particulier VALUES ('cliP_10','Viande','Yoan','2019-08-24','YoanViande@gmail.com','0666510043',1,10);
 #select * from client_particulier;
+
 
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -348,6 +403,7 @@ INSERT INTO liste_assemblage VALUES (20,'Farnell_P18',1);
 #select * from liste_assemblage;
 
 
+
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
 -- ClientsEntreprise (6 tuples)
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -358,6 +414,7 @@ INSERT INTO client_entreprise VALUES ('cliE_4','Les_pros_du_vélo',0.05,'Les_pro
 INSERT INTO client_entreprise VALUES ('cliE_5','Google',0.06,'Google@gmail.com','0677690487','Forest_Gump',19);
 INSERT INTO client_entreprise VALUES ('cliE_6','Le_tour_de_France',0.06,'Le_tour_de_France@gmail.com','0643475269','Buzz_Aldrin',20);
 #select * from client_entreprise;
+
 
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -444,6 +501,7 @@ INSERT INTO commande VALUES (78,'2015-09-19','2015-10-01',2,null,'cliP_2');
 INSERT INTO commande VALUES (79,'2019-11-14','2019-11-16',1,null,'cliP_1');
 INSERT INTO commande VALUES (80,'2020-03-26','2020-04-11',14,'cliE_1',null);
 #select * from commande;
+
 
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -546,6 +604,7 @@ INSERT INTO liste_piece_commande VALUES ('RS_P17',11,5);
 INSERT INTO liste_piece_commande VALUES ('Digikey_P7',34,5);
 INSERT INTO liste_piece_commande VALUES ('RS_P13',78,1);
 #select * from liste_piece_commande;
+
 
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -651,9 +710,5 @@ INSERT INTO liste_velo_commande VALUES (43,13,4);
 INSERT INTO liste_velo_commande VALUES (61,7,5);
 INSERT INTO liste_velo_commande VALUES (29,13,4);
 #select * from liste_velo_commande;
-
-
-
-
 
 
