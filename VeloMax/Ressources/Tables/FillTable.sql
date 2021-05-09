@@ -81,6 +81,8 @@ INSERT INTO piece VALUES ('Mouser_P20','P20','panier','2010-01-01','2014-12-02',
 #select * from piece;
 */
 INSERT INTO piece VALUES ('RS_P1','P1','cadre','2010-01-01','2014-12-02',79,7,50);
+INSERT INTO piece VALUES ('Farnell_P1','P1','cadre','2010-01-01','2014-12-02',89,5,50);
+INSERT INTO piece VALUES ('Digikey_P1','P1','cadre','2010-01-01','2014-12-02',65,20,50);
 INSERT INTO piece VALUES ('Farnell_P2','P2','cadre','2012-01-01','2016-12-01',48,25,120);
 INSERT INTO piece VALUES ('Digikey_P3','P3','cadre','2017-01-01',null,126,25,30);
 INSERT INTO piece VALUES ('Mouser_P4','P4','cadre','2020-01-01',null,29,25,20);
@@ -146,6 +148,8 @@ INSERT INTO fournisseur VALUES ('10213890001294','Mouser','bon','Antoine_Poll',6
 -- Catalogues (4 je crois)
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
 INSERT INTO catalogue VALUES ('RS_P1','30613890001294',259);
+INSERT INTO catalogue VALUES ('Farnell_P1','46513890001294',100);
+INSERT INTO catalogue VALUES ('Digikey_P1','78313890001294',2500);
 INSERT INTO catalogue VALUES ('Farnell_P2','46513890001294',3022);
 INSERT INTO catalogue VALUES ('Digikey_P3','78313890001294',42);
 INSERT INTO catalogue VALUES ('Mouser_P4','10213890001294',969);

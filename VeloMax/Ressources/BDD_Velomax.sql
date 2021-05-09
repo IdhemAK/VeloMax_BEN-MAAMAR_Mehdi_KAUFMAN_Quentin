@@ -245,3 +245,86 @@ INSERT INTO liste_piece_commande VALUES ('RS-C32',1,2);
 */
 
 
+
+-- ////////////////////////////////////////////////////////////////////////////////////////////////
+-- Module Stock
+-- ////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+-- Stock piece ----------------------------------------------------------------
+
+-- Stock piece -> Stock d'une piece peu importe son fournisseur
+select p.numero_piece,sum(p.stock_piece)
+from piece p
+group by p.numero_piece
+order by sum(p.stock_piece);
+
+-- Stock piece type -> regroupé par type de piece
+select p.description_piece,sum(p.stock_piece)
+from piece p
+group by p.description_piece
+order by sum(p.stock_piece);
+
+-- Stock piece fournisseur -> Stock d'une piece en fonction de quel fournisseur
+select numero_piece_catalogue, p.stock_piece, p.date_discontinuation_piece
+from piece p
+order by p.stock_piece;
+
+-- Stock des fournisseurs -> combien de piece de chaque fournisseur on a (pour voir chez qui on commande le plus)
+select f.nom_fournisseur , sum(p.stock_piece)
+from catalogue c, piece p, fournisseur f
+where p.numero_piece_catalogue = c.numero_piece_catalogue and c.siret_fournisseur = f.siret_fournisseur
+group by f.nom_fournisseur
+order by sum(p.stock_piece);
+
+-- Stock vélo ----------------------------------------------------------------
+
+-- Stock vélo -> Stock des différents vélos (par numéros)
+select v.numero_velo,v.stock_velo,v.date_discontinuation_velo
+from velo v
+order by v.stock_velo;
+
+-- Stock vélo par taille du vélo (enfant, ado, adulte)
+select v.grandeur_velo, sum(v.stock_velo)
+from velo v
+group by v.grandeur_velo
+order by sum(v.stock_velo);
+
+-- Stock par modele de vélo (Kilimandjaro etc...) 
+select v.nom_velo,sum(v.stock_velo)
+from velo v
+group by v.nom_velo
+order by sum(v.stock_velo);
+
+-- Stock par ligne produit (BMX etc...)
+select v.ligne_produit_velo,sum(v.stock_velo)
+from velo v
+group by v.ligne_produit_velo
+order by sum(v.stock_velo);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
