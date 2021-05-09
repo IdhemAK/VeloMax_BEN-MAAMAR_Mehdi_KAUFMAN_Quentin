@@ -102,6 +102,7 @@ INSERT INTO piece VALUES ('RS_P17','P17','reflecteurs','2010-01-01','2014-12-02'
 INSERT INTO piece VALUES ('Farnell_P18','P18','pedalier','2010-01-01','2014-12-02',38,2,120);
 INSERT INTO piece VALUES ('Digikey_P19','P19','ordinateur','2010-01-01','2014-12-02',179,90,50);
 INSERT INTO piece VALUES ('Mouser_P20','P20','panier','2010-01-01','2014-12-02',14,2,70);
+
 #select * from piece;
 
 
@@ -714,5 +715,29 @@ INSERT INTO liste_velo_commande VALUES (43,13,4);
 INSERT INTO liste_velo_commande VALUES (61,7,5);
 INSERT INTO liste_velo_commande VALUES (29,13,4);
 #select * from liste_velo_commande;
+
+INSERT INTO piece VALUES ('Farnell_P20','P20','panier','2010-01-01','2014-12-02',14,2,70);
+INSERT INTO catalogue VALUES ('Farnell_P20','46513890001294',5000);
+INSERT INTO liste_piece_commande VALUES ('Farnell_P20',78,7);
+
+
+#rapport stock piece
+select numero_piece_catalogue, stock_piece from piece group by numero_piece;
+select numero_piece, sum(stock_piece) from piece group by numero_piece;
+
+
+#rapport statistique piece
+#piece de chaque catalogue
+select numero_piece_catalogue_commande, sum(quantite_piece_commande) 
+from liste_piece_commande 
+group by numero_piece_catalogue_commande;
+
+#chaque piece 
+select SUBSTRING_INDEX(numero_piece_catalogue_commande,'_',-1) as s, sum(quantite_piece_commande) 
+from liste_piece_commande 
+group by s;
+
+
+#rapport statistique velo
 
 

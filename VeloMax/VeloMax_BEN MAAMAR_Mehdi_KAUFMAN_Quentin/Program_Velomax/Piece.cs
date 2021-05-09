@@ -7,10 +7,10 @@ using MySql.Data.MySqlClient;
 
 namespace Program_Velomax
 {
-    class Piece
+    public class Piece
     {
         #region Attributs
-        private string numero_piece_catalogue;
+        private string numero_piece_catalogue;      //clé primaire
         private string numero_piece;
         private string description_piece;
         private DateTime date_introduction_piece;
@@ -78,6 +78,5 @@ namespace Program_Velomax
             set { stock_piece = value; }
         }
         #endregion Accesseurs
-
     }
 }
