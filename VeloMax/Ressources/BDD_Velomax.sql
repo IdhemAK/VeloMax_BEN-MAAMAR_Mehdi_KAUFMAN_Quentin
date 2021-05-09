@@ -304,7 +304,10 @@ order by sum(v.stock_velo);
 
 
 
-
+-- Nouveaux Utilisateurs 
+create user 'bozo'@'localhost' identified by 'bozo';
+grant show view on *.* to 'bozo'@'localhost';
+#show grants for 'bozo'@'localhost' ;
 
 
 
