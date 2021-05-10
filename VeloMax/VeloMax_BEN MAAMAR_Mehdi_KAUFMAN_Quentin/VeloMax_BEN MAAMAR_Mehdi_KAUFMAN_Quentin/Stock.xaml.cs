@@ -32,6 +32,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         private void stock_Velo(object sender, RoutedEventArgs e)
         {
             
+
         }
     }
 }
