@@ -19,9 +19,8 @@
         </Grid.RowDefinitions>
         <Button Grid.Column="0" Grid.Row="0" Content="Pièce" Background="LightBlue" Click="stock_Piece" Margin="30,30,0,15" Width="150" Height="35" BorderBrush="#FF4E95AA" BorderThickness="3"/>
         <Button Grid.Column="0" Grid.Row="1" Content="Vélo" Background="LightBlue" Click="stock_Velo" Margin="30,15,0,15" Width="150" Height="35" BorderThickness="3" BorderBrush="#FF4E95AA"/>
-        <DataGrid Grid.Row="0" Grid.Column="1" Width="500" Margin="40,30">
-            
-        </DataGrid>
+
+        <DataGrid x:FieldModifier="public" x:Name="pieceDataGrid" Grid.Row="0" Grid.Column="1" Width="500" Margin="40,30" />
 
 
 

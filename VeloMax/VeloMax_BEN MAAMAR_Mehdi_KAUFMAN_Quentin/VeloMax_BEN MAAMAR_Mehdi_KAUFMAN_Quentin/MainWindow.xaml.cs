@@ -13,6 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using MySql.Data.MySqlClient;
+using System.Xml;
+using System.Xml.XPath;
+using System.IO;
+using System.Xml.Serialization;
+
 
 namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 {
@@ -21,6 +27,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
