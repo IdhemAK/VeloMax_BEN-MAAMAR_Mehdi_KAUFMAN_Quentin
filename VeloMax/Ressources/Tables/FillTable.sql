@@ -505,7 +505,7 @@ INSERT INTO commande VALUES (77,'2014-03-11','2014-04-07',14,'cliE_1',null);
 INSERT INTO commande VALUES (78,'2015-09-19','2015-10-01',2,null,'cliP_2');
 INSERT INTO commande VALUES (79,'2019-11-14','2019-11-16',1,null,'cliP_1');
 INSERT INTO commande VALUES (80,'2020-03-26','2020-04-11',14,'cliE_1',null);
-select * from commande;
+#select * from commande;
 
 
 
