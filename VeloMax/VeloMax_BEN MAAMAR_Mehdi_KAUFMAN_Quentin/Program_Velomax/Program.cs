@@ -179,7 +179,7 @@ namespace Program_Velomax
             // On peut implémenter ces 2 trucs en WPF
         }
 
-
+        /*
         static void serialiserSimple()
         {
             BD bd11 = new BD("978-2203001169", "On a marché sur la Lune", 62);
@@ -195,6 +195,7 @@ namespace Program_Velomax
 
             // vérifier le contenu du fichier "bd11.xml" dans le dossier bin\Debug de Visual Studio.
         }
+        
         static void serialiserEnMasse()
         {
             Artiste herge = new Artiste("Remi", "Georges", "Hergé");
@@ -215,7 +216,7 @@ namespace Program_Velomax
 
             wr.Close();
         }
-
+        */
 
         //select f.nom_fournisseur , sum(p.stock_piece) from catalogue c, piece p, fournisseur f where p.numero_piece_catalogue = c.numero_piece_catalogue and c.siret_fournisseur = f.siret_fournisseur group by f.nom_fournisseur order by sum(p.stock_piece);
 

@@ -5,8 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Vélo Max" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
-        
+
+
+        <TextBlock Margin="209,60,209,200" TextWrapping="Wrap" FontSize="36" TextAlignment="Center" Text="Bienvenue chez Vélo Max !"/>
+        <Grid MaxHeight="460" MaxWidth="800" MinHeight="460" MinWidth="800" Margin="0,-30,0,0">
+            <Grid HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="794" Margin="0,30,0,0" 
+              MinHeight="40" MaxHeight="40" MinWidth="794" MaxWidth="794">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="MENU PRINCIPAL" Background="LightBlue" Click="Menu_Principal"/>
+                <Button Grid.Column="1" Content="ENTREE-SORTIE-MODIFICATIONS" Background="LightBlue" Click="Entree_Sortie"/>
+                <Button Grid.Column="2" Content="STOCK" Background="LightBlue" Click="Stock"/>
+                <Button Grid.Column="3" Content="STATISTIQUES" Background="LightBlue" Click="Statistiques"/>
+            </Grid>
+            <Button Content="Démo" HorizontalAlignment="Left" Margin="333,229,0,0" VerticalAlignment="Top" Width="130" Background="LightBlue"/>
+            <Frame x:Name="MainFrame" Margin="0,70,0,5" NavigationUIVisibility="Hidden" />
+            <Button Content="Quitter" HorizontalAlignment="Left" Margin="10,421,0,0" VerticalAlignment="Top" Width="75" Click="Quitter"/>
+        </Grid>
     </Grid>
 </Window>

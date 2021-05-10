@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 {
@@ -24,5 +25,30 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         {
             InitializeComponent();
         }
+        private void Menu_Principal(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new MenuPrincipal();
+        }
+        private void Entree_Sortie(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new EntreeSortie();
+        }
+        private void Stock(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new Stock();
+        }
+        private void Statistiques(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new Statistiques();
+        }
+
+        private void Quitter(object sender, RoutedEventArgs e)
+        {
+            //System.Environment.Exit(-1);
+            //Pour fermer violemment
+            this.Close();
+        }
     }
 }
+
+
