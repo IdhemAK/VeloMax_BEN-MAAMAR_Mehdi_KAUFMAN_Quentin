@@ -1,0 +1,23 @@
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.csprojAssemblyReference.cache
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\MainWindow.g.cs
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\App.g.cs
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin_MarkupCompile.cache
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin_MarkupCompile.lref
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.exe.config
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.exe
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.pdb
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\MainWindow.baml
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.g.resources
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin.Properties.Resources.resources
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.csproj.GenerateResource.cache
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.csproj.CoreCompileInputs.cache
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.exe
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.pdb
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\EntreeSortie.g.cs
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\MenuPrincipal.g.cs
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\Statistiques.g.cs
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\Stock.g.cs
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\EntreeSortie.baml
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\MenuPrincipal.baml
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\Statistiques.baml
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\Stock.baml

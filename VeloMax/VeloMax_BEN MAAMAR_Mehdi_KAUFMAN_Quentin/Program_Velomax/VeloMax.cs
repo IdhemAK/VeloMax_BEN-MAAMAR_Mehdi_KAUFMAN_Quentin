@@ -118,11 +118,7 @@ namespace Program_Velomax
         #endregion Accesseurs
 
         #region Changements
-        public delegate void Creation(MySqlConnection connection, string[] variables);
-        public void Create(Creation n, MySqlConnection connection, string[] variables)
-        {
-            n(connection, variables);
-        }
+        #region chaîne de caractère pour les queries
         public string Concatenate_Create(string table, string[] variables)
         {
             string conc = "INSERT INTO " + table + " VALUES (";
@@ -132,16 +128,17 @@ namespace Program_Velomax
             }
             return conc + variables[variables.Length - 1] + ");";
         }
-        public string Concatenate_Update(string table, string column, string oldVariable, string newVariable)
+        public string Concatenate_Update(string table, string columnFind, string columnChange, string variableFind, string variableChange)
         {
-            return "UPDATE " + table + " SET " + column + "='" + newVariable +
-                "' WHERE " + column + "='" + oldVariable + "';";
+            return "UPDATE " + table + " SET " + columnChange + "=" + variableChange +
+                " WHERE " + columnFind + "=" + variableFind + ";";
         }
         public string Concatenate_Remove(string table, string column, string nameVariable)
         {
             return "DELETE FROM " + table +
                 " WHERE " + column + " ='" + nameVariable + "';";
         }
+        #endregion string des queries
 
         public void Query(MySqlConnection connection, string query)
         {
@@ -164,51 +161,58 @@ namespace Program_Velomax
         //Pensez à vérifier si les string entrés sont bons
         //à partir du Mainwindow WPF
         //==> format date - int - nombre de variables
-
         //voir si on ouvre la connexion dans Query
 
-
-        #region Velo
-        public void Create_velo(MySqlConnection connection, string[] variables)
+        /// <summary>
+        /// Créer un tuple dans une table
+        /// </summary>
+        /// <param name="connection">connexion MySQL</param>
+        /// <param name="table">nom de la table</param>
+        /// <param name="variables">contient les variables à placer dans la requête SQL</param>
+        /// <param name="indexNb">index des nombres qui sont des int ou bien des null</param>
+        public void Create(MySqlConnection connection, string table, string[] variables, int[] indexNb)
         {
-            string[] temp1 = variables[5].Split('-');
-            string[] temp2 = variables[6].Split('-');
-            DateTime date_introduction_velo =
-                new DateTime(int.Parse(temp1[0]), int.Parse(temp1[1]), int.Parse(temp1[2]));
-            DateTime date_discontinuation_velo =
-                new DateTime(int.Parse(temp2[0]), int.Parse(temp2[1]), int.Parse(temp2[2]));
-
-            velo.Add(new Velo(Convert.ToInt32(variables[0]), variables[1], variables[2],
-                float.Parse(variables[3]), variables[4], date_introduction_velo,
-                date_discontinuation_velo, int.Parse(variables[7])));
-
             for (int i = 0; i < variables.Length; i++)
             {
-                if (i != 0 || i != 3 || i != 7)
-                {
-                    variables[i] = "'" + variables[i] + "'";
-                }
+                //si la variable n'est pas un nombre
+                if (!indexNb.Contains(i)) variables[i] = "'" + variables[i] + "'";             
             }
-
-            Query(connection, Concatenate_Create("velo", variables));
+            Query(connection, Concatenate_Create(table, variables));
         }
 
-        public void Remove_velo(MySqlConnection connection, string column, string variable)
+        /// <summary>
+        /// Supprime un élément de la BDD
+        /// </summary>
+        /// <param name="connection">connexion MySQL</param>
+        /// <param name="table">nom de la table</param>
+        /// <param name="column">nom de la colonne de la table</param>
+        /// <param name="variable">variable correspondant au tuple à supprimer</param>
+        /// <param name="variableIntOrNull">indique si la variable est int ou null
+        /// pour adapter sa forme conséquence</param>
+        public void Remove(MySqlConnection connection, string table, string column, string variable, bool variableIntOrNull)
         {
-            int numero_velo = int.Parse(variable);
-            int num = 2;
-            string column2 = "grandeur_velo";
-            Velo bt = new Velo();
-
-
-
-
-
-            //int numV = new Velo().Variables_velo.IndexOf(column)
+            if (!variableIntOrNull) variable = "'" + variable + "'";
+            Query(connection, Concatenate_Remove(table, column, variable));
         }
-        #endregion Velo
 
-
+        /// <summary>
+        /// Met à jour la variable d'un élément
+        /// </summary>
+        /// <param name="connection">connexion MySQL</param>
+        /// <param name="table">nom de la table</param>
+        /// <param name="columnFind">nom de la colonne dans laquelle chercher</param>
+        /// <param name="columnChange">nom de la colonne où le changemet est appliqué</param>
+        /// <param name="variableFind">variable par laquelle le tuple à changer est identifié</param>
+        /// <param name="variableChange">modification à appliquer</param>
+        /// <param name="variableFindIntOrNull">variableFind true si elle est int ou null et false sinon</param>
+        /// <param name="nvariableChangeIntOrNull">variableChange si elle est int ou null et false sinon</param>
+        public void Update(MySqlConnection connection, string table, string columnFind, string columnChange, string variableFind, string variableChange, 
+            bool variableFindIntOrNull, bool nvariableChangeIntOrNull)
+        {
+            if(!variableFindIntOrNull) variableFind = "'" + variableFind + "'";
+            if (!nvariableChangeIntOrNull) variableChange = "'" + variableChange + "'";
+            Query(connection, Concatenate_Update(table, columnFind, columnChange, variableFind, variableChange));
+        }
         #endregion Changements
     }
 }

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adresse.cs" />
+    <Compile Include="Brouillon.cs" />
     <Compile Include="Interfaces\IQueries.cs" />
     <Compile Include="VeloMax.cs" />
     <Compile Include="Programme.cs" />

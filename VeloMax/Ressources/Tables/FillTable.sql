@@ -524,7 +524,7 @@ INSERT INTO liste_piece_commande VALUES ('RS_P9',2,4);
 INSERT INTO liste_piece_commande VALUES ('Digikey_P19',53,3);
 INSERT INTO liste_piece_commande VALUES ('Digikey_P11',1,5);
 INSERT INTO liste_piece_commande VALUES ('Farnell_P2',77,2);
-INSERT INTO liste_piece_commande VALUES ('Mouser_P8',3,2);
+INSERT INTO liste_piece_commande VALUES ('Mouser_P8',3,2);#
 INSERT INTO liste_piece_commande VALUES ('RS_P1',49,10);
 INSERT INTO liste_piece_commande VALUES ('RS_P9',33,1);
 INSERT INTO liste_piece_commande VALUES ('Digikey_P3',73,7);
@@ -550,7 +550,7 @@ INSERT INTO liste_piece_commande VALUES ('RS_P9',50,8);
 INSERT INTO liste_piece_commande VALUES ('RS_P17',59,7);
 INSERT INTO liste_piece_commande VALUES ('RS_P13',42,1);
 INSERT INTO liste_piece_commande VALUES ('Farnell_P10',5,2);
-INSERT INTO liste_piece_commande VALUES ('Farnell_P10',3,8);
+INSERT INTO liste_piece_commande VALUES ('Farnell_P10',3,8);#
 INSERT INTO liste_piece_commande VALUES ('Farnell_P6',21,10);
 INSERT INTO liste_piece_commande VALUES ('Mouser_P4',74,10);
 INSERT INTO liste_piece_commande VALUES ('Digikey_P7',36,7);
@@ -674,7 +674,7 @@ INSERT INTO liste_velo_commande VALUES (35,19,2);
 INSERT INTO liste_velo_commande VALUES (6,9,3);
 INSERT INTO liste_velo_commande VALUES (6,10,5);
 INSERT INTO liste_velo_commande VALUES (27,6,1);
-INSERT INTO liste_velo_commande VALUES (3,11,4);
+INSERT INTO liste_velo_commande VALUES (3,11,4);#
 INSERT INTO liste_velo_commande VALUES (45,19,5);
 INSERT INTO liste_velo_commande VALUES (58,4,5);
 INSERT INTO liste_velo_commande VALUES (55,1,3);
@@ -703,7 +703,7 @@ INSERT INTO liste_velo_commande VALUES (30,5,6);
 INSERT INTO liste_velo_commande VALUES (41,5,3);
 INSERT INTO liste_velo_commande VALUES (67,19,1);
 INSERT INTO liste_velo_commande VALUES (19,14,6);
-INSERT INTO liste_velo_commande VALUES (3,6,4);
+INSERT INTO liste_velo_commande VALUES (3,6,4);#
 INSERT INTO liste_velo_commande VALUES (35,9,6);
 INSERT INTO liste_velo_commande VALUES (51,7,4);
 INSERT INTO liste_velo_commande VALUES (8,2,6);
@@ -725,7 +725,9 @@ INSERT INTO liste_piece_commande VALUES ('Farnell_P20',78,7);
 select numero_piece_catalogue, stock_piece from piece group by numero_piece;
 select numero_piece, sum(stock_piece) from piece group by numero_piece;
 
+#Module statistique
 
+#1a
 #rapport statistique piece
 #piece de chaque catalogue
 select numero_piece_catalogue_commande, sum(quantite_piece_commande) 
@@ -738,6 +740,136 @@ from liste_piece_commande
 group by s;
 
 
+#1b
 #rapport statistique velo
+#par nom de velo
+select v.nom_velo, sum(l.quantite_velo_commande)
+from liste_velo_commande l
+join velo v on v.numero_velo=l.numero_velo
+group by v.nom_velo;
+
+#par grandeur
+select v.grandeur_velo, sum(l.quantite_velo_commande)
+from liste_velo_commande l
+join velo v on v.numero_velo=l.numero_velo
+group by v.grandeur_velo;
+
+#par nom et par grandeur
+select v.grandeur_velo, v.nom_velo, sum(l.quantite_velo_commande)
+from liste_velo_commande l
+join velo v on v.numero_velo=l.numero_velo
+group by grandeur_velo, nom_velo;
 
 
+#2
+#rapport liste membre pour chaque programme d'adhesion
+#membre + programme
+select nom_programme, ID_client_particulier, nom_client_particulier, 
+	prenom_client_particulier 
+from client_particulier c
+join programme p on p.numero_programme=c.numero_programme;
+
+#programme + nombre de client
+select nom_programme, count(c.numero_programme)
+from client_particulier c
+join programme p on p.numero_programme=c.numero_programme
+group by nom_programme;
+
+#3
+#programme + 
+select nom_programme, ID_client_particulier, date_adhesion_programme,
+	duree_programme
+from client_particulier c
+join programme p on p.numero_programme=c.numero_programme;
+#sommer datetime et timespan dans c sharp
+
+
+#4
+#quantite nombre piece vendues clients
+select cp.ID_client_particulier, sum(l.quantite_piece_commande) 
+from liste_piece_commande l
+join commande c on c.numero_commande=l.numero_commande_piece
+join client_particulier cp on cp.ID_client_particulier=c.ID_client_particulier
+group by cp.ID_client_particulier;
+
+#quantité cumulé sur les piece des 
+#clients particuliers
+select cp.ID_client_particulier, 
+	sum(l.quantite_piece_commande*p.prix_piece) as s 
+from liste_piece_commande l
+join piece p on p.numero_piece_catalogue=l.numero_piece_catalogue_commande
+join commande c on c.numero_commande=l.numero_commande_piece
+join client_particulier cp on cp.ID_client_particulier=c.ID_client_particulier
+group by cp.ID_client_particulier
+order by s DESC;
+
+#verification quantité cumulée
+select l.numero_piece_catalogue_commande, l.quantite_piece_commande,
+	p.prix_piece, cp.ID_client_particulier
+from liste_piece_commande l
+join piece p on p.numero_piece_catalogue=l.numero_piece_catalogue_commande
+join commande c on c.numero_commande=l.numero_commande_piece
+join client_particulier cp on cp.ID_client_particulier=c.ID_client_particulier;
+
+#montant cumulé piece
+#client_entreprise
+select ce.ID_client_entreprise, 
+	sum(l.quantite_piece_commande*p.prix_piece) as s 
+from liste_piece_commande l
+join piece p on p.numero_piece_catalogue=l.numero_piece_catalogue_commande
+join commande c on c.numero_commande=l.numero_commande_piece
+join client_entreprise ce on ce.ID_client_entreprise=c.ID_client_entreprise
+group by ce.ID_client_entreprise
+order by s DESC;
+
+
+#5a 
+
+#moyenne montant commande
+/* essai non abouti
+select numero_commande, quantite_piece_commande, prix_piece+quantite_velo_commande*prix_velo
+from commande c
+join liste_piece_commande lp on lp.numero_commande_piece=c.numero_commande
+join piece p on p.numero_piece_catalogue=lp.numero_piece_catalogue_commande
+join liste_velo_commande lv on lv.numero_commande_velo=c.numero_commande
+join velo v on v.numero_velo=lv.numero_velo
+group by numero_commande
+order by numero_commande;
+*/
+
+#on sélectionne le prix total des pièces par commande
+select numero_commande, sum(prix_velo*quantite_velo_commande)
+from commande c
+join liste_velo_commande lv on lv.numero_commande_velo=c.numero_commande
+join velo v on v.numero_velo=lv.numero_velo
+group by numero_commande
+order by numero_commande;
+
+#on sélectionne le prix total des vélos par commande
+select numero_commande, sum(prix_piece*quantite_piece_commande)
+from commande c
+join liste_piece_commande lp on lp.numero_commande_piece=c.numero_commande
+join piece p on p.numero_piece_catalogue=lp.numero_piece_catalogue_commande
+group by numero_commande
+order by numero_commande;
+
+#on compte le nombre total de commande
+select count(numero_commande) from commande;
+
+#on utilise les 3 requêtes pour calculer la 
+#moyenne des montants des commandes sur c sharp
+
+#5b
+select numero_commande, numero_velo, sum(quantite_velo_commande) as qvc
+from commande c
+join liste_velo_commande lv on lv.numero_commande_velo=c.numero_commande
+group by numero_commande
+order by numero_commande;
+
+select numero_commande, numero_piece_catalogue_commande, sum(quantite_piece_commande)
+from commande c
+join liste_piece_commande lp on lp.numero_commande_piece=c.numero_commande
+group by numero_commande
+order by numero_commande;
+
+select count(numero_commande) from commande;

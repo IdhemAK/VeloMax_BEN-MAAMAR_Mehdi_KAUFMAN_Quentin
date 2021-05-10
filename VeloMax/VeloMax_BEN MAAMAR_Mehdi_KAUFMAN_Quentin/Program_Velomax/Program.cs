@@ -49,7 +49,6 @@ namespace Program_Velomax
         }
 
 
-
         static void stockPiece(string user)
         {
             string pieceToOrder = "";
@@ -179,7 +178,7 @@ namespace Program_Velomax
             // On peut implémenter ces 2 trucs en WPF
         }
 
-
+        /*
         static void serialiserSimple()
         {
             BD bd11 = new BD("978-2203001169", "On a marché sur la Lune", 62);
@@ -195,6 +194,7 @@ namespace Program_Velomax
 
             // vérifier le contenu du fichier "bd11.xml" dans le dossier bin\Debug de Visual Studio.
         }
+        
         static void serialiserEnMasse()
         {
             Artiste herge = new Artiste("Remi", "Georges", "Hergé");
@@ -215,7 +215,7 @@ namespace Program_Velomax
 
             wr.Close();
         }
-
+        */
 
         //select f.nom_fournisseur , sum(p.stock_piece) from catalogue c, piece p, fournisseur f where p.numero_piece_catalogue = c.numero_piece_catalogue and c.siret_fournisseur = f.siret_fournisseur group by f.nom_fournisseur order by sum(p.stock_piece);
 
@@ -224,8 +224,6 @@ namespace Program_Velomax
         {
             string Mehdi = "SERVER=localhost;" + "PORT=3306;DATABASE=VeloMax;" + "UID=root;" + "PASSWORD=BDDMySQLD!d!2000;" + "SSLMODE=none;";
             string Quentin = "SERVER=localhost;PORT=3306;" + "DATABASE=VeloMax;" + "UID=root;PASSWORD=patate";
-
-
 
             #region LeTrucDeMehdi
             MySqlConnection connection = null;
@@ -250,15 +248,16 @@ namespace Program_Velomax
             DateTime test = new DateTime(2000, 5, 24);
             Console.WriteLine(test);
 
-            string[] vel = new string[] { "3", "Gamme", "Adulte", "400", "BMX", "2010-04-23", "2040-01-01", "80" };
+            string[] vel = new string[] { "21", "AlphaBeta", "Adulte", "400", "BMX", "2010-04-23", "null", "80" };
             VeloMax velomax = new VeloMax();
             //velomax.Create(velomax.Create_velo, connection, vel);
+            //Velo bt = new Velo(1, "test", "Adultes", 10, "VTT", test, test, 12);
 
-            Velo bt = new Velo(1, "test", "Adultes", 10, "VTT", test, test, 12);
-            int i = 2;
+            //velomax.Create(connection, "velo", vel, new int[] { 0, 3, 6 ,7 });
+            //velomax.Remove(connection, "velo", "numero_velo", "21", true);
+            //velomax.Update(connection, "velo", "numero_velo", "nom_velo", "21", "Nocturne", true, false);
 
-            //Console.WriteLine((Velo.variables_velo)i);
-
+            #region Test queries
             /*
             Velo test = new Velo();
 
@@ -271,8 +270,19 @@ namespace Program_Velomax
             string queryUpdate = "UPDATE velo SET nom_velo = 'ALPHABETA' WHERE nom_velo ='Riverside';";
             test.Query(connection, queryUpdate);
             */
+            #endregion Test queries
 
-            /*
+
+            #endregion LeTrucDeMehdi
+
+
+            Console.ReadKey();
+        }
+
+
+
+        //Test sur les tuples
+        /*
             Tuple<string, double, int> test = new Tuple<string, double, int>("Noct", 18.8, 24);
             Console.WriteLine(test.Item1);
             Console.WriteLine(test.Item2);
@@ -288,9 +298,8 @@ namespace Program_Velomax
             {
                 Console.WriteLine(a);
             });
+            //Console.WriteLine((Velo.variables_velo)i);
             */
-            #endregion
-
 
 
 
@@ -298,7 +307,7 @@ namespace Program_Velomax
             //stockPieceIndiv(Quentin);
             //stockPieceType(Quentin);
 
-            Console.ReadKey();
-        }
+           
+        
     }
 }
