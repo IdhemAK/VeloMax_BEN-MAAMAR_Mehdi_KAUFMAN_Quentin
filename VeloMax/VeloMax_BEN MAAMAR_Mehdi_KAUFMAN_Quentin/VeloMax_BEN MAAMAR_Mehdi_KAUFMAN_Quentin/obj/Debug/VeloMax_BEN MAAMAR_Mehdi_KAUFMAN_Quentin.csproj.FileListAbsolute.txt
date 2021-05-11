@@ -21,3 +21,6 @@ C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMA
 C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\MenuPrincipal.baml
 C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\Statistiques.baml
 C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\Stock.baml
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\MySql.Data.dll
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\Ubiety.Dns.Core.dll
+C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.csproj.CopyComplete
