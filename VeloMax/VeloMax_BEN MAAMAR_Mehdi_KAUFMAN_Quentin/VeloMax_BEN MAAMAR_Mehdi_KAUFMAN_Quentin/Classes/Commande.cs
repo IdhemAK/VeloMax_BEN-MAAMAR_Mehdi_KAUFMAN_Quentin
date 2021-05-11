@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
-namespace Program_Velomax
+namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 {
     public class Commande
     {
