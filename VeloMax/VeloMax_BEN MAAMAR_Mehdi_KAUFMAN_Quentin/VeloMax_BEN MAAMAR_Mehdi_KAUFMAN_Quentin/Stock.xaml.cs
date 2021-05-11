@@ -26,6 +26,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
     /// </summary>
     public partial class Stock : Page
     {
+        string Mehdi = "SERVER=localhost;" + "PORT=3306;DATABASE=VeloMax;" + "UID=root;" + "PASSWORD=BDDMySQLD!d!2000;" + "SSLMODE=none;";
+        string Quentin = "SERVER=localhost;PORT=3306;" + "DATABASE=VeloMax;" + "UID=root;PASSWORD=patate";
+        //DataTable manquePiece = new DataTable();
+        //DataTable manqueVelo = new DataTable();
         //veloDataGrid
         string getPiece = "select * from piece;";
         string getPieceV2 = "select p.numero_piece as 'Numéro'," +
@@ -39,10 +43,30 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
 
 
-
         string getVelo = "select * from velo;";
-        string Mehdi = "SERVER=localhost;" + "PORT=3306;DATABASE=VeloMax;" + "UID=root;" + "PASSWORD=BDDMySQLD!d!2000;" + "SSLMODE=none;";
-        string Quentin = "SERVER=localhost;PORT=3306;" + "DATABASE=VeloMax;" + "UID=root;PASSWORD=patate";
+        string getVeloV2 = "select numero_velo as 'Numéro'," +
+            " nom_velo as 'Nom'," +
+            "grandeur_velo as 'Taille'," +
+            " prix_velo as 'Prix'," +
+            " ligne_produit_velo as 'Type'," +
+            " DATE_FORMAT(date_introduction_velo, '%Y-%m-%d') as 'Début production'," +
+            " DATE_FORMAT(date_discontinuation_velo, '%Y-%m-%d') as 'Fin production'," +
+            " stock_velo as 'Stock' from velo;";
+
+        public DataTable checkQuantity(DataTable data, string columnName, int seuil)
+        {
+            DataTable Acommander = data.Copy();
+            for(int i =0; i< Acommander.Rows.Count; i++)
+            {
+                DataRow ligne = Acommander.Rows[i];
+                int stock = Convert.ToInt32(ligne[columnName]);
+                if(stock > seuil)
+                {
+                    ligne.Delete();  
+                }
+            }
+            return Acommander;
+        }       
         public void affichePiece(string user)
         {
             MySqlConnection maConnexion = null;
@@ -64,8 +88,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             dt.Load(reader);
             reader.Close();
             maConnexion.Close();
-            pieceDataGrid.ItemsSource = dt.DefaultView;
+            mainDataGrid.ItemsSource = dt.DefaultView;
             //pieceDataGrid
+            //checkQuantity(dt, "Stock", pieceDataGrid);
+            //manqueStock.ItemsSource = manquePiece.DefaultView;
         }
         public void afficheVelo(string user)
         {
@@ -88,29 +114,78 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             dt.Load(reader);
             reader.Close();
             maConnexion.Close();
-            veloDataGrid.ItemsSource = dt.DefaultView;
             //pieceDataGrid
         }
-
-
+        public DataTable dataLoader(string user, string requete)
+        {
+            DataTable erreur = new DataTable();
+            MySqlConnection maConnexion = null;
+            try
+            {
+                string connexionString = user;
+                maConnexion = new MySqlConnection(connexionString);
+                maConnexion.Open();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                return erreur;
+            }
+            MySqlCommand commande = maConnexion.CreateCommand();
+            commande.CommandText = requete;
+            MySqlDataReader reader = commande.ExecuteReader();
+            DataTable data = new DataTable();
+            data.Load(reader);
+            reader.Close();
+            maConnexion.Close();
+            return data;
+            //pieceDataGrid.ItemsSource = data.DefaultView;
+            //manqueStock.ItemsSource = manquePiece.DefaultView;
+        }
+        public void affichePieceV2(string user)
+        {
+            DataTable pieces = dataLoader(user, getPieceV2);
+            DataTable piecesManque = checkQuantity(pieces, "Stock",35);
+            piecesManque.Columns.Remove("Numéro");
+            piecesManque.Columns.Remove("Début production");
+            piecesManque.Columns.Remove("Fin production");
+            //piecesManque.Columns.Remove("");
+            //piecesManque.Columns.Remove("");
+            mainDataGrid.ItemsSource = pieces.DefaultView;
+            manqueStock.ItemsSource = piecesManque.DefaultView;
+        }
+        public void afficheVeloV2(string user)
+        {
+            DataTable velos = dataLoader(user, getVeloV2);
+            DataTable veloManque = checkQuantity(velos, "Stock",120);
+            veloManque.Columns.Remove("Type");
+            veloManque.Columns.Remove("Taille");
+            veloManque.Columns.Remove("Début production");
+            veloManque.Columns.Remove("Fin production");
+            mainDataGrid.ItemsSource = velos.DefaultView;
+            manqueStock.ItemsSource = veloManque.DefaultView;
+        }
         public Stock()
         {
             InitializeComponent();
-            veloDataGrid.Visibility = Visibility.Visible;
-            afficheVelo(Quentin);
+            afficheVeloV2(Quentin);
         }
         private void stock_Piece(object sender, RoutedEventArgs e)
         {
-            //but1.Visibility = Visibility.Collapsed;
-            veloDataGrid.Visibility = Visibility.Collapsed;
-            pieceDataGrid.Visibility = Visibility.Visible;
-            affichePiece(Quentin);
+            mainDataGrid.Visibility = Visibility.Visible;
+            manqueStock.Visibility = Visibility.Visible;
+            affichePieceV2(Quentin);
+            
+            
         }
         private void stock_Velo(object sender, RoutedEventArgs e)
         {
-            pieceDataGrid.Visibility = Visibility.Collapsed;
-            veloDataGrid.Visibility = Visibility.Visible;
-            afficheVelo(Quentin);
+            mainDataGrid.Visibility = Visibility.Visible;
+            afficheVeloV2(Quentin);
+        }
+        private void commander(object sender, RoutedEventArgs e)
+        {
+            //oceddole
         }
     }
 }

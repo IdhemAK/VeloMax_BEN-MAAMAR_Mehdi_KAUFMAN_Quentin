@@ -16,8 +16,8 @@ select
 p.numero_piece as 'Numéro',
 p.numero_piece_catalogue as 'Ref. fournisseur',
 p.description_piece as 'Type',
-p.date_introduction_piece as 'Début production',
-p.date_discontinuation_piece as 'Fin production',
+DATE_FORMAT(p.date_introduction_piece, '%Y-%m-%d') as 'Début production',
+DATE_FORMAT(p.date_discontinuation_piece, '%Y-%m-%d') as 'Fin production',
 p.prix_piece as 'Prix',
 p.delai_approvisionnement_piece as 'Délai',
 p.stock_piece as 'Stock'
@@ -49,6 +49,19 @@ group by f.nom_fournisseur
 order by sum(p.stock_piece);
 
 -- Stock vélo ----------------------------------------------------------------
+
+
+-- utilisé dans DataGrid
+select 
+numero_velo as 'Numéro',
+nom_velo as 'Nom',
+prix_velo as 'Prix',
+ligne_produit_velo as 'Type',
+DATE_FORMAT(date_introduction_velo, '%Y-%m-%d') as 'Début production',
+DATE_FORMAT(date_discontinuation_velo, '%Y-%m-%d') as 'Fin production',
+stock_velo as 'Stock'
+from velo;
+
 
 -- Stock vélo -> Stock des différents vélos (par numéros)
 select v.numero_velo,v.stock_velo,v.date_discontinuation_velo

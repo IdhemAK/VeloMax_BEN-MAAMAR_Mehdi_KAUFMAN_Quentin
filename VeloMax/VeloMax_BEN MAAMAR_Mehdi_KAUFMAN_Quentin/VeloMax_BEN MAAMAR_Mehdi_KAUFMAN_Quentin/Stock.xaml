@@ -21,7 +21,7 @@
         <Button 
             HorizontalAlignment="Right" 
             VerticalAlignment="Top" 
-            Margin="20,30,0,0" 
+            Margin="20,15,0,0" 
             Content="Pièce" 
             Background="LightBlue" 
             Click="stock_Piece" 
@@ -33,7 +33,7 @@
         <Button 
             HorizontalAlignment="Right" 
             VerticalAlignment="Top" 
-            Margin="30,90,0,0" 
+            Margin="30,60,0,0" 
             Content="Vélo" 
             Background="LightBlue" 
             Click="stock_Velo"  
@@ -42,9 +42,29 @@
             BorderThickness="3" 
             BorderBrush="#FF4E95AA"
             />
+        <Button 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Top" 
+            Margin="30,300,0,0" 
+            Content="Recommander ? (.xml)" 
+            Background="LightBlue" 
+            Click="commander"  
+            Width="150" 
+            Height="35" 
+            BorderThickness="3" 
+            BorderBrush="#FF4E95AA"
+            />
+
+        <Label 
+            Content="Manque de stock :" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top"
+            Height="40"
+            Width="150"
+            Margin="30,100,0,0" />
 
         <DataGrid
-            x:Name="pieceDataGrid" 
+            x:Name="mainDataGrid" 
             Grid.Column="1" 
             Width="560" 
             Height="330"
@@ -54,6 +74,8 @@
             CanUserAddRows="False"
             CanUserDeleteRows="False"
             IsReadOnly="True"
+            AlternatingRowBackground="#9CDFFF"
+            CanUserResizeRows="False"
             >
             <!--
             <DataGrid.Columns>
@@ -62,16 +84,17 @@
             -->
         </DataGrid>
         <DataGrid
-            x:Name="veloDataGrid" 
-            Grid.Column="1" 
-            Width="560" 
-            Height="330"
-            Margin="30,30" 
+            x:Name="manqueStock" 
+            Width="150" 
+            Height="160"
+            Margin="30,130,0,0" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Top"
             CanUserAddRows="False"
             CanUserDeleteRows="False"
-            IsReadOnly="True"
+            IsReadOnly="True" Grid.ColumnSpan="2"
+            AlternatingRowBackground="#9CDFFF"
+            CanUserResizeRows="False"
             >
             <!--
             <DataGrid.Columns>
@@ -79,6 +102,7 @@
             </DataGrid.Columns>
             -->
         </DataGrid>
+        
 
 
 
