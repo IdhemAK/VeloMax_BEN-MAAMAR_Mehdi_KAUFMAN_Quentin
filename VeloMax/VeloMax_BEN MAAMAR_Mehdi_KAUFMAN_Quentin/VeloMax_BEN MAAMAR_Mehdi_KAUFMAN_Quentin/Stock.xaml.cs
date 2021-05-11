@@ -52,20 +52,18 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             maConnexion.Close();
 
             pieceDataGrid.ItemsSource = dt.DefaultView;
-
-            //pieceDataGrid
         }
 
 
         public Stock()
         {
             InitializeComponent();
-            afficheRequete(Quentin, getPiece);
+            afficheRequete(Mehdi, getPiece);
         }
         private void stock_Piece(object sender, RoutedEventArgs e)
         {
             //but1.Visibility = Visibility.Collapsed;
-            afficheRequete(Quentin, getPiece);
+            afficheRequete(Mehdi, getPiece);
 
         }
         private void stock_Velo(object sender, RoutedEventArgs e)
