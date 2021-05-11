@@ -9,6 +9,15 @@
       Title="EntreeSortie">
 
     <Grid Background="White">
-        
+        <Button Content="Créer" HorizontalAlignment="Left" Margin="276,10,0,0" VerticalAlignment="Top" Width="76" Click="Creer"/>
+        <Button Content="Supprimer" HorizontalAlignment="Left" Margin="414,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Modifier" HorizontalAlignment="Left" Margin="566,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Commande" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="42,112,0,0"/>
+        <Button Content="Client" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="42,164,0,0"/>
+        <Button Content="Fournisseur" HorizontalAlignment="Left" Margin="42,216,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="42,270,0,0" VerticalAlignment="Top" Width="75"/>
+        <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="276,100,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="511,100,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Page>

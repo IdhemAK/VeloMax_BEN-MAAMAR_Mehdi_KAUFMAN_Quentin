@@ -24,5 +24,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         {
             InitializeComponent();
         }
+
+        private void Creer(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Reprise");
+        }
     }
 }

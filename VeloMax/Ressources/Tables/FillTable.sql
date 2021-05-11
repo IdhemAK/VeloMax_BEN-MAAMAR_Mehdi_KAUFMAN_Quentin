@@ -134,9 +134,10 @@ group by numero_piece_catalogue_commande;
 
 -- on prend ça
 #chaque piece 
-select SUBSTRING_INDEX(numero_piece_catalogue_commande,'_',-1) as s, sum(quantite_piece_commande) 
+select SUBSTRING_INDEX(numero_piece_catalogue_commande,'_',-1) as "Numéro pièce", 
+sum(quantite_piece_commande) as "Quantité vendue"
 from liste_piece_commande 
-group by s;
+group by SUBSTRING_INDEX(numero_piece_catalogue_commande,'_',-1);
 
 
 -- 1b
@@ -199,23 +200,25 @@ join programme p on p.numero_programme=c.numero_programme;
 
 
 -- 4
-#quantite nombre piece vendues clients
-select cp.ID_client_particulier, sum(l.quantite_piece_commande) 
+#quantite nombre piece vendues clients particuliers
+select cp.ID_client_particulier as "ID client particulier", 
+sum(l.quantite_piece_commande) as "Quantité commandée"
 from liste_piece_commande l
 join commande c on c.numero_commande=l.numero_commande_piece
 join client_particulier cp on cp.ID_client_particulier=c.ID_client_particulier
 group by cp.ID_client_particulier;
 
-#quantité cumulé sur les piece des 
+#montant cumulé sur les piece des 
 #clients particuliers
-select cp.ID_client_particulier, 
-	sum(l.quantite_piece_commande*p.prix_piece) as s 
+select cp.ID_client_particulier as "ID particulier", 
+	sum(l.quantite_piece_commande*p.prix_piece) as "Montant cumulé"
 from liste_piece_commande l
 join piece p on p.numero_piece_catalogue=l.numero_piece_catalogue_commande
 join commande c on c.numero_commande=l.numero_commande_piece
 join client_particulier cp on cp.ID_client_particulier=c.ID_client_particulier
 group by cp.ID_client_particulier
-order by s DESC;
+order by sum(l.quantite_piece_commande*p.prix_piece) DESC;
+
 
 #verification quantité cumulée
 select l.numero_piece_catalogue_commande, l.quantite_piece_commande,
@@ -225,16 +228,25 @@ join piece p on p.numero_piece_catalogue=l.numero_piece_catalogue_commande
 join commande c on c.numero_commande=l.numero_commande_piece
 join client_particulier cp on cp.ID_client_particulier=c.ID_client_particulier;
 
+
+#quantite nombre piece vendues clients entrerprises
+select ce.ID_client_entreprise as "ID entreprise", 
+sum(l.quantite_piece_commande) as "Quantité commandée"
+from liste_piece_commande l
+join commande c on c.numero_commande=l.numero_commande_piece
+join client_entreprise ce on ce.ID_client_entreprise=c.ID_client_entreprise
+group by ce.ID_client_entreprise;
+
 #montant cumulé piece
 #client_entreprise
-select ce.ID_client_entreprise, 
-	sum(l.quantite_piece_commande*p.prix_piece) as s 
+select ce.ID_client_entreprise as "ID entreprise", 
+	sum(l.quantite_piece_commande*p.prix_piece) as "Montant cumulé" 
 from liste_piece_commande l
 join piece p on p.numero_piece_catalogue=l.numero_piece_catalogue_commande
 join commande c on c.numero_commande=l.numero_commande_piece
 join client_entreprise ce on ce.ID_client_entreprise=c.ID_client_entreprise
 group by ce.ID_client_entreprise
-order by s DESC;
+order by sum(l.quantite_piece_commande*p.prix_piece) DESC;
 
 
 -- 5a 
@@ -252,7 +264,8 @@ order by numero_commande;
 */
 
 #on sélectionne le prix total des pièces par commande
-select numero_commande, sum(prix_velo*quantite_velo_commande)
+select numero_commande, 
+sum(prix_velo*quantite_velo_commande) 
 from commande c
 join liste_velo_commande lv on lv.numero_commande_velo=c.numero_commande
 join velo v on v.numero_velo=lv.numero_velo
@@ -275,7 +288,7 @@ select count(numero_commande) from commande;
 
 
 -- 5b
-select numero_commande, numero_velo, sum(quantite_velo_commande) as qvc
+select numero_commande, numero_velo, sum(quantite_velo_commande)
 from commande c
 join liste_velo_commande lv on lv.numero_commande_velo=c.numero_commande
 group by numero_commande

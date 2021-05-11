@@ -85,20 +85,20 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         {
             InitializeComponent();
             veloDataGrid.Visibility = Visibility.Visible;
-            afficheVelo(Quentin);
+            afficheVelo(Mehdi);
         }
         private void stock_Piece(object sender, RoutedEventArgs e)
         {
             //but1.Visibility = Visibility.Collapsed;
             veloDataGrid.Visibility = Visibility.Collapsed;
             pieceDataGrid.Visibility = Visibility.Visible;
-            affichePiece(Quentin);
+            affichePiece(Mehdi);
         }
         private void stock_Velo(object sender, RoutedEventArgs e)
         {
             pieceDataGrid.Visibility = Visibility.Collapsed;
             veloDataGrid.Visibility = Visibility.Visible;
-            afficheVelo(Quentin);
+            afficheVelo(Mehdi);
         }
     }
 }
