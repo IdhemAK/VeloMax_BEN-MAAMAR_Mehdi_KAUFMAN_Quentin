@@ -50,6 +50,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             " DATE_FORMAT(date_introduction_velo, '%Y-%m-%d') as 'Début production'," +
             " DATE_FORMAT(date_discontinuation_velo, '%Y-%m-%d') as 'Fin production'," +
             " stock_velo as 'Stock' from velo;";
+        string aaa = "select v.numero_velo,v.stock_velo,v.date_discontinuation_velo from velo v order by v.stock_velo;";
+        string veloTaille = "select v.grandeur_velo, sum(v.stock_velo) from velo v group by v.grandeur_velo order by sum(v.stock_velo);";
+
+
         #endregion
 
         public DataTable checkQuantity(DataTable data, string columnName, int seuil)
@@ -185,6 +189,32 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         private void commander(object sender, RoutedEventArgs e)
         {
             //oceddole
+        }
+
+        private void trieVeloCleUnitaire(object sender, RoutedEventArgs e)
+        {
+            mainDataGrid.Visibility = Visibility.Visible;
+            manqueStock.Visibility = Visibility.Visible;
+            DataTable velo = dataLoader("Quentin", getVeloV2);
+            mainDataGrid.ItemsSource = velo.DefaultView;
+        }
+
+        private void trieVeloParTaille(object sender, RoutedEventArgs e)
+        {
+            mainDataGrid.Visibility = Visibility.Visible;
+            manqueStock.Visibility = Visibility.Visible;
+            DataTable velo = dataLoader("Quentin", veloTaille);
+            mainDataGrid.ItemsSource = velo.DefaultView;
+        }
+
+        private void trieVeloParModele(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void trieVeloParLigneProduit(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
