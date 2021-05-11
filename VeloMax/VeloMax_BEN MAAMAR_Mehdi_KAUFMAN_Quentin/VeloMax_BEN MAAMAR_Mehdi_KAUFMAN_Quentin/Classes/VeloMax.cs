@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using System.Data;
 
-namespace Program_Velomax
+namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 {
     public class VeloMax
     {
@@ -117,6 +118,8 @@ namespace Program_Velomax
         }
         #endregion Accesseurs
 
+        
+
         #region Gestion (velo, piece, client, fournisseur, commande)
         #region chaîne de caractère pour les queries
         public string Concatenate_Create(string table, string[] variables)
@@ -139,7 +142,6 @@ namespace Program_Velomax
                 " WHERE " + column + " ='" + nameVariable + "';";
         }
         #endregion string des queries
-
         public void Query(MySqlConnection connection, string query)
         {
             connection.Open();

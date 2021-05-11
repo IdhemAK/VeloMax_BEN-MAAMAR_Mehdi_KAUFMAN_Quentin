@@ -26,6 +26,36 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
     /// </summary>
     public partial class Stock : Page
     {
+        VeloMax velomax;
+        MySqlConnection connection;
+        public Stock(MySqlConnection connection, VeloMax velomax)
+        {
+            this.connection = connection;
+            this.velomax = velomax;            
+            InitializeComponent();
+            afficheVeloV2(Mehdi);
+        }
+
+        private void stock_Piece(object sender, RoutedEventArgs e)
+        {
+            mainDataGrid.Visibility = Visibility.Visible;
+            manqueStock.Visibility = Visibility.Visible;
+            affichePieceV2(Mehdi);
+
+
+        }
+        private void stock_Velo(object sender, RoutedEventArgs e)
+        {
+            mainDataGrid.Visibility = Visibility.Visible;
+            afficheVeloV2(Mehdi);
+        }
+        private void commander(object sender, RoutedEventArgs e)
+        {
+            //oceddole
+        }
+
+
+
         string Mehdi = "SERVER=localhost;" + "PORT=3306;DATABASE=VeloMax;" + "UID=root;" + "PASSWORD=BDDMySQLD!d!2000;" + "SSLMODE=none;";
         string Quentin = "SERVER=localhost;PORT=3306;" + "DATABASE=VeloMax;" + "UID=root;PASSWORD=patate";
         //DataTable manquePiece = new DataTable();
@@ -40,8 +70,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             " p.prix_piece as 'Prix'," +
             " p.delai_approvisionnement_piece as 'Délai'," +
             " p.stock_piece as 'Stock' from piece p;";
-
-
 
         string getVelo = "select * from velo;";
         string getVeloV2 = "select numero_velo as 'Numéro'," +
@@ -67,77 +95,18 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }
             return Acommander;
         }       
-        public void affichePiece(string user)
-        {
-            MySqlConnection maConnexion = null;
-            try
-            {
-                string connexionString = user;
-                maConnexion = new MySqlConnection(connexionString);
-                maConnexion.Open();
-            }
-            catch (MySqlException e)
-            {
-                Console.WriteLine(" ErreurConnexion : " + e.ToString());
-                return;
-            }
-            MySqlCommand commande = maConnexion.CreateCommand();
-            commande.CommandText = getPieceV2;
-            MySqlDataReader reader = commande.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(reader);
-            reader.Close();
-            maConnexion.Close();
-            mainDataGrid.ItemsSource = dt.DefaultView;
-            //pieceDataGrid
-            //checkQuantity(dt, "Stock", pieceDataGrid);
-            //manqueStock.ItemsSource = manquePiece.DefaultView;
-        }
-        public void afficheVelo(string user)
-        {
-            MySqlConnection maConnexion = null;
-            try
-            {
-                string connexionString = user;
-                maConnexion = new MySqlConnection(connexionString);
-                maConnexion.Open();
-            }
-            catch (MySqlException e)
-            {
-                Console.WriteLine(" ErreurConnexion : " + e.ToString());
-                return;
-            }
-            MySqlCommand commande = maConnexion.CreateCommand();
-            commande.CommandText = getVelo;
-            MySqlDataReader reader = commande.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(reader);
-            reader.Close();
-            maConnexion.Close();
-            //pieceDataGrid
-        }
+        
         public DataTable dataLoader(string user, string requete)
         {
             DataTable erreur = new DataTable();
-            MySqlConnection maConnexion = null;
-            try
-            {
-                string connexionString = user;
-                maConnexion = new MySqlConnection(connexionString);
-                maConnexion.Open();
-            }
-            catch (MySqlException e)
-            {
-                Console.WriteLine(" ErreurConnexion : " + e.ToString());
-                return erreur;
-            }
-            MySqlCommand commande = maConnexion.CreateCommand();
+            connection.Open();
+            MySqlCommand commande = connection.CreateCommand();
             commande.CommandText = requete;
             MySqlDataReader reader = commande.ExecuteReader();
             DataTable data = new DataTable();
             data.Load(reader);
             reader.Close();
-            maConnexion.Close();
+            connection.Close();
             return data;
             //pieceDataGrid.ItemsSource = data.DefaultView;
             //manqueStock.ItemsSource = manquePiece.DefaultView;
@@ -165,27 +134,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             mainDataGrid.ItemsSource = velos.DefaultView;
             manqueStock.ItemsSource = veloManque.DefaultView;
         }
-        public Stock()
-        {
-            InitializeComponent();
-            afficheVeloV2(Quentin);
-        }
-        private void stock_Piece(object sender, RoutedEventArgs e)
-        {
-            mainDataGrid.Visibility = Visibility.Visible;
-            manqueStock.Visibility = Visibility.Visible;
-            affichePieceV2(Quentin);
-            
-            
-        }
-        private void stock_Velo(object sender, RoutedEventArgs e)
-        {
-            mainDataGrid.Visibility = Visibility.Visible;
-            afficheVeloV2(Quentin);
-        }
-        private void commander(object sender, RoutedEventArgs e)
-        {
-            //oceddole
-        }
+        
+        
     }
 }

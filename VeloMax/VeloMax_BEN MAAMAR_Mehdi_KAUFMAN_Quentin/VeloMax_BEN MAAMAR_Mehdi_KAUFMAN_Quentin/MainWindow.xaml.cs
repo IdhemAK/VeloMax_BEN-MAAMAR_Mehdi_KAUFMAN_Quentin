@@ -27,26 +27,41 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
     /// </summary>
     public partial class MainWindow : Window
     {
+        VeloMax velomax = new VeloMax();
+        MySqlConnection connection;
+        string Mehdi = "SERVER=localhost;" + "PORT=3306;DATABASE=VeloMax;" + "UID=root;" + "PASSWORD=BDDMySQLD!d!2000;" + "SSLMODE=none;";
+        string Quentin = "SERVER=localhost;PORT=3306;" + "DATABASE=VeloMax;" + "UID=root;PASSWORD=patate";
 
         public MainWindow()
         {
             InitializeComponent();
+            connection = null;
+            try
+            {
+                string connexionString = Mehdi;
+                connection = new MySqlConnection(connexionString);
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(" ErreurConnexion : " + e.ToString());
+                return;
+            }
         }
         private void Menu_Principal(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new MenuPrincipal();
+            MainFrame.Content = new MenuPrincipal(connection, velomax);
         }
         private void Entree_Sortie(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new EntreeSortie();
+            MainFrame.Content = new EntreeSortie(connection, velomax);
         }
         private void Stock(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new Stock();
+            MainFrame.Content = new Stock(connection, velomax);
         }
         private void Statistiques(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new Statistiques();
+            MainFrame.Content = new Statistiques(connection, velomax);
         }
 
         private void Quitter(object sender, RoutedEventArgs e)

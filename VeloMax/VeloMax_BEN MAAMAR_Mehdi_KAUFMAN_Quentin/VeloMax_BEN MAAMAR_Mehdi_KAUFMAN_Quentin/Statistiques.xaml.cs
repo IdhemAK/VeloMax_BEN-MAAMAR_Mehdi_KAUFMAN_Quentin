@@ -12,6 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
+using System.Xml;
+using System.Xml.XPath;
+using System.IO;
+using System.Xml.Serialization;
+using System.Data;
 
 namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 {
@@ -20,9 +26,14 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
     /// </summary>
     public partial class Statistiques : Page
     {
-        public Statistiques()
+        VeloMax velomax;
+        public Statistiques(MySqlConnection connection, VeloMax velomax)
         {
+            this.velomax = velomax;
             InitializeComponent();
+
+           
+
         }
     }
 }
