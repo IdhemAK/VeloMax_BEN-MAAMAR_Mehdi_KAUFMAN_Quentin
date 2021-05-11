@@ -60,18 +60,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Adresse.cs" />
+    <Compile Include="Brouillon.cs" />
+    <Compile Include="Classes\Client.cs" />
+    <Compile Include="Classes\Client_entreprise.cs" />
+    <Compile Include="Classes\Client_particulier.cs" />
+    <Compile Include="Classes\Commande.cs" />
     <Compile Include="EntreeSortie.xaml.cs">
       <DependentUpon>EntreeSortie.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Fournisseur.cs" />
     <Compile Include="MenuPrincipal.xaml.cs">
       <DependentUpon>MenuPrincipal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Piece.cs" />
+    <Compile Include="Classes\Programme.cs" />
     <Compile Include="Statistiques.xaml.cs">
       <DependentUpon>Statistiques.xaml</DependentUpon>
     </Compile>
     <Compile Include="Stock.xaml.cs">
       <DependentUpon>Stock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Velo.cs" />
+    <Compile Include="Classes\VeloMax.cs" />
     <Page Include="EntreeSortie.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
