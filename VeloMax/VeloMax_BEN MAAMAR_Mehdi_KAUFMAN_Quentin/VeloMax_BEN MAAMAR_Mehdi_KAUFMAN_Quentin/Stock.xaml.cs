@@ -58,9 +58,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
         string Mehdi = "SERVER=localhost;" + "PORT=3306;DATABASE=VeloMax;" + "UID=root;" + "PASSWORD=BDDMySQLD!d!2000;" + "SSLMODE=none;";
         string Quentin = "SERVER=localhost;PORT=3306;" + "DATABASE=VeloMax;" + "UID=root;PASSWORD=patate";
-        //DataTable manquePiece = new DataTable();
-        //DataTable manqueVelo = new DataTable();
-        //veloDataGrid
+        #region REQUETES
         string getPiece = "select * from piece;";
         string getPieceV2 = "select p.numero_piece as 'Numéro'," +
             " p.numero_piece_catalogue as 'Ref fournisseur'," +
@@ -80,6 +78,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             " DATE_FORMAT(date_introduction_velo, '%Y-%m-%d') as 'Début production'," +
             " DATE_FORMAT(date_discontinuation_velo, '%Y-%m-%d') as 'Fin production'," +
             " stock_velo as 'Stock' from velo;";
+        #endregion
 
         public DataTable checkQuantity(DataTable data, string columnName, int seuil)
         {
