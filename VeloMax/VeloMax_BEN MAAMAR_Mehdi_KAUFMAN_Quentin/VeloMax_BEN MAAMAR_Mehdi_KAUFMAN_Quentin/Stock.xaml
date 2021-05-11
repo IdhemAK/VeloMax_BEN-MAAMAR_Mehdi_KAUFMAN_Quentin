@@ -24,15 +24,91 @@
             VerticalAlignment="Top" 
             Margin="20,15,0,0" 
             Content="Pièce" 
-            Background="LightBlue" 
+            Background="Aquamarine" 
             Click="stock_Piece" 
             Width="150" 
             Height="35" 
             BorderBrush="#FF4E95AA" 
             BorderThickness="3" 
             />
+        <Button 
+            x:Name="butPieceNum"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="30,20,0,0" 
+            Content="Numéro" 
+            Background="Aquamarine" 
+            Click="triePieceNumero" 
+            Width="120" 
+            Height="25" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
 
         <Button 
+            x:Name="butPieceRef"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="170,20,0,0" 
+            Content="Ref fournisseur" 
+            Background="Aquamarine" 
+            Click="triePieceRefFournisseur" 
+            Width="120" 
+            Height="25" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            x:Name="butPieceFournisseur"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="310,20,0,0" 
+            Content="Fournisseur" 
+            Background="Aquamarine" 
+            Click="triePieceFournisseur" 
+            Width="120" 
+            Height="25" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            x:Name="butPieceType"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="450,20,0,0" 
+            Content="Type" 
+            Background="Aquamarine" 
+            Click="triePieceType" 
+            Width="120" 
+            Height="25" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+
+
+
+
+
+
+        <Button 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Top" 
+            Margin="30,60,0,0" 
+            Content="Vélo" 
+            Background="LightBlue" 
+            Click="stock_Velo"  
+            Width="150" 
+            Height="35" 
+            BorderThickness="3" 
+            BorderBrush="#FF4E95AA"
+            />
+
+        <Button 
+            x:Name="butVeloNum"
             Grid.Column="1"
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
@@ -47,6 +123,7 @@
             />
 
         <Button 
+            x:Name="butVeloTaille"
             Grid.Column="1"
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
@@ -60,6 +137,7 @@
             BorderThickness="3" 
             />
         <Button 
+            x:Name="butVeloModele"
             Grid.Column="1"
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
@@ -73,6 +151,7 @@
             BorderThickness="3" 
             />
         <Button 
+            x:Name="butVeloType"
             Grid.Column="1"
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
@@ -86,18 +165,7 @@
             BorderThickness="3" 
             />
 
-        <Button 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Top" 
-            Margin="30,60,0,0" 
-            Content="Vélo" 
-            Background="LightBlue" 
-            Click="stock_Velo"  
-            Width="150" 
-            Height="35" 
-            BorderThickness="3" 
-            BorderBrush="#FF4E95AA"
-            />
+
         <Button 
             HorizontalAlignment="Right" 
             VerticalAlignment="Top" 

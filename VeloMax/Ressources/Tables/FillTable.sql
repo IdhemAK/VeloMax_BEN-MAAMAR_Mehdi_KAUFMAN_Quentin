@@ -25,24 +25,28 @@ from piece p;
 
 
 -- Stock piece -> Stock d'une piece peu importe son fournisseur
-select p.numero_piece,sum(p.stock_piece)
+select p.numero_piece as 'Numéro',
+sum(p.stock_piece) as 'Stock'
 from piece p
 group by p.numero_piece
 order by sum(p.stock_piece);
 
 -- Stock piece type -> regroupé par type de piece
-select p.description_piece,sum(p.stock_piece)
+select p.description_piece as 'Type',
+sum(p.stock_piece) as 'Stock'
 from piece p
 group by p.description_piece
 order by sum(p.stock_piece);
 
 -- Stock piece fournisseur -> Stock d'une piece en fonction de quel fournisseur
-select numero_piece_catalogue, p.stock_piece, p.date_discontinuation_piece
+select numero_piece_catalogue as 'Ref fournisseur',
+p.stock_piece as 'Stock'
 from piece p
 order by p.stock_piece;
 
 -- Stock des fournisseurs -> combien de piece de chaque fournisseur on a (pour voir chez qui on commande le plus)
-select f.nom_fournisseur , sum(p.stock_piece)
+select f.nom_fournisseur as 'Fournisseur',
+sum(p.stock_piece) as 'Stock'
 from catalogue c, piece p, fournisseur f
 where p.numero_piece_catalogue = c.numero_piece_catalogue and c.siret_fournisseur = f.siret_fournisseur
 group by f.nom_fournisseur
@@ -54,7 +58,8 @@ order by sum(p.stock_piece);
 -- utilisé dans DataGrid
 select 
 numero_velo as 'Numéro',
-nom_velo as 'Nom',
+nom_velo as 'Modele',
+grandeur_velo as 'Taille',
 prix_velo as 'Prix',
 ligne_produit_velo as 'Type',
 DATE_FORMAT(date_introduction_velo, '%Y-%m-%d') as 'Début production',
@@ -64,24 +69,32 @@ from velo;
 
 
 -- Stock vélo -> Stock des différents vélos (par numéros)
-select v.numero_velo,v.stock_velo,v.date_discontinuation_velo
+select 
+v.numero_velo as 'Numéro',
+v.stock_velo as 'Stock'
 from velo v
 order by v.stock_velo;
 
 -- Stock vélo par taille du vélo (enfant, ado, adulte)
-select v.grandeur_velo, sum(v.stock_velo)
+select 
+v.grandeur_velo as 'Taille',
+ sum(v.stock_velo) as 'Stock'
 from velo v
 group by v.grandeur_velo
 order by sum(v.stock_velo);
 
 -- Stock par modele de vélo (Kilimandjaro etc...) 
-select v.nom_velo,sum(v.stock_velo)
+select 
+v.nom_velo as 'Modele',
+sum(v.stock_velo) as 'Stock'
 from velo v
 group by v.nom_velo
 order by sum(v.stock_velo);
 
 -- Stock par ligne produit (BMX etc...)
-select v.ligne_produit_velo,sum(v.stock_velo)
+select 
+v.ligne_produit_velo as 'Type',
+sum(v.stock_velo) as 'Stock'
 from velo v
 group by v.ligne_produit_velo
 order by sum(v.stock_velo);
