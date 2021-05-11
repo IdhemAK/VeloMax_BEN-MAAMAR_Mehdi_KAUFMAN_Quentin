@@ -24,3 +24,42 @@ C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMA
 C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\MySql.Data.dll
 C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\Ubiety.Dns.Core.dll
 C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.csproj.CopyComplete
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.exe.config
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.exe
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.pdb
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\MySql.Data.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\Google.Protobuf.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\Zstandard.Net.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\K4os.Compression.LZ4.Streams.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\Ubiety.Dns.Core.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\Renci.SshNet.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\System.Memory.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\System.Buffers.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\K4os.Compression.LZ4.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\K4os.Hash.xxHash.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\MySql.Data.xml
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.csprojAssemblyReference.cache
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.exe.config
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\EntreeSortie.g.cs
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\MainWindow.g.cs
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\MenuPrincipal.g.cs
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\Statistiques.g.cs
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\Stock.g.cs
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\App.g.cs
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin_MarkupCompile.cache
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin_MarkupCompile.lref
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\EntreeSortie.baml
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\MainWindow.baml
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\MenuPrincipal.baml
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\Statistiques.baml
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\Stock.baml
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.g.resources
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin.Properties.Resources.resources
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.csproj.GenerateResource.cache
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.csproj.CoreCompileInputs.cache
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.csproj.CopyComplete
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.exe
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.pdb

@@ -117,7 +117,7 @@ namespace Program_Velomax
         }
         #endregion Accesseurs
 
-        #region Changements
+        #region Gestion (velo, piece, client, fournisseur, commande)
         #region chaîne de caractère pour les queries
         public string Concatenate_Create(string table, string[] variables)
         {
@@ -213,6 +213,10 @@ namespace Program_Velomax
             if (!nvariableChangeIntOrNull) variableChange = "'" + variableChange + "'";
             Query(connection, Concatenate_Update(table, columnFind, columnChange, variableFind, variableChange));
         }
-        #endregion Changements
+        #endregion Gestion (velo, piece, client, fournisseur, commande)
+
+        #region Module Statistiques
+
+        #endregion Module Statistiques
     }
 }
