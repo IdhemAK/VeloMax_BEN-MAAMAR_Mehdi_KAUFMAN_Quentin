@@ -26,10 +26,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
     /// </summary>
     public partial class Stock : Page
     {
+        //veloDataGrid
         string getPiece = "select * from piece;";
+        string getVelo = "select * from velo;";
         string Mehdi = "SERVER=localhost;" + "PORT=3306;DATABASE=VeloMax;" + "UID=root;" + "PASSWORD=BDDMySQLD!d!2000;" + "SSLMODE=none;";
         string Quentin = "SERVER=localhost;PORT=3306;" + "DATABASE=VeloMax;" + "UID=root;PASSWORD=patate";
-        public void afficheRequete(string user, string requete)
+        public void affichePiece(string user)
         {
             MySqlConnection maConnexion = null;
             try
@@ -44,15 +46,37 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 return;
             }
             MySqlCommand commande = maConnexion.CreateCommand();
-            commande.CommandText = requete;
+            commande.CommandText = getPiece;
             MySqlDataReader reader = commande.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(reader);
             reader.Close();
             maConnexion.Close();
-
             pieceDataGrid.ItemsSource = dt.DefaultView;
-
+            //pieceDataGrid
+        }
+        public void afficheVelo(string user)
+        {
+            MySqlConnection maConnexion = null;
+            try
+            {
+                string connexionString = user;
+                maConnexion = new MySqlConnection(connexionString);
+                maConnexion.Open();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                return;
+            }
+            MySqlCommand commande = maConnexion.CreateCommand();
+            commande.CommandText = getVelo;
+            MySqlDataReader reader = commande.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(reader);
+            reader.Close();
+            maConnexion.Close();
+            veloDataGrid.ItemsSource = dt.DefaultView;
             //pieceDataGrid
         }
 
@@ -60,18 +84,21 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         public Stock()
         {
             InitializeComponent();
-            afficheRequete(Quentin, getPiece);
+            veloDataGrid.Visibility = Visibility.Visible;
+            afficheVelo(Quentin);
         }
         private void stock_Piece(object sender, RoutedEventArgs e)
         {
             //but1.Visibility = Visibility.Collapsed;
-            afficheRequete(Quentin, getPiece);
-
+            veloDataGrid.Visibility = Visibility.Collapsed;
+            pieceDataGrid.Visibility = Visibility.Visible;
+            affichePiece(Quentin);
         }
         private void stock_Velo(object sender, RoutedEventArgs e)
         {
             pieceDataGrid.Visibility = Visibility.Collapsed;
-
+            veloDataGrid.Visibility = Visibility.Visible;
+            afficheVelo(Quentin);
         }
     }
 }

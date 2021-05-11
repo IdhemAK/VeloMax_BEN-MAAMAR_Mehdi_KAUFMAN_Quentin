@@ -8,6 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Stock">
 
+    <!-- commentaire -->
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -17,12 +18,79 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" Content="Pièce" Background="LightBlue" Click="stock_Piece" Margin="30,30,0,15" Width="150" Height="35" BorderBrush="#FF4E95AA" BorderThickness="3"/>
-        <Button Grid.Column="0" Grid.Row="1" Content="Vélo" Background="LightBlue" Click="stock_Velo" Margin="30,15,0,15" Width="150" Height="35" BorderThickness="3" BorderBrush="#FF4E95AA"/>
+        <Button 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Top" 
+            Margin="20,30,0,0" 
+            Content="Pièce" 
+            Background="LightBlue" 
+            Click="stock_Piece" 
+            Width="150" 
+            Height="35" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Top" 
+            Margin="30,90,0,0" 
+            Content="Vélo" 
+            Background="LightBlue" 
+            Click="stock_Velo"  
+            Width="150" 
+            Height="35" 
+            BorderThickness="3" 
+            BorderBrush="#FF4E95AA"
+            />
 
-        <DataGrid x:FieldModifier="public" x:Name="pieceDataGrid" Grid.Row="0" Grid.Column="1" Width="500" Margin="40,30" />
+        <DataGrid
+            x:Name="pieceDataGrid" 
+            Grid.Column="1" 
+            Width="520" 
+            Height="330"
+            Margin="40,30" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            IsReadOnly="True"
+            >
+            <!--
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="prout"/>
+            </DataGrid.Columns>
+            -->
+        </DataGrid>
+        <DataGrid
+            x:Name="veloDataGrid" 
+            Grid.Column="1" 
+            Width="520" 
+            Height="330"
+            Margin="40,30" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            IsReadOnly="True"
+            >
+            <!--
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="prout"/>
+            </DataGrid.Columns>
+            -->
+        </DataGrid>
 
 
+
+
+        <!-- commentaire 
+        <Button Padding="5">
+            <StackPanel Orientation="Horizontal">
+                <Image SnapsToDevicePixels="True"  Source="C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\images\caca.png"/>
+                <TextBlock Margin="5,0">Help</TextBlock>
+            </StackPanel>
+        </Button>
+        -->
 
 
 

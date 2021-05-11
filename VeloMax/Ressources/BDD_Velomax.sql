@@ -28,7 +28,7 @@ date_introduction_velo datetime,
 date_discontinuation_velo datetime, 
 stock_velo int,
 PRIMARY KEY(numero_velo));  
-
+#select * from Velo;
 
 CREATE TABLE adresse 
 (ID_adresse int, 
@@ -305,8 +305,8 @@ order by sum(v.stock_velo);
 
 
 -- Nouveaux Utilisateurs 
-create user 'bozo'@'localhost' identified by 'bozo';
-grant show view on *.* to 'bozo'@'localhost';
+create user 'bozo' identified by 'bozo';
+grant show view on *.* to 'bozo';
 #show grants for 'bozo'@'localhost' ;
 
 
