@@ -38,7 +38,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             connection = null;
             try
             {
-                string connexionString = Mehdi;
+                string connexionString = Quentin;
                 connection = new MySqlConnection(connexionString);
             }
             catch (MySqlException e)

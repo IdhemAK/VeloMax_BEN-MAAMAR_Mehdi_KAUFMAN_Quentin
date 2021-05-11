@@ -33,21 +33,22 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             this.connection = connection;
             this.velomax = velomax;            
             InitializeComponent();
-            afficheVeloV2(Mehdi);
+            afficheVeloV2();
         }
 
         private void stock_Piece(object sender, RoutedEventArgs e)
         {
             mainDataGrid.Visibility = Visibility.Visible;
             manqueStock.Visibility = Visibility.Visible;
-            affichePieceV2(Mehdi);
+            affichePieceV2();
 
 
         }
         private void stock_Velo(object sender, RoutedEventArgs e)
         {
             mainDataGrid.Visibility = Visibility.Visible;
-            afficheVeloV2(Mehdi);
+            manqueStock.Visibility = Visibility.Visible;
+            afficheVeloV2();
         }
         private void commander(object sender, RoutedEventArgs e)
         {
@@ -71,16 +72,17 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
         string getVelo = "select * from velo;";
         string getVeloV2 = "select numero_velo as 'Numéro'," +
-            " nom_velo as 'Nom'," +
+            " nom_velo as 'Modele'," +
             "grandeur_velo as 'Taille'," +
             " prix_velo as 'Prix'," +
             " ligne_produit_velo as 'Type'," +
             " DATE_FORMAT(date_introduction_velo, '%Y-%m-%d') as 'Début production'," +
             " DATE_FORMAT(date_discontinuation_velo, '%Y-%m-%d') as 'Fin production'," +
             " stock_velo as 'Stock' from velo;";
-        string aaa = "select v.numero_velo,v.stock_velo,v.date_discontinuation_velo from velo v order by v.stock_velo;";
-        string veloTaille = "select v.grandeur_velo, sum(v.stock_velo) from velo v group by v.grandeur_velo order by sum(v.stock_velo);";
-
+        string veloCleUnitaire = "select v.numero_velo as 'Numéro', v.stock_velo as 'Stock' from velo v order by v.stock_velo;";
+        string veloTaille = "select v.grandeur_velo as 'Taille',  sum(v.stock_velo) as 'Stock' from velo v group by v.grandeur_velo order by sum(v.stock_velo);";
+        string veloModele = "select v.nom_velo as 'Modele', sum(v.stock_velo) as 'Stock' from velo v group by v.nom_velo order by sum(v.stock_velo);";
+        string veloLigne = "select v.ligne_produit_velo as 'Type', sum(v.stock_velo) as 'Stock' from velo v group by v.ligne_produit_velo order by sum(v.stock_velo);";
 
         #endregion
 
@@ -99,7 +101,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             return Acommander;
         }       
         
-        public DataTable dataLoader(string user, string requete)
+        public DataTable dataLoader(string requete)
         {
             DataTable erreur = new DataTable();
             connection.Open();
@@ -114,9 +116,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             //pieceDataGrid.ItemsSource = data.DefaultView;
             //manqueStock.ItemsSource = manquePiece.DefaultView;
         }
-        public void affichePieceV2(string user)
+        public void affichePieceV2()
         {
-            DataTable pieces = dataLoader(user, getPieceV2);
+            DataTable pieces = dataLoader(getPieceV2);
             DataTable piecesManque = checkQuantity(pieces, "Stock",35);
             piecesManque.Columns.Remove("Numéro");
             piecesManque.Columns.Remove("Début production");
@@ -126,9 +128,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             mainDataGrid.ItemsSource = pieces.DefaultView;
             manqueStock.ItemsSource = piecesManque.DefaultView;
         }
-        public void afficheVeloV2(string user)
+        public void afficheVeloV2()
         {
-            DataTable velos = dataLoader(user, getVeloV2);
+            DataTable velos = dataLoader(getVeloV2);
             DataTable veloManque = checkQuantity(velos, "Stock",120);
             veloManque.Columns.Remove("Type");
             veloManque.Columns.Remove("Taille");
@@ -137,7 +139,31 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             mainDataGrid.ItemsSource = velos.DefaultView;
             manqueStock.ItemsSource = veloManque.DefaultView;
         }
-        
-        
+
+        private void trieVeloCleUnitaire(object sender, RoutedEventArgs e)
+        {
+            DataTable velo = dataLoader(veloCleUnitaire);
+            mainDataGrid.ItemsSource = velo.DefaultView;
+        }
+
+        private void trieVeloParTaille(object sender, RoutedEventArgs e)
+        {
+            DataTable velo = dataLoader(veloTaille);
+            mainDataGrid.ItemsSource = velo.DefaultView;
+        }
+
+        private void trieVeloParModele(object sender, RoutedEventArgs e)
+        {
+            DataTable velo = dataLoader(veloModele);
+            mainDataGrid.ItemsSource = velo.DefaultView;
+
+            
+        }
+
+        private void trieVeloParLigneProduit(object sender, RoutedEventArgs e)
+        {
+            DataTable velo = dataLoader(veloLigne);
+            mainDataGrid.ItemsSource = velo.DefaultView;
+        }
     }
 }
