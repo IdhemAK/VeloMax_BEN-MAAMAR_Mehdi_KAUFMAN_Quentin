@@ -962,10 +962,11 @@ INSERT INTO liste_velo_commande VALUES (29,13,4);
 
 
 -- Nouveaux Utilisateurs 
+/*
 create user 'bozo' identified by 'bozo';
 grant show view on *.* to 'bozo';
 #show grants for 'bozo'@'localhost' ;
-
+*/
 
 
 

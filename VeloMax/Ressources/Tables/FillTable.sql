@@ -11,6 +11,19 @@ select numero_piece, sum(stock_piece) from piece group by numero_piece;
 
 -- Stock piece ----------------------------------------------------------------
 
+-- Utilisé dans la DataGrid
+select 
+p.numero_piece as 'Numéro',
+p.numero_piece_catalogue as 'Ref. fournisseur',
+p.description_piece as 'Type',
+DATE_FORMAT(p.date_introduction_piece, '%Y-%m-%d') as 'Début production',
+DATE_FORMAT(p.date_discontinuation_piece, '%Y-%m-%d') as 'Fin production',
+p.prix_piece as 'Prix',
+p.delai_approvisionnement_piece as 'Délai',
+p.stock_piece as 'Stock'
+from piece p;
+
+
 -- Stock piece -> Stock d'une piece peu importe son fournisseur
 select p.numero_piece,sum(p.stock_piece)
 from piece p
@@ -37,6 +50,19 @@ order by sum(p.stock_piece);
 
 -- Stock vélo ----------------------------------------------------------------
 
+
+-- utilisé dans DataGrid
+select 
+numero_velo as 'Numéro',
+nom_velo as 'Nom',
+prix_velo as 'Prix',
+ligne_produit_velo as 'Type',
+DATE_FORMAT(date_introduction_velo, '%Y-%m-%d') as 'Début production',
+DATE_FORMAT(date_discontinuation_velo, '%Y-%m-%d') as 'Fin production',
+stock_velo as 'Stock'
+from velo;
+
+
 -- Stock vélo -> Stock des différents vélos (par numéros)
 select v.numero_velo,v.stock_velo,v.date_discontinuation_velo
 from velo v
@@ -59,18 +85,6 @@ select v.ligne_produit_velo,sum(v.stock_velo)
 from velo v
 group by v.ligne_produit_velo
 order by sum(v.stock_velo);
-
--- Nouveaux Utilisateurs 
-create user 'bozo'@'localhost' identified by 'bozo';
-grant show view on *.* to 'bozo'@'localhost';
-#show grants for 'bozo'@'localhost' ;
-
-
-
-
-
-
-
 
 
 
@@ -118,6 +132,7 @@ liste_velo_commande
 INSERT INTO piece VALUES ('Farnell_P20','P20','panier','2010-01-01','2014-12-02',14,2,70);
 INSERT INTO catalogue VALUES ('Farnell_P20','46513890001294',5000);
 INSERT INTO liste_piece_commande VALUES ('Farnell_P20',78,7);
+
 
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -301,3 +316,17 @@ group by numero_commande
 order by numero_commande;
 
 select count(numero_commande) from commande;
+
+-- ////////////////////////////////////////////////////////////////////////////////////////////////
+-- Nouveaux Utilisateurs 
+-- ////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+create user 'bozo' identified by 'bozo';
+grant show view on *.* to 'bozo';
+#show grants for 'bozo'@'localhost' ;
+*/
+
+
+
+
+
