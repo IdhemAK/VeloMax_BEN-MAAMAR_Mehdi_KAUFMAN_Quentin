@@ -28,6 +28,18 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
     {
         //veloDataGrid
         string getPiece = "select * from piece;";
+        string getPieceV2 = "select p.numero_piece as 'Numéro'," +
+            " p.numero_piece_catalogue as 'Ref fournisseur'," +
+            " p.description_piece as 'Type', " +
+            "DATE_FORMAT(p.date_introduction_piece, '%Y-%m-%d') as 'Début production'," +
+            "DATE_FORMAT(p.date_discontinuation_piece, '%Y-%m-%d') as 'Fin production'," +
+            " p.prix_piece as 'Prix'," +
+            " p.delai_approvisionnement_piece as 'Délai'," +
+            " p.stock_piece as 'Stock' from piece p;";
+
+
+
+
         string getVelo = "select * from velo;";
         string Mehdi = "SERVER=localhost;" + "PORT=3306;DATABASE=VeloMax;" + "UID=root;" + "PASSWORD=BDDMySQLD!d!2000;" + "SSLMODE=none;";
         string Quentin = "SERVER=localhost;PORT=3306;" + "DATABASE=VeloMax;" + "UID=root;PASSWORD=patate";
@@ -46,7 +58,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 return;
             }
             MySqlCommand commande = maConnexion.CreateCommand();
-            commande.CommandText = getPiece;
+            commande.CommandText = getPieceV2;
             MySqlDataReader reader = commande.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(reader);

@@ -46,9 +46,9 @@
         <DataGrid
             x:Name="pieceDataGrid" 
             Grid.Column="1" 
-            Width="520" 
+            Width="560" 
             Height="330"
-            Margin="40,30" 
+            Margin="30,30" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Top"
             CanUserAddRows="False"
@@ -64,9 +64,9 @@
         <DataGrid
             x:Name="veloDataGrid" 
             Grid.Column="1" 
-            Width="520" 
+            Width="560" 
             Height="330"
-            Margin="40,30" 
+            Margin="30,30" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Top"
             CanUserAddRows="False"
