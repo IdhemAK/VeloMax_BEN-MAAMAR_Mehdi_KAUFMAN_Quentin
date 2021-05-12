@@ -73,6 +73,21 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         private void Creer(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Reprise");
+
+
+            DataTable erreur = new DataTable();
+            connection.Open();
+            MySqlCommand commande = connection.CreateCommand();
+            commande.CommandText = "select * from velo;";
+            MySqlDataReader reader = commande.ExecuteReader();
+            DataTable data = new DataTable();
+            data.Load(reader);
+            reader.Close();
+            connection.Close();
+
+            DataTable pieces = data;
+            testDataGrid.ItemsSource = pieces.DefaultView;
+
         }
     }
 }
