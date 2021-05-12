@@ -28,19 +28,22 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
     {
         VeloMax velomax;
         MySqlConnection connection;
+        string Mehdi = "SERVER=localhost;" + "PORT=3306;DATABASE=VeloMax;" + "UID=root;" + "PASSWORD=BDDMySQLD!d!2000;" + "SSLMODE=none;";
+        string Quentin = "SERVER=localhost;PORT=3306;" + "DATABASE=VeloMax;" + "UID=root;PASSWORD=patate";
+        public static int numCommande = 0;
         public Stock(MySqlConnection connection, VeloMax velomax)
         {
             this.connection = connection;
-            this.velomax = velomax;            
+            this.velomax = velomax;
             InitializeComponent();
+            butPieceCommande.Visibility = Visibility.Collapsed;
             afficheVeloV2();
         }
 
+        #region BUTTON
         private void stock_Piece(object sender, RoutedEventArgs e)
         {
-            
-            mainDataGrid.Visibility = Visibility.Visible;
-            manqueStock.Visibility = Visibility.Visible;
+            butPieceCommande.Visibility = Visibility.Visible;
 
             butPieceFournisseur.Visibility = Visibility.Visible;
             butPieceNum.Visibility = Visibility.Visible;
@@ -55,8 +58,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         }
         private void stock_Velo(object sender, RoutedEventArgs e)
         {
-            mainDataGrid.Visibility = Visibility.Visible;
-            manqueStock.Visibility = Visibility.Visible;
+            butPieceCommande.Visibility = Visibility.Collapsed;
 
             butVeloModele.Visibility = Visibility.Visible;
             butVeloNum.Visibility = Visibility.Visible;
@@ -68,15 +70,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             butPieceRef.Visibility = Visibility.Collapsed;
             butPieceType.Visibility = Visibility.Collapsed;
         }
-        private void commander(object sender, RoutedEventArgs e)
+        private void commanderPiece(object sender, RoutedEventArgs e)
         {
-            //oceddole
+            serialisePiece();
         }
+        #endregion
 
-
-
-        string Mehdi = "SERVER=localhost;" + "PORT=3306;DATABASE=VeloMax;" + "UID=root;" + "PASSWORD=BDDMySQLD!d!2000;" + "SSLMODE=none;";
-        string Quentin = "SERVER=localhost;PORT=3306;" + "DATABASE=VeloMax;" + "UID=root;PASSWORD=patate";
         #region REQUETES
         string getPiece = "select * from piece;";
         string getPieceV2 = "select p.numero_piece as 'Numéro'," +
@@ -106,24 +105,22 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         string veloTaille = "select v.grandeur_velo as 'Taille',  sum(v.stock_velo) as 'Stock' from velo v group by v.grandeur_velo order by sum(v.stock_velo);";
         string veloModele = "select v.nom_velo as 'Modele', sum(v.stock_velo) as 'Stock' from velo v group by v.nom_velo order by sum(v.stock_velo);";
         string veloLigne = "select v.ligne_produit_velo as 'Type', sum(v.stock_velo) as 'Stock' from velo v group by v.ligne_produit_velo order by sum(v.stock_velo);";
-
         #endregion
 
         public DataTable checkQuantity(DataTable data, string columnName, int seuil)
         {
             DataTable Acommander = data.Copy();
-            for(int i =0; i< Acommander.Rows.Count; i++)
+            for (int i = 0; i < Acommander.Rows.Count; i++)
             {
                 DataRow ligne = Acommander.Rows[i];
                 int stock = Convert.ToInt32(ligne[columnName]);
-                if(stock > seuil)
+                if (stock > seuil)
                 {
-                    ligne.Delete();  
+                    ligne.Delete();
                 }
             }
             return Acommander;
-        }       
-        
+        }
         public DataTable dataLoader(string requete)
         {
             DataTable erreur = new DataTable();
@@ -142,7 +139,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         public void affichePieceV2()
         {
             DataTable pieces = dataLoader(getPieceV2);
-            DataTable piecesManque = checkQuantity(pieces, "Stock",35);
+            DataTable piecesManque = checkQuantity(pieces, "Stock", 35);
             piecesManque.Columns.Remove("Numéro");
             piecesManque.Columns.Remove("Début production");
             piecesManque.Columns.Remove("Fin production");
@@ -154,7 +151,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         public void afficheVeloV2()
         {
             DataTable velos = dataLoader(getVeloV2);
-            DataTable veloManque = checkQuantity(velos, "Stock",120);
+            DataTable veloManque = checkQuantity(velos, "Stock", 120);
             veloManque.Columns.Remove("Type");
             veloManque.Columns.Remove("Taille");
             veloManque.Columns.Remove("Début production");
@@ -163,32 +160,29 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             manqueStock.ItemsSource = veloManque.DefaultView;
         }
 
+        #region TRIE
         private void trieVeloCleUnitaire(object sender, RoutedEventArgs e)
         {
             DataTable velo = dataLoader(veloCleUnitaire);
             mainDataGrid.ItemsSource = velo.DefaultView;
         }
-
         private void trieVeloParTaille(object sender, RoutedEventArgs e)
         {
             DataTable velo = dataLoader(veloTaille);
             mainDataGrid.ItemsSource = velo.DefaultView;
         }
-
         private void trieVeloParModele(object sender, RoutedEventArgs e)
         {
             DataTable velo = dataLoader(veloModele);
             mainDataGrid.ItemsSource = velo.DefaultView;
 
-            
-        }
 
+        }
         private void trieVeloParLigneProduit(object sender, RoutedEventArgs e)
         {
             DataTable velo = dataLoader(veloLigne);
             mainDataGrid.ItemsSource = velo.DefaultView;
         }
-
         private void triePieceNumero(object sender, RoutedEventArgs e)
         {
             DataTable piece = dataLoader(pieceNumero);
@@ -210,7 +204,51 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             DataTable piece = dataLoader(pieceType);
             mainDataGrid.ItemsSource = piece.DefaultView;
         }
+        #endregion
 
+        public List<Piece> listePieceACommander(DataTable dataRoot)
+        {
+            DataTable data = dataRoot.Copy();
+            List<Piece> commande = new List<Piece>();
+            foreach (DataRow ligne in data.Rows)
+            {
+                if (ligne.RowState != DataRowState.Deleted)
+                {
+                    string numPieceCatlogue = ligne["Ref fournisseur"].ToString();
+                    string refPiece = ligne["Numéro"].ToString();
+                    string description = ligne["Type"].ToString();
+                    DateTime dateDebut = Convert.ToDateTime(ligne["Début production"]);
+                    DateTime dateFin = Convert.ToDateTime("8888-08-08");
+                    bool isEmpty = String.IsNullOrEmpty(ligne["Fin production"]?.ToString());
+                    if (isEmpty != true)
+                    {
+                        dateFin = Convert.ToDateTime(ligne["Fin production"]);
+                    }
+                    float prix = (float)Convert.ToDouble(ligne["Prix"]);
+                    int dateApprovisionnement = Convert.ToInt32(ligne["Délai"]);
+                    int qteACommander = Convert.ToInt32(ligne["Stock"]) + 50;//On dit que le stock est enft la qté a recommander
+                    Piece p = new Piece(numPieceCatlogue, refPiece, description, dateDebut, dateFin, prix, dateApprovisionnement, qteACommander);
+                    //Piece p1 = new Piece("test", "tdzfdjzd", "jidljekd", Convert.ToDateTime("1955-11-05"), Convert.ToDateTime("1955-11-05"), 8888, 54541, 376);
+                    commande.Add(p);
+                }
+            }
+            return commande;
+        }
+        public void serialisePiece()
+        {
+            numCommande += 1;
+            string nomFichierCommande = "commande"+numCommande+".xml";
+            DataTable pieces = dataLoader(getPieceV2);
+            DataTable piecesManque = checkQuantity(pieces, "Stock", 35);
+            List<Piece> commande = listePieceACommander(piecesManque);
 
+            XmlSerializer xs = new XmlSerializer(typeof(List<Piece>));
+            StreamWriter wr = new StreamWriter(nomFichierCommande);
+
+            //sérialisation de bdtheque
+            xs.Serialize(wr, commande);
+            wr.Close();
+            MessageBox.Show("La commande : " + nomFichierCommande + " a été créée avec succès !");
+        }
     }
 }

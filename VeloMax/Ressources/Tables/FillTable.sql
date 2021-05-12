@@ -14,7 +14,7 @@ select numero_piece, sum(stock_piece) from piece group by numero_piece;
 -- Utilisé dans la DataGrid
 select 
 p.numero_piece as 'Numéro',
-p.numero_piece_catalogue as 'Ref. fournisseur',
+p.numero_piece_catalogue as 'Ref fournisseur',
 p.description_piece as 'Type',
 DATE_FORMAT(p.date_introduction_piece, '%Y-%m-%d') as 'Début production',
 DATE_FORMAT(p.date_discontinuation_piece, '%Y-%m-%d') as 'Fin production',

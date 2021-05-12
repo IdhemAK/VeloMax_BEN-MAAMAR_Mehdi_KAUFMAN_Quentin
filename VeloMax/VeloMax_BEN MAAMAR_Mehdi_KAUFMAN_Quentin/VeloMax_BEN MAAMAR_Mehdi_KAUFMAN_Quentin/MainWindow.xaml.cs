@@ -47,6 +47,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 return;
             }
         }
+
+        #region BUTTON
         private void Menu_Principal(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = new MenuPrincipal(connection, velomax);
@@ -63,13 +65,14 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         {
             MainFrame.Content = new Statistiques(connection, velomax);
         }
-
         private void Quitter(object sender, RoutedEventArgs e)
         {
             //System.Environment.Exit(-1);
             //Pour fermer violemment
             this.Close();
         }
+        #endregion
+
     }
 }
 

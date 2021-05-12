@@ -16,14 +16,14 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         private DateTime date_introduction_piece;
         private DateTime date_discontinuation_piece;
         private float prix_piece;
-        private DateTime date_approvisionnement_piece;
+        private int date_approvisionnement_piece;
         private int stock_piece;
         #endregion Attributs
 
         #region Constructeurs
         public Piece(string numero_piece_catalogue, string numero_piece, string description_piece,
             DateTime date_introduction_piece, DateTime date_discontinuation_piece, float prix_piece,
-            DateTime date_approvisionnement_piece, int stock_piece)
+            int date_approvisionnement_piece, int stock_piece)
         {
             this.numero_piece_catalogue = numero_piece_catalogue;
             this.numero_piece = numero_piece;
@@ -34,6 +34,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             this.date_approvisionnement_piece = date_approvisionnement_piece;
             this.stock_piece = stock_piece;
         }
+        public Piece()
+        {
+
+        }
+
+
         #endregion Constructeurs
 
         #region Accesseurs
@@ -67,7 +73,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             get { return prix_piece; }
             set { prix_piece = value; }
         }
-        public DateTime Date_approvisionnement_piece
+        public int Date_approvisionnement_piece
         {
             get { return date_approvisionnement_piece; }
             set { date_approvisionnement_piece = value; }
