@@ -45,7 +45,6 @@
             BorderBrush="#FF4E95AA" 
             BorderThickness="3" 
             />
-
         <Button 
             x:Name="butPieceRef"
             Grid.Column="1"
@@ -88,10 +87,19 @@
             BorderBrush="#FF4E95AA" 
             BorderThickness="3" 
             />
-
-
-
-
+        <Button 
+            x:Name="butPieceCommande"
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Top" 
+            Margin="30,300,0,0" 
+            Content="Recommander ? (.xml)" 
+            Background="Aquamarine" 
+            Click="commanderPiece"  
+            Width="150" 
+            Height="35" 
+            BorderThickness="3" 
+            BorderBrush="#FF4E95AA"
+            />
 
 
         <Button 
@@ -106,7 +114,6 @@
             BorderThickness="3" 
             BorderBrush="#FF4E95AA"
             />
-
         <Button 
             x:Name="butVeloNum"
             Grid.Column="1"
@@ -121,7 +128,6 @@
             BorderBrush="#FF4E95AA" 
             BorderThickness="3" 
             />
-
         <Button 
             x:Name="butVeloTaille"
             Grid.Column="1"
@@ -165,28 +171,14 @@
             BorderThickness="3" 
             />
 
-
-        <Button 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Top" 
-            Margin="30,300,0,0" 
-            Content="Recommander ? (.xml)" 
-            Background="LightBlue" 
-            Click="commander"  
-            Width="150" 
-            Height="35" 
-            BorderThickness="3" 
-            BorderBrush="#FF4E95AA"
-            />
-
+        
         <Label 
-            Content="Manque de stock :" 
+            Content="Stocks faibles :" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Top"
             Height="40"
             Width="150"
             Margin="30,100,0,0" />
-
         <DataGrid
             x:Name="mainDataGrid" 
             Grid.Column="1" 
