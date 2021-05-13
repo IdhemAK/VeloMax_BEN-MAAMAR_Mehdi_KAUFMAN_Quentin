@@ -230,6 +230,21 @@ join programme p on p.numero_programme=c.numero_programme;
 #DATE_FORMAT(date_adhesion_programme, "%Y-%m-%d"),
 
 
+-- Pour l'export en JSON
+select ID_client_particulier as 'ID client', 
+nom_client_particulier as 'Nom', 
+prenom_client_particulier as 'Prenom', 
+DATE_FORMAT(date_adhesion_programme, '%Y-%m-%d') as 'Date adhésion',
+DATE_FORMAT(DATE_ADD(date_adhesion_programme, INTERVAL duree_programme YEAR), '%Y-%m-%d') as 'Date expiration',
+courriel_particulier as 'Courriel',
+telephone_particulier as 'Telephone',
+nom_programme as 'Programme'
+from client_particulier c
+join programme p on p.numero_programme=c.numero_programme;
+
+
+
+
 
 -- 4
 #quantite nombre piece vendues clients particuliers
@@ -312,17 +327,18 @@ group by numero_commande
 order by numero_commande;
 */
 
-#on sélectionne le prix total des pièces par commande
-select numero_commande, 
-sum(prix_velo*quantite_velo_commande) 
+#on sélectionne le prix total des vélo par commande
+select numero_commande as 'NumCommandeVelo', 
+sum(prix_velo*quantite_velo_commande) as 'SommeVelo'
 from commande c
 join liste_velo_commande lv on lv.numero_commande_velo=c.numero_commande
 join velo v on v.numero_velo=lv.numero_velo
 group by numero_commande
 order by numero_commande;
 
-#on sélectionne le prix total des vélos par commande
-select numero_commande, sum(prix_piece*quantite_piece_commande)
+#on sélectionne le prix total des piece par commande
+select numero_commande as 'NumCommandePiece', 
+sum(prix_piece*quantite_piece_commande) as 'SommePiece'
 from commande c
 join liste_piece_commande lp on lp.numero_commande_piece=c.numero_commande
 join piece p on p.numero_piece_catalogue=lp.numero_piece_catalogue_commande
@@ -337,19 +353,48 @@ select count(numero_commande) from commande;
 
 
 -- 5b
-select numero_commande, numero_velo, sum(quantite_velo_commande)
+select numero_commande as 'NumCommande', 
+numero_velo as 'NumVelo',  
+sum(quantite_velo_commande) as 'SommeVelo'
 from commande c
 join liste_velo_commande lv on lv.numero_commande_velo=c.numero_commande
 group by numero_commande
 order by numero_commande;
 
-select numero_commande, numero_piece_catalogue_commande, sum(quantite_piece_commande)
+
+-- moyenne velo commande FINAL
+select avg(newtable.SommeVelo) as 'SommeVelo'
+from 
+(
+select numero_commande as 'NumCommande', 
+numero_velo as 'NumVelo',  
+sum(quantite_velo_commande) as 'SommeVelo'
+from commande c
+join liste_velo_commande lv on lv.numero_commande_velo=c.numero_commande
+group by numero_commande
+)newtable;
+
+
+select numero_commande as 'NumCommande',
+numero_piece_catalogue_commande as 'NumPiece', 
+sum(quantite_piece_commande)as 'SommePiece'
 from commande c
 join liste_piece_commande lp on lp.numero_commande_piece=c.numero_commande
 group by numero_commande
 order by numero_commande;
 
-select count(numero_commande) from commande;
+-- moyenne piece commande FINAL
+select avg(newtable.SommePiece) as 'SommePiece'
+from 
+(
+select numero_commande as 'NumCommande',
+numero_piece_catalogue_commande as 'NumPiece', 
+sum(quantite_piece_commande)as 'SommePiece'
+from commande c
+join liste_piece_commande lp on lp.numero_commande_piece=c.numero_commande
+group by numero_commande
+order by numero_commande
+)newtable;
 
 
 

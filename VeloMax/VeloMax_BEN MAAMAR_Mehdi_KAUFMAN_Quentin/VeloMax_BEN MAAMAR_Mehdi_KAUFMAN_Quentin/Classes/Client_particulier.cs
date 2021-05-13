@@ -13,11 +13,33 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         private string nom_client_particulier;
         private string prenom_client_particulier;
         private DateTime date_adhesion_programme;
+        DateTime date_expiration_programme;
         private Programme programme;
+        private string theProgramme;
         #endregion Attributs
 
         #region Constructeurs
-        public Client_particulier(int ID_client, string courriel, string telephone, Adresse adresse_client,
+
+        public Client_particulier(
+        string ID_client,
+        string nom_client_particulier,
+        string prenom_client_particulier,
+        DateTime date_adhesion_programme,
+        DateTime date_expiration_programme,
+        string courriel,
+        string telephone,
+        string programme)
+        : base(ID_client, courriel, telephone)
+            {
+                this.nom_client_particulier = nom_client_particulier;
+                this.prenom_client_particulier = prenom_client_particulier;
+                this.date_adhesion_programme = date_adhesion_programme;
+                this.date_expiration_programme = date_expiration_programme;
+                this.theProgramme = programme;
+            }
+
+
+        public Client_particulier(string ID_client, string courriel, string telephone, Adresse adresse_client,
             string nom_client_particulier, string prenom_client_particulier, DateTime date_adhesion_programme,
             Programme programme)
             : base(ID_client, courriel, telephone, adresse_client)
@@ -26,6 +48,16 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             this.prenom_client_particulier = prenom_client_particulier;
             this.date_adhesion_programme = date_adhesion_programme;
             this.programme = programme;
+        }
+
+
+
+
+
+        public Client_particulier()
+        : base()
+        {
+
         }
         #endregion Constructeurs
 

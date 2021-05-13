@@ -16,13 +16,18 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         #endregion Attributs
 
         #region Constructeurs
-        public Client_entreprise(int ID_client, string courriel, string telephone, Adresse adresse_client,
+        public Client_entreprise(string ID_client, string courriel, string telephone, Adresse adresse_client,
             string nom_client_entreprise, float remise_client_entreprise, string nom_contact_client_entreprise)
             : base(ID_client, courriel, telephone, adresse_client)
         {
             this.nom_client_entreprise = nom_client_entreprise;
             this.remise_client_entreprise = remise_client_entreprise;
             this.nom_contact_client_entreprise = nom_contact_client_entreprise;
+        }
+        public Client_entreprise()
+        : base()
+        {
+
         }
         #endregion Constructeurs
 
