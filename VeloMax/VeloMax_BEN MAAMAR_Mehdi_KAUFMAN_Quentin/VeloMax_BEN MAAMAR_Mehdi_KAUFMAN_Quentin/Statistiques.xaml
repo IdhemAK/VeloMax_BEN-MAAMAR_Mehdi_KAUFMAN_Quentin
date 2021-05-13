@@ -9,6 +9,300 @@
       Title="Statistiques">
 
     <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Button 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Top" 
+            Margin="20,15,0,0" 
+            Content="Items" 
+            Background="#005CFF" 
+            Click="but_Items" 
+            Width="150" 
+            Height="35" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Top" 
+            Margin="30,60,0,0" 
+            Content="Programmes clients" 
+            Background="Aquamarine" 
+            Click="but_Programmes_Clients"  
+            Width="150" 
+            Height="35" 
+            BorderThickness="3" 
+            BorderBrush="#FF4E95AA"
+            />
+        <Button 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Top" 
+            Margin="30,105,0,0" 
+            Content="Meilleurs clients" 
+            Background="DarkOrange" 
+            Click="but_Meilleurs_Clients"  
+            Width="150" 
+            Height="35" 
+            BorderThickness="3" 
+            BorderBrush="#FF4E95AA"
+            />
+
+
+
+
+
         
+        <Button 
+            x:Name="button_Items_Pieces"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="30,15,0,0" 
+            Content="Pièces" 
+            Background="LightBlue" 
+            Click="but_Items_Pieces" 
+            Width="120" 
+            Height="35" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            x:Name="button_Items_Velos"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="170,15,0,0" 
+            Content="Velos" 
+            Background="#005CFF" 
+            Click="but_Items_Velos" 
+            Width="120" 
+            Height="35" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            x:Name="button_Items_Pieces_Ref"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="340,20,0,0" 
+            Content="Ref fournisseur" 
+            Background="LightBlue" 
+            Click="but_Items_Pieces_Ref" 
+            Width="90" 
+            Height="25" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            x:Name="button_Items_Pieces_Numero"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="450,20,0,0" 
+            Content="Numéro" 
+            Background="LightBlue" 
+            Click="but_Items_Pieces_Numero" 
+            Width="90" 
+            Height="25" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            x:Name="button_Items_Velos_Modele"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="340,20,0,0" 
+            Content="Modèle" 
+            Background="#005CFF" 
+            Click="but_Items_Velos_Modele" 
+            Width="90" 
+            Height="25" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            x:Name="button_Items_Velos_Taille"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="450,20,0,0" 
+            Content="Taille" 
+            Background="#005CFF" 
+            Click="but_Items_Velos_Taille" 
+            Width="90" 
+            Height="25" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        
+        
+        <Button 
+            x:Name="button_Meilleurs_Clients_E"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="30,15,0,0" 
+            Content="Entreprise" 
+            Background="DarkOrange"
+            Click="but_Meilleurs_Clients_E" 
+            Width="120" 
+            Height="35" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            x:Name="button_Meilleurs_Clients_P"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="170,15,0,0" 
+            Content="Particulier" 
+            Background="LightGoldenrodYellow" 
+            Click="but_Meilleurs_Clients_P" 
+            Width="120" 
+            Height="35" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            x:Name="button_Meilleurs_Clients_E_Qte"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="340,20,0,0" 
+            Content="Quantité" 
+            Background="DarkOrange" 
+            Click="but_Meilleurs_Clients_E_Qte" 
+            Width="90" 
+            Height="25" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            x:Name="button_Meilleurs_Clients_E_Prix"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="450,20,0,0" 
+            Content="Dépenses" 
+            Background="DarkOrange" 
+            Click="but_Meilleurs_Clients_E_Prix" 
+            Width="90" 
+            Height="25" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            x:Name="button_Meilleurs_Clients_P_Qte"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="340,20,0,0" 
+            Content="Quantité" 
+            Background="LightGoldenrodYellow" 
+            Click="but_Meilleurs_Clients_P_Qte" 
+            Width="90" 
+            Height="25" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        <Button 
+            x:Name="button_Meilleurs_Clients_P_Prix"
+            Grid.Column="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="450,20,0,0" 
+            Content="Dépenses" 
+            Background="LightGoldenrodYellow" 
+            Click="but_Meilleurs_Clients_P_Prix" 
+            Width="90" 
+            Height="25" 
+            BorderBrush="#FF4E95AA" 
+            BorderThickness="3" 
+            />
+        
+        
+        <Button 
+            x:Name="butPieceCommande"
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Top" 
+            Margin="30,300,0,0" 
+            Content="Recommander ? (.xml)" 
+            Background="Aquamarine" 
+            Click="blablou"  
+            Width="150" 
+            Height="35" 
+            BorderThickness="3" 
+            BorderBrush="#FF4E95AA"
+            />
+        
+
+        <Label 
+            Content="Stocks faibles :" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top"
+            Height="40"
+            Width="150"
+            Margin="30,180,0,0" />
+        <DataGrid
+            x:Name="mainDataGrid" 
+            Grid.Column="1" 
+            Width="560" 
+            Height="310"
+            Margin="30,60" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            IsReadOnly="True"
+            AlternatingRowBackground="#9CDFFF"
+            CanUserResizeRows="False"
+            >
+            <!--
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="prout"/>
+            </DataGrid.Columns>
+            -->
+        </DataGrid>
+        <DataGrid
+            x:Name="manqueStock" 
+            Width="150" 
+            Height="160"
+            Margin="30,200,0,0" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            IsReadOnly="True" Grid.ColumnSpan="2"
+            AlternatingRowBackground="#9CDFFF"
+            CanUserResizeRows="False"
+            >
+            <!--
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="prout"/>
+            </DataGrid.Columns>
+            -->
+        </DataGrid>
+
+
+
+        <!-- commentaire 
+        <Button Padding="5">
+            <StackPanel Orientation="Horizontal">
+                <Image SnapsToDevicePixels="True"  Source="C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\images\caca.png"/>
+                <TextBlock Margin="5,0">Help</TextBlock>
+            </StackPanel>
+        </Button>
+        -->
     </Grid>
 </Page>
