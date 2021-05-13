@@ -10,27 +10,34 @@
 
     <Grid Background="White">
         <Button Content="Créer" HorizontalAlignment="Left" Margin="276,10,0,0" VerticalAlignment="Top" Width="76" Click="Creer"/>
-        <Button Content="Supprimer" HorizontalAlignment="Left" Margin="414,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Supprimer" HorizontalAlignment="Left" Margin="277,45,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Modifier" HorizontalAlignment="Left" Margin="566,10,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Commande" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="42,112,0,0"/>
-        <Button Content="Client" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="42,164,0,0"/>
-        <Button Content="Fournisseur" HorizontalAlignment="Left" Margin="42,216,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="42,270,0,0" VerticalAlignment="Top" Width="75"/>
-        <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="276,77,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="566,77,0,0" VerticalAlignment="Top"/>
+        <Button Content="Commande" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="42,112,0,0" Click="Commande"/>
+        <Button Content="Client" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="42,164,0,0" Click="Client"/>
+        <Button Content="Fournisseur" HorizontalAlignment="Left" Margin="42,216,0,0" VerticalAlignment="Top" Width="75" Click="Fournisseur"/>
+        <Button Content="Vélo" HorizontalAlignment="Left" Margin="42,270,0,0" VerticalAlignment="Top" Width="75" Click="Velo"/>
+        <Button Content="Pièce" HorizontalAlignment="Left" Margin="42,327,0,0" VerticalAlignment="Top" Width="75" Click="Piece"/>
+        <CheckBox Name="Entreprises" Content="Entreprises" HorizontalAlignment="Left" Margin="366,80,0,0" VerticalAlignment="Top" Checked="Entreprises_Checked"/>
+        <CheckBox Name="Particuliers" Content="Particuliers" HorizontalAlignment="Left" Margin="533,80,0,0" VerticalAlignment="Top" Checked="Particuliers_Checked"/>
+
         <DataGrid 
-            x:Name="testDataGrid" 
-            Grid.Column="1"
+            x:Name="IODataGrid"
             HorizontalAlignment="Left" 
-            Height="301" 
-            Margin="212,112,0,0" 
+            Height="269" 
+            Margin="212,100,0,0" 
             VerticalAlignment="Top" 
             Width="543"
             CanUserAddRows="True"
-            CanUserDeleteRows="True"
-            IsReadOnly="False"
+            CanUserDeleteRows="False"
+            IsReadOnly="True"
             AlternatingRowBackground="#9CDFFF"
-            CanUserResizeRows="False"/>
+            CanUserResizeRows="False"         
+            >
+
+
+
+        </DataGrid>
+
 
     </Grid>
 </Page>

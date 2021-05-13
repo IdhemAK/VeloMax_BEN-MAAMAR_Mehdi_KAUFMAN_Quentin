@@ -28,10 +28,78 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         // = new List<Tuple<Velo, Piece, int>>();
         #endregion Attributs
 
+        #region Requête
+        private string getVelo;
+        private string getPiece;
+        private string getCommande_entreprise;
+        private string getCommande_particulier;
+        private string getFournisseur;
+        private string getClient_entreprise;
+        private string getClient_particulier;
+        #endregion Requête
+
         #region Constructeurs
         public VeloMax()
         {
-            //velo = new List<Velo>();
+            getVelo = "select numero_velo as 'Numéro'," +
+                " nom_velo as 'Modèle'," +
+                "grandeur_velo as 'Taille'," +
+                " prix_velo as 'Prix'," +
+                " ligne_produit_velo as 'Type'," +
+                " DATE_FORMAT(date_introduction_velo, '%Y-%m-%d') as 'Début production'," +
+                " DATE_FORMAT(date_discontinuation_velo, '%Y-%m-%d') as 'Fin production'," +
+                " stock_velo as 'Stock' from velo;";
+
+            getPiece = "select p.numero_piece as 'Numéro'," +
+                " p.numero_piece_catalogue as 'Ref fournisseur'," +
+                " p.description_piece as 'Type', " +
+                "DATE_FORMAT(p.date_introduction_piece, '%Y-%m-%d') as 'Début production'," +
+                "DATE_FORMAT(p.date_discontinuation_piece, '%Y-%m-%d') as 'Fin production'," +
+                " p.prix_piece as 'Prix'," +
+                " p.delai_approvisionnement_piece as 'Délai'," +
+                " p.stock_piece as 'Stock' from piece p;";
+
+            getCommande_entreprise = "select numero_commande as 'Numéro commande'," +
+                "DATE_FORMAT(date_commande, '%Y-%m-%d') as 'Date de commande'," +
+                "DATE_FORMAT(date_livraison_commande, '%Y-%m-%d') as 'Date de livraison'," +
+                "ID_adresse_commande as 'ID adresse'," +
+                "c.ID_client_entreprise as 'ID entreprise' " +
+                "from commande c " +
+                "join client_entreprise ce on ce.ID_client_entreprise = c.ID_client_entreprise; ";
+
+            getCommande_particulier = "select numero_commande as 'Numéro commande'," +
+                "DATE_FORMAT(date_commande, '%Y-%m-%d') as 'Date de commande'," +
+                "DATE_FORMAT(date_livraison_commande, '%Y-%m-%d') as 'Date de livraison'," +
+                "ID_adresse_commande as 'ID adresse'," +
+                "c.ID_client_particulier as 'ID particulier' " +
+                "from commande c " +
+                "join client_particulier ce on ce.ID_client_particulier = c.ID_client_particulier; ";
+
+            getFournisseur = "select siret_fournisseur as 'Siret'," +
+               "nom_fournisseur as 'Fournisseur'," +
+               "qualite_fournisseur as 'Qualité'," +
+               "nom_contact_fournisseur as 'Contact'," +
+               "ID_adresse_fournisseur as 'Adresse'" +
+               "from fournisseur; ";
+
+            getClient_entreprise = "select ID_client_entreprise as 'ID'," +
+                "nom_client_entreprise as 'Entreprise'," +
+                "remise_client_entreprise as 'Remise'," +
+                "courriel_entreprise as 'Courriel'," +
+                "telephone_entreprise as 'Téléphone'," +
+                "nom_contact_entreprise as 'Nom contact'," +
+                "ID_adresse_client_entreprise as 'ID adresse'" +
+                "from client_entreprise;";
+
+            getClient_particulier = "SELECT ID_client_particulier AS 'ID'," +
+                "nom_client_particulier AS 'Nom'," +
+                "prenom_client_particulier AS 'Prénom'," +
+                "DATE_FORMAT(date_adhesion_programme, '%Y-%m-%d') AS 'Date adhésion programme'," +
+                "courriel_particulier AS 'Courriel'," +
+                "telephone_particulier AS 'Téléphone'," +
+                "numero_programme AS 'Numéro programme'," +
+                "ID_adresse_client_particulier AS 'Adresse'" +
+                "FROM client_particulier; ";
         }
         public VeloMax(List<Velo> velo, List<Piece> piece, List<Commande> commande, List<Fournisseur> fournisseur,
             List<Client> client, List<Adresse> adresse, List<Programme> programme,
@@ -57,7 +125,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         }
         #endregion Constructeurs
 
-        #region Accesseurs
+        #region Accesseurs Listes
         //Tables
         public List<Velo> Liste_velo
         {
@@ -116,9 +184,38 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             get { return catalogue; }
             set { catalogue = value; }
         }
-        #endregion Accesseurs
+        #endregion Accesseurs Listes     
 
-        
+        #region Accesseurs Requêtes
+        public string GetVelo
+        {
+            get { return this.getVelo; }
+        }
+        public string GetPiece
+        {
+            get { return getPiece; }
+        }
+        public string GetCommande_entreprise
+        {
+            get { return getCommande_entreprise; }
+        }
+        public string GetCommande_particulier
+        {
+            get { return getCommande_particulier; }
+        }
+        public string GetFournisseur
+        {
+            get { return getFournisseur; }
+        }
+        public string GetClient_entreprise
+        {
+            get { return getClient_entreprise; }
+        }
+        public string GetClient_particulier
+        {
+            get { return getClient_particulier; }
+        }
+        #endregion Accesseurs Requêtes
 
         #region Gestion (velo, piece, client, fournisseur, commande)
         #region chaîne de caractère pour les queries
@@ -220,5 +317,20 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         #region Module Statistiques
 
         #endregion Module Statistiques
+
+        public DataTable dataLoader(MySqlConnection connection, string requete)
+        {
+            connection.Open();
+            MySqlCommand commande = connection.CreateCommand();
+            commande.CommandText = requete;
+            MySqlDataReader reader = commande.ExecuteReader();
+
+            DataTable data = new DataTable();
+            data.Load(reader);
+            reader.Close();
+
+            connection.Close();
+            return data;
+        }
     }
 }

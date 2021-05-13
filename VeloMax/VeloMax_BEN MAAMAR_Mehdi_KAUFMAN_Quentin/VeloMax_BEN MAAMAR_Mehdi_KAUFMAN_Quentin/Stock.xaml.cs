@@ -74,9 +74,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         }
 
 
-
-        string Mehdi = "SERVER=localhost;" + "PORT=3306;DATABASE=VeloMax;" + "UID=root;" + "PASSWORD=BDDMySQLD!d!2000;" + "SSLMODE=none;";
-        string Quentin = "SERVER=localhost;PORT=3306;" + "DATABASE=VeloMax;" + "UID=root;PASSWORD=patate";
         #region REQUETES
         string getPiece = "select * from piece;";
         string getPieceV2 = "select p.numero_piece as 'Numéro'," +
@@ -105,8 +102,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         string veloCleUnitaire = "select v.numero_velo as 'Numéro', v.stock_velo as 'Stock' from velo v order by v.stock_velo;";
         string veloTaille = "select v.grandeur_velo as 'Taille',  sum(v.stock_velo) as 'Stock' from velo v group by v.grandeur_velo order by sum(v.stock_velo);";
         string veloModele = "select v.nom_velo as 'Modele', sum(v.stock_velo) as 'Stock' from velo v group by v.nom_velo order by sum(v.stock_velo);";
-        string veloLigne = "select v.ligne_produit_velo as 'Type', sum(v.stock_velo) as 'Stock' from velo v group by v.ligne_produit_velo order by sum(v.stock_velo);";
-
+        string veloLigne = "select v.ligne_produit_velo as 'Type', sum(v.stock_velo) as 'Stock' from velo v group by v.ligne_produit_velo order by sum(v.stock_velo);";     
         #endregion
 
         public DataTable checkQuantity(DataTable data, string columnName, int seuil)
@@ -124,24 +120,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             return Acommander;
         }       
         
-        public DataTable dataLoader(string requete)
-        {
-            DataTable erreur = new DataTable();
-            connection.Open();
-            MySqlCommand commande = connection.CreateCommand();
-            commande.CommandText = requete;
-            MySqlDataReader reader = commande.ExecuteReader();
-            DataTable data = new DataTable();
-            data.Load(reader);
-            reader.Close();
-            connection.Close();
-            return data;
-            //pieceDataGrid.ItemsSource = data.DefaultView;
-            //manqueStock.ItemsSource = manquePiece.DefaultView;
-        }
         public void affichePieceV2()
         {
-            DataTable pieces = dataLoader(getPieceV2);
+            DataTable pieces = velomax.dataLoader(connection, getPieceV2);
             DataTable piecesManque = checkQuantity(pieces, "Stock",35);
             piecesManque.Columns.Remove("Numéro");
             piecesManque.Columns.Remove("Début production");
@@ -153,7 +134,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         }
         public void afficheVeloV2()
         {
-            DataTable velos = dataLoader(getVeloV2);
+            DataTable velos = velomax.dataLoader(connection, getVeloV2);
             DataTable veloManque = checkQuantity(velos, "Stock",120);
             veloManque.Columns.Remove("Type");
             veloManque.Columns.Remove("Taille");
@@ -163,54 +144,48 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             manqueStock.ItemsSource = veloManque.DefaultView;
         }
 
+
+        #region Trie
         private void trieVeloCleUnitaire(object sender, RoutedEventArgs e)
         {
-            DataTable velo = dataLoader(veloCleUnitaire);
+            DataTable velo = velomax.dataLoader(connection, veloCleUnitaire);
             mainDataGrid.ItemsSource = velo.DefaultView;
         }
-
         private void trieVeloParTaille(object sender, RoutedEventArgs e)
         {
-            DataTable velo = dataLoader(veloTaille);
+            DataTable velo = velomax.dataLoader(connection, veloTaille);
             mainDataGrid.ItemsSource = velo.DefaultView;
         }
-
         private void trieVeloParModele(object sender, RoutedEventArgs e)
         {
-            DataTable velo = dataLoader(veloModele);
-            mainDataGrid.ItemsSource = velo.DefaultView;
-
-            
+            DataTable velo = velomax.dataLoader(connection, veloModele);
+            mainDataGrid.ItemsSource = velo.DefaultView;           
         }
-
         private void trieVeloParLigneProduit(object sender, RoutedEventArgs e)
         {
-            DataTable velo = dataLoader(veloLigne);
+            DataTable velo = velomax.dataLoader(connection, veloLigne);
             mainDataGrid.ItemsSource = velo.DefaultView;
         }
-
         private void triePieceNumero(object sender, RoutedEventArgs e)
         {
-            DataTable piece = dataLoader(pieceNumero);
+            DataTable piece = velomax.dataLoader(connection, pieceNumero);
             mainDataGrid.ItemsSource = piece.DefaultView;
         }
-
         private void triePieceRefFournisseur(object sender, RoutedEventArgs e)
         {
-            DataTable piece = dataLoader(pieceRefFournisseur);
+            DataTable piece = velomax.dataLoader(connection, pieceRefFournisseur);
             mainDataGrid.ItemsSource = piece.DefaultView;
         }
         private void triePieceFournisseur(object sender, RoutedEventArgs e)
         {
-            DataTable piece = dataLoader(pieceFournisseur);
+            DataTable piece = velomax.dataLoader(connection, pieceFournisseur);
             mainDataGrid.ItemsSource = piece.DefaultView;
         }
         private void triePieceType(object sender, RoutedEventArgs e)
         {
-            DataTable piece = dataLoader(pieceType);
+            DataTable piece = velomax.dataLoader(connection, pieceType);
             mainDataGrid.ItemsSource = piece.DefaultView;
         }
-
-
+        #endregion Trie
     }
 }

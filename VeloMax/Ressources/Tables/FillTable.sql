@@ -339,7 +339,50 @@ grant show view on *.* to 'bozo';
 #show grants for 'bozo'@'localhost' ;
 */
 
+select numero_commande as 'Numéro commande',
+DATE_FORMAT(date_commande, '%Y-%m-%d') as 'Date de commande',
+DATE_FORMAT(date_livraison_commande, '%Y-%m-%d') as 'Date de livraison',
+ID_adresse_commande as 'ID adresse',
+c.ID_client_entreprise as 'ID entreprise'
+from commande c
+join client_entreprise ce on ce.ID_client_entreprise=c.ID_client_entreprise;
+
+select numero_commande as 'Numéro commande',
+DATE_FORMAT(date_commande, '%Y-%m-%d') as 'Date de commande',
+DATE_FORMAT(date_livraison_commande, '%Y-%m-%d') as 'Date de livraison',
+ID_adresse_commande as 'ID adresse',
+c.ID_client_particulier as 'ID entreprise'
+from commande c
+join client_particulier ce on ce.ID_client_particulier=c.ID_client_particulier;
 
 
+
+SELECT ID_client_particulier AS ID,
+nom_client_particulier AS 'Nom',
+prenom_client_particulier AS 'Prénom',
+date_adhesion_programme AS 'Date adhésion programme',
+courriel_particulier AS 'Courriel',
+telephone_particulier AS 'Téléphone',
+numero_programme AS 'Numéro programme',
+ID_adresse_client_particulier AS 'Adresse'
+FROM client_particulier;
+
+select ID_client_entreprise as 'ID',
+nom_client_entreprise as 'Entreprise',
+remise_client_entreprise as 'Remise',
+courriel_entreprise as 'Courriel',
+telephone_entreprise as 'Téléphone',
+nom_contact_entreprise as 'Nom contact',
+ID_adresse_client_entreprise as 'ID adresse'
+from client_entreprise;
+
+select * from client_entreprise;
+
+select siret_fournisseur as 'Siret fournisseur',
+nom_fournisseur as 'Nom',
+qualite_fournisseur as 'Qualité',
+nom_contact_fournisseur as 'Contact',
+ID_adresse_fournisseur as 'Adresse'
+from fournisseur;
 
 
