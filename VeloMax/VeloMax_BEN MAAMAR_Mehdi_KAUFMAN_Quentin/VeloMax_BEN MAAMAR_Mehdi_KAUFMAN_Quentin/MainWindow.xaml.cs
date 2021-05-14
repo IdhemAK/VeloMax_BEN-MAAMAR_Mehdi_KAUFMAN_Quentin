@@ -22,6 +22,9 @@ using System.Xml.Serialization;
 
 namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 {
+    //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    //Lire dans l'ordre suivant : MainWindow.xaml.cs -> MenuPrincipal.saml.cs -> Stock.xaml.cs -> Statistiques.xaml.cs
+    //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
@@ -31,7 +34,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         MySqlConnection connection;
         string Mehdi = "SERVER=localhost;" + "PORT=3306;DATABASE=VeloMax;" + "UID=root;" + "PASSWORD=BDDMySQLD!d!2000;" + "SSLMODE=none;";
         string Quentin = "SERVER=localhost;PORT=3306;" + "DATABASE=VeloMax;" + "UID=root;PASSWORD=patate";
-
+        //On déclare une connexion mySQL pour pouvoir avoir accès à la base SQL
+        //On crée des user qui sont des string de connection à nos bdd SQL respectives 
+        //cela permet de pouvoir tester le code malgrés les commit sur github
         public MainWindow()
         {
             InitializeComponent();
@@ -46,24 +51,34 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 MessageBox.Show(" ErreurConnexion : " + e.ToString());
                 return;
             }
+            //On fait le try catch de la connexion SQL
         }
 
         #region BUTTON
         private void Menu_Principal(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = new MenuPrincipal(connection, velomax);
+            //Lorsque l'on clique sur le bouton menu principal, 
+            //on créée une nouvelle page de type menu principal
         }
+        
         private void Entree_Sortie(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = new EntreeSortie(connection, velomax);
+            //Lorsque l'on clique sur le bouton entrée-sortie, 
+            //on créée une nouvelle page de type entrée-sortie
         }
         private void Stock(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = new Stock(connection, velomax);
+            //Lorsque l'on clique sur le bouton stock, 
+            //on créée une nouvelle page de type stock
         }
         private void Statistiques(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = new Statistiques(connection, velomax);
+            //Lorsque l'on clique sur le bouton statistiques, 
+            //on créée une nouvelle page de type statistiques
         }
         private void Quitter(object sender, RoutedEventArgs e)
         {
@@ -76,6 +91,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         private void lance_video(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = new MenuPrincipal(connection, velomax);
+            //Lorsque l'on clique sur le bouton statistiques, 
+            //on créée une nouvelle page de type statistiques
+            //cette instance est utilisée pour lancer le tutoriel
         }
     }
 }

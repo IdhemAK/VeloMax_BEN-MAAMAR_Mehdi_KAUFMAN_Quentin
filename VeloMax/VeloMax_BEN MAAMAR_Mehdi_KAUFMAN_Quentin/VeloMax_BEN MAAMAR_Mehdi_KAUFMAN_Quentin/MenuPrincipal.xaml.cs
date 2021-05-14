@@ -22,12 +22,16 @@ using System.Data;
 //menuprincipal.xaml.cs
 namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 {
+    //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    //Lire dans l'ordre suivant : MainWindow.xaml.cs -> MenuPrincipal.saml.cs -> Stock.xaml.cs -> Statistiques.xaml.cs
+    //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     /// <summary>
     /// Logique d'interaction pour MenuPrincipal.xaml
     /// </summary>
     public partial class MenuPrincipal : Page
     {
         VeloMax velomax;
+        //Dans menu principal, on a accès a un tutoriel vidéo
         public MenuPrincipal(MySqlConnection connection, VeloMax velomax)
         {
             this.velomax = velomax;
@@ -35,7 +39,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             video.Visibility = Visibility.Visible;
             video.Play();
             butPause.Visibility = Visibility.Visible;
+            //Par défaut on lance la vidéo
         }
+
 
         public void touche(Key touche, string source)
         {
@@ -45,6 +51,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 video.Source = new Uri(source, UriKind.Relative);
                 video.Play();
             }
+            //cette fonction permet de changer la source de la vidéo lorsque l'on appuie sur une touche du clavier
         }
 
 
@@ -60,7 +67,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
 
 
-
+            //Lorsque l'on appuie sur le bouton play,
+            //On lance la video, on fait disparaitre le bouton play 
+            //et on fait apparaitre le bouton pause
         }
 
         private void pause(object sender, RoutedEventArgs e)
@@ -69,9 +78,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             video.Pause();
             butPlay.Visibility = Visibility.Visible;
             butPause.Visibility = Visibility.Collapsed;
+            //Fait l'inverse du bouton play
 
         }
-
         private void refresh(object sender, RoutedEventArgs e)
         {
             video.Stop();
@@ -83,6 +92,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             video.Play();
             butPlay.Visibility = Visibility.Collapsed;
             butPause.Visibility = Visibility.Visible;
+            //Cette fonction permet de prendre en compte le changement de source vidéo, elle appelle la fonction touche
+            //Le changement de source de video est important car on doit pouvoir changer de tutoriel 
+            //en appuyant sur une touche donc à une touche, on associe une video qui correspond à un tutoriel
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
@@ -123,7 +135,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 e.Handled = true;
             }
 
-
+            //test de fonction pour changer la source de la video au seul appuie d'une touche 
+            //cela n'a pas fonctionné
 
         }
 

@@ -23,6 +23,9 @@ using Newtonsoft.Json;
 
 namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 {
+    //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    //Lire dans l'ordre suivant : MainWindow.xaml.cs -> MenuPrincipal.saml.cs -> Stock.xaml.cs -> Statistiques.xaml.cs
+    //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     /// <summary>
     /// Logique d'interaction pour Statistiques.xaml
     /// </summary>
@@ -114,13 +117,19 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         }
         public void affiche(DataTable data)
         {
-
             mainDataGrid.ItemsSource = data.DefaultView;
+            //Permet l'affichage d'une DataTable dans un DataGrid
         }
         public void affichageVide()
         {
             DataTable data = new DataTable();
             mainDataGrid.ItemsSource = data.DefaultView;
+            //Pemet de faire un affichage vide
+            //Cela évite d'afficher potentiellement les mauvaises données
+            //Cela part du principe soit on affiche les bonnes données soit on n'affiche pas
+            //En effet il y a beaucoup de boutons intermédiaires qui n'ont pas forcément de données associées
+            //Lorsque que l'on clique sur ces derniers, il est préférable de ne rien afficher
+            //que de laisser l'affichage d'un précédent bouton en pensant qu'il s'agit des bonnes données
         }
         public float moyennePrixCommande()
         {
@@ -150,6 +159,14 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }
             moyenne = somme / nbreCommande;
             return moyenne;
+            //Cette fonction fait la moyenne du prix des commandes
+            //Pour cela on se sert de 2 data table qui contiennent pour l'une les quantités de vélos 
+            //et pour l'autre les quantités de pièces groupés par numéro de commande
+            //Cette fonction est très compliquée, il y a une double boucle for c'est déjà une complexité n² 
+            //La raison pour laquelle j'ai fait cette fonction est que en regardant la structure de ma table,
+            //La requête donnant la moyenne des prix des commandes était extremmelent compliquée, 
+            //a tel point que je n'ai pas réussi à en faire une fonctionnelle
+            //Cette focntion permet donc de compenser la requete que je n'ai pas réussi à écrire
         }
         public void serialiseJson()
         {
@@ -205,6 +222,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             jsonWriter.Close();
             fileWriter.Close();
             MessageBox.Show("Succès de l'export de : "+fileToWrite + " !");
+            //Cette fonction fais 2 choses en une, elle vérifie quels clients ont un programme de fidélité 
+            //arrivant à terme d'ici 2 mois et elle les sérialise au format .json
         }
 
         #region BUTTONS
@@ -377,6 +396,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         private void but_JSON(object sender, RoutedEventArgs e)
         {
             serialiseJson();
+            //Ici on ne fait qu'appeler la fonction de sérialisation
         }
 
         private void but_Statistcs(object sender, RoutedEventArgs e)
@@ -391,12 +411,13 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             textToShow += "En moyenne " + moyPieceCommande + " pièces sont achetées par commandes\n";
             string moyVeloCommande = Convert.ToString(velo.Rows[0][0]);
             textToShow += "En moyenne " + moyVeloCommande + " vélos sont achetés par commandes\n";
-
-
-
-
+            
             MessageBox.Show(textToShow);
             moyennePrixCommande();
+            //Cette fonction produit le rapport statistique en donnant quelques indicateurs
+            //Elle appelle 2 fois dataLoader pour le nombre moyen de pieces et de vélos par commandes 
+            //ainsi que moyennePrixCommande pour la moyenne des dépenses par commandes
+            //qui est la fonction dédiée à cet indicateur
         }
     }
 }
