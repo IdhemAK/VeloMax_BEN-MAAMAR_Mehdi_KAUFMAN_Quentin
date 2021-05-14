@@ -73,6 +73,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         }
         #endregion
 
+        private void lance_video(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new MenuPrincipal(connection, velomax);
+        }
     }
 }
 

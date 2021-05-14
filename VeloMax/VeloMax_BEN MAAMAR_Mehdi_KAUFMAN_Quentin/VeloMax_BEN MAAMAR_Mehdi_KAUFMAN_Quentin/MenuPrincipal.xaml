@@ -9,6 +9,34 @@
       Title="MenuPrincipal">
 
     <Grid Background="White">
-        
+        <MediaElement 
+            x:Name="video" 
+            Height="300" 
+            VerticalAlignment="Top"
+            Source="ifixit.wmv"
+            LoadedBehavior="Manual" 
+            Margin="50,20,64,0" 
+            />
+        <Button x:Name="butPlay" 
+                Content="Play"
+                Click="play"
+                HorizontalAlignment="Left" 
+                Margin="350,350,0,0" 
+                VerticalAlignment="Top" 
+                Width="75" 
+                Background="LightBlue"
+                />
+        <Button x:Name="butPause" 
+                Content="Pause"
+                Click="pause"
+                HorizontalAlignment="Left" 
+                Margin="350,350,0,0" 
+                VerticalAlignment="Top" 
+                Width="75" 
+                Background="LightBlue"
+                />
+
+
+
     </Grid>
 </Page>

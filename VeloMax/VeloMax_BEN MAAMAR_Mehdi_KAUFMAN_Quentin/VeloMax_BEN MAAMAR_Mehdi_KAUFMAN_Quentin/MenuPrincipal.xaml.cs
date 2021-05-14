@@ -31,6 +31,23 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         {
             this.velomax = velomax;
             InitializeComponent();
+            video.Visibility = Visibility.Visible;
+            video.Play();
+            butPause.Visibility = Visibility.Visible;
+        }
+
+        private void play(object sender, RoutedEventArgs e)
+        {
+            video.Play();
+            butPlay.Visibility = Visibility.Collapsed;
+            butPause.Visibility = Visibility.Visible;
+        }
+
+        private void pause(object sender, RoutedEventArgs e)
+        {
+            video.Pause();
+            butPlay.Visibility = Visibility.Visible;
+            butPause.Visibility = Visibility.Collapsed;
         }
     }
 }
