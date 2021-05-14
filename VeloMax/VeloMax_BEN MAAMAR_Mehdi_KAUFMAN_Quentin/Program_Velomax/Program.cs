@@ -257,13 +257,18 @@ namespace Program_Velomax
             //velomax.Remove(connection, "velo", "numero_velo", "21", true);
             //velomax.Update(connection, "velo", "numero_velo", "nom_velo", "21", "Nocturne", true, false);
 
+            Console.WriteLine(DateTime.TryParse(null, out DateTime res));
+
             #region Test queries
+            
+
             /*
-            Velo test = new Velo();
+            VeloMax velo = new VeloMax();
 
-            string queryInsert = "INSERT INTO velo VALUES(2, 'Riverside', 'Adulte', 200, 'VTT', '2020-01-12', '2030-01-01', 50);";        
-            test.Query(connection, queryInsert);
-
+            string queryInsert = "INSERT INTO velo VALUES(22, 'Riverside', 'Adulte', 200, 'VTT', '2020-01-12', null, 50);";        
+            velo.Query(connection, queryInsert);
+            
+            
             string queryRemove = "DELETE FROM velo WHERE nom_velo ='Btwin';";
             test.Query(connection, queryRemove);
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Windows;
 
 namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 {
@@ -36,6 +37,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         private string getFournisseur;
         private string getClient_entreprise;
         private string getClient_particulier;
+        private string getAdresse;
         #endregion Requête
 
         #region Constructeurs
@@ -50,8 +52,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 " DATE_FORMAT(date_discontinuation_velo, '%Y-%m-%d') as 'Fin production'," +
                 " stock_velo as 'Stock' from velo;";
 
-            getPiece = "select p.numero_piece as 'Numéro'," +
-                " p.numero_piece_catalogue as 'Ref fournisseur'," +
+            getPiece = "select p.numero_piece_catalogue as 'Ref fournisseur', " +
+                " p.numero_piece as 'Numéro'," +
                 " p.description_piece as 'Type', " +
                 "DATE_FORMAT(p.date_introduction_piece, '%Y-%m-%d') as 'Début production'," +
                 "DATE_FORMAT(p.date_discontinuation_piece, '%Y-%m-%d') as 'Fin production'," +
@@ -100,6 +102,13 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 "numero_programme AS 'Numéro programme'," +
                 "ID_adresse_client_particulier AS 'Adresse'" +
                 "FROM client_particulier; ";
+
+            getAdresse = "select ID_adresse as 'ID adresse'," +
+                "rue_adresse as 'Rue'," +
+                "ville_adresse as 'Ville'," +
+                "code_postal_adresse as 'Code postal'," +
+                "province_adresse as 'Province' " +
+                "from adresse;";
         }
         public VeloMax(List<Velo> velo, List<Piece> piece, List<Commande> commande, List<Fournisseur> fournisseur,
             List<Client> client, List<Adresse> adresse, List<Programme> programme,
@@ -215,6 +224,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         {
             get { return getClient_particulier; }
         }
+        public string GetAdresse
+        {
+            get { return getAdresse; }
+        }
         #endregion Accesseurs Requêtes
 
         #region Gestion (velo, piece, client, fournisseur, commande)
@@ -271,11 +284,14 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         /// <param name="indexNb">index des nombres qui sont des int ou bien des null</param>
         public void Create(MySqlConnection connection, string table, string[] variables, int[] indexNb)
         {
+            string test = null;
             for (int i = 0; i < variables.Length; i++)
             {
                 //si la variable n'est pas un nombre
-                if (!indexNb.Contains(i)) variables[i] = "'" + variables[i] + "'";             
+                if (!indexNb.Contains(i)) variables[i] = "'" + variables[i] + "'";
+                test += variables[i] + " ";
             }
+            MessageBox.Show(test);
             Query(connection, Concatenate_Create(table, variables));
         }
 
@@ -318,6 +334,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
         #endregion Module Statistiques
 
+        /// <summary>
+        /// Renvoie un DataTable contenant les éléments d'une requête
+        /// </summary>
+        /// <param name="connection">connexion MySQL</param>
+        /// <param name="requete">requête MySQL</param>
+        /// <returns></returns>
         public DataTable dataLoader(MySqlConnection connection, string requete)
         {
             connection.Open();
@@ -331,6 +353,84 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
             connection.Close();
             return data;
+        }
+
+        public int CountTuple(MySqlConnection connection, string table)
+        {
+            connection.Open();
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT count(*) FROM " + table + ";";
+
+            MySqlDataReader reader;
+            reader = command.ExecuteReader();
+
+            int count = 0;
+            while (reader.Read()) count = reader.GetInt32(0);
+
+            connection.Close();
+            return count;        
+        }
+
+        public bool ExistsInDataBase(MySqlConnection connection, string table, string columnPrimaryKey, string primaryKey, bool keyIntOrNull)
+        {
+            connection.Open();
+            MySqlCommand command = connection.CreateCommand();
+
+            if (keyIntOrNull)
+            {
+                command.CommandText = "SELECT " + columnPrimaryKey + " FROM " + table +
+                " WHERE " + columnPrimaryKey + " = " + primaryKey + ";";
+            }
+            else
+            {
+                command.CommandText = "SELECT " + columnPrimaryKey + " FROM " + table +
+                " WHERE " + columnPrimaryKey + " = '" + primaryKey + "';";
+            }
+            
+
+            MySqlDataReader reader;
+            reader = command.ExecuteReader();
+
+            string take = null;
+            while (reader.Read()) take = reader.GetString(0);
+
+            connection.Close();
+            return take == null ? false : true;
+        }
+
+        public List<string> NomDesFournisseurs(MySqlConnection connection)
+        {
+            connection.Open();
+
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT nom_fournisseur FROM fournisseur";
+
+            MySqlDataReader reader;
+            reader = command.ExecuteReader();
+
+            List<string> take = new List<string>();
+            while (reader.Read()) take.Add(reader.GetString(0));
+
+            connection.Close();
+            return take;
+        }
+
+        public int IDMaxPlusOne(MySqlConnection connection, string table, string column, int nbCharSubstr)
+        {
+            connection.Open();
+            MySqlCommand command = connection.CreateCommand();
+
+            command.CommandText = "select max(CONVERT(SUBSTRING(" + column + ", " + nbCharSubstr + "), UNSIGNED INT)) " + "from " + table + ";";
+
+            MySqlDataReader reader;
+            reader = command.ExecuteReader();
+
+            int take = 0;
+            while (reader.Read()) take = reader.GetInt32(0);
+
+            connection.Close();
+
+            return take + 1;
         }
     }
 }

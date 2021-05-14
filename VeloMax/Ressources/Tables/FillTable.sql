@@ -385,4 +385,18 @@ nom_contact_fournisseur as 'Contact',
 ID_adresse_fournisseur as 'Adresse'
 from fournisseur;
 
+select ID_adresse as 'ID adresse',
+rue_adresse as 'Rue',
+ville_adresse as 'Ville',
+code_postal_adresse as 'Code postal',
+province_adresse as 'Province'
+from adresse;
+
+select * from adresse;
+select * from adresse where ID_adresse=0;
+select count(*) from client_entreprise;
+
+select * from velo;
+
+select CONVERT(SUBSTRING(numero_piece, 2), UNSIGNED INT) from piece;
 

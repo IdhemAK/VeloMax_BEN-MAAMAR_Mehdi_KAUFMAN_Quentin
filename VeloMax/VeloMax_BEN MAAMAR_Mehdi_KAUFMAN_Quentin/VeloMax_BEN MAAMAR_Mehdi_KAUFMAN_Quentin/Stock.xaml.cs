@@ -121,8 +121,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 }
             }
             return Acommander;
-        }       
-        
+        }
+
         public DataTable dataLoader(string requete)
         {
             DataTable erreur = new DataTable();
@@ -139,8 +139,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             //manqueStock.ItemsSource = manquePiece.DefaultView;
         }
         public void affichePieceV2()
+        { 
             DataTable pieces = velomax.dataLoader(connection, getPieceV2);
-            DataTable piecesManque = checkQuantity(pieces, "Stock",35);
             DataTable piecesManque = checkQuantity(pieces, "Stock",35);
             piecesManque.Columns.Remove("Numéro");
             piecesManque.Columns.Remove("Début production");
@@ -150,9 +150,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             mainDataGrid.ItemsSource = pieces.DefaultView;
             manqueStock.ItemsSource = piecesManque.DefaultView;
         }
+
         public void afficheVeloV2()
+        { 
             DataTable velos = velomax.dataLoader(connection, getVeloV2);
-            DataTable veloManque = checkQuantity(velos, "Stock",120);
             DataTable veloManque = checkQuantity(velos, "Stock",120);
             veloManque.Columns.Remove("Type");
             veloManque.Columns.Remove("Taille");
@@ -175,9 +176,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             mainDataGrid.ItemsSource = velo.DefaultView;
         }
         private void trieVeloParModele(object sender, RoutedEventArgs e)
+        { 
             DataTable velo = velomax.dataLoader(connection, veloModele);
-            mainDataGrid.ItemsSource = velo.DefaultView;           
-            
+            mainDataGrid.ItemsSource = velo.DefaultView;                       
         }
         private void trieVeloParLigneProduit(object sender, RoutedEventArgs e)
         {
@@ -203,6 +204,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         {
             DataTable piece = velomax.dataLoader(connection, pieceType);
             mainDataGrid.ItemsSource = piece.DefaultView;
+        }
         #endregion
 
         public List<Piece> listePieceACommander(DataTable dataRoot)
