@@ -82,6 +82,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             touche(Key.E, "video5.mp4");
             video.Play();
             butPlay.Visibility = Visibility.Collapsed;
+            butPause.Visibility = Visibility.Visible;
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
