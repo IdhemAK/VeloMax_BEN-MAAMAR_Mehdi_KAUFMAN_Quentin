@@ -21,6 +21,9 @@ using System.Data;
 
 namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 {
+    //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    //Lire dans l'ordre suivant : MainWindow.xaml.cs -> MenuPrincipal.saml.cs -> Stock.xaml.cs -> Statistiques.xaml.cs
+    //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     /// <summary>
     /// Logique d'interaction pour Stock.xaml
     /// </summary>
@@ -38,6 +41,11 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             InitializeComponent();
             butPieceCommande.Visibility = Visibility.Collapsed;
             afficheVeloV2();
+            //Tout ce module est organisé autour des DataTable et DataGrid
+            //En 1 mot on récupère le contenu de la bdd SQL dans une DataTable
+            //On envoie ce contenu dans un DataGrid (élément visuel)
+            //La DataTable correspond à du backend
+            //La DataGrid correspond au frontend
         }
 
         #region BUTTON
@@ -54,7 +62,14 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             butVeloNum.Visibility = Visibility.Collapsed;
             butVeloTaille.Visibility = Visibility.Collapsed;
             butVeloType.Visibility = Visibility.Collapsed;
-
+            //J'ai créé un menu qui marche un peu comme une arborescence, 
+            //On part du général : PIECE ou VELO et on va dans le plus particulier : TRIE VELO PAR MODELE/TAILLE/NUMERO etc...
+            //Il en va de même pour piece
+            //La technique ici est de faire apparaitre ou disparaitre des boutons selon sur quel  bouton on a cliqué
+            //exemple : On clique sur PIECE, cela fait disparaitre les boutons de TRIE DE VELO PAR MODELE/TAILLE/NUMERO
+            //en parallèle on fait apparaitre les boutons associés à la pièce TRIE PIECE PAR TYPE/REFERENCE/NUMERO 
+            //Le bouton étant desactivé, les fonctions qui lui sont associées sont inopérantes 
+            //On s'assure donc d'avoir les bonnes données en cliquant sur le bouton 
         }
         private void stock_Velo(object sender, RoutedEventArgs e)
         {
@@ -69,15 +84,19 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             butPieceNum.Visibility = Visibility.Collapsed;
             butPieceRef.Visibility = Visibility.Collapsed;
             butPieceType.Visibility = Visibility.Collapsed;
+            //Cette fonction suis le fonctionnement de la fonction stock_Piece
         }
         private void commanderPiece(object sender, RoutedEventArgs e)
         {
             serialisePiece();
+            //fonction associée au bouton de commande
+            //elle appelle la méthode de sérialisation 
         }
         #endregion
 
 
         #region REQUETES
+        //Comme vous pouvez le voir, il s'agit d'une zone dans laquelle toutes le requêtes sont stockées
         string getPiece = "select * from piece;";
         string getPieceV2 = "select p.numero_piece as 'Numéro'," +
             " p.numero_piece_catalogue as 'Ref fournisseur'," +
@@ -108,6 +127,24 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         string veloLigne = "select v.ligne_produit_velo as 'Type', sum(v.stock_velo) as 'Stock' from velo v group by v.ligne_produit_velo order by sum(v.stock_velo);";
         #endregion
 
+        public DataTable dataLoader(string requete)
+        {
+            DataTable erreur = new DataTable();
+            connection.Open();
+            MySqlCommand commande = connection.CreateCommand();
+            commande.CommandText = requete;
+            MySqlDataReader reader = commande.ExecuteReader();
+            DataTable data = new DataTable();
+            data.Load(reader);
+            reader.Close();
+            connection.Close();
+            return data;
+            //cette fonction est une des fonctions de base qui est utilisée partout dans le code. 
+            //elle sert à charger les données d'une bas SQL et de les stocker dans une DataTable
+            //elle prend en entrée un string qui correspond à une requete SQL et renvoie une DataTable
+            //La DataTable est un tableau d'objet, on peut donc y stocker plusieurs types de données différents
+            //Cette fonction fait l'interface entre la base de données et le C# elle a donc un rôle central
+        }
         public DataTable checkQuantity(DataTable data, string columnName, int seuil)
         {
             DataTable Acommander = data.Copy();
@@ -121,22 +158,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 }
             }
             return Acommander;
-        }
-
-        public DataTable dataLoader(string requete)
-        {
-            DataTable erreur = new DataTable();
-            connection.Open();
-            MySqlCommand commande = connection.CreateCommand();
-            commande.CommandText = requete;
-            MySqlDataReader reader = commande.ExecuteReader();
-            DataTable data = new DataTable();
-            data.Load(reader);
-            reader.Close();
-            connection.Close();
-            return data;
-            //pieceDataGrid.ItemsSource = data.DefaultView;
-            //manqueStock.ItemsSource = manquePiece.DefaultView;
+            //Cette fonction permet de vérifier quels tuples ont une quantité (d'un paramètre que l'on définit)
+            // inférieur à une quantité seuil, elle est utilisable pour les velos et les pièces
+            // si vous avez encore du mal à comprendre son fonctionnement attendez d'arriver aux fonctions suivantes
         }
         public void affichePieceV2()
         { 
@@ -145,10 +169,17 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             piecesManque.Columns.Remove("Numéro");
             piecesManque.Columns.Remove("Début production");
             piecesManque.Columns.Remove("Fin production");
-            //piecesManque.Columns.Remove("");
-            //piecesManque.Columns.Remove("");
             mainDataGrid.ItemsSource = pieces.DefaultView;
             manqueStock.ItemsSource = piecesManque.DefaultView;
+            //Ici on fait du traitement de DataTable et ce sur 2 DataTable (2 DataGrid aussi par conséquent)
+            //Cette fonction comme la suivante permettent l'affichage d'une DataTable dans une DataGrid
+            //premièrement on crée nos dataTable avec la fonction dataloader
+            //La fonction checkQuantity(pieces, "Stock", 35) utilisée de cette façon permet 
+            //de renvoyer une dataTable contenant les pièces ayant un stock inférieur à 35
+            //On embellit cette DataTable en enlevant des colonnes que l'on ne veut pas afficher 
+            //a savoir le numéro de pièce ainsi que les dates qui ne feraient que surcharger l'affichage
+            //On termine par définir la source du contenu des DataGrid comme étant les DataTable sus-crées
+            //La fonction suivante fonctionne exactement de la même manière mais avec des vélos
         }
 
         public void afficheVeloV2()
@@ -163,8 +194,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             manqueStock.ItemsSource = veloManque.DefaultView;
         }
 
-        #region Trie
-
+        #region TRIE
+        //Toutes ces fonctions correspondent à l'appuie des boutons et aux fonctions qu'ils appellent
+        //Exemple trieVeloParTaille affiche le trie des vélos par taille  
         private void trieVeloCleUnitaire(object sender, RoutedEventArgs e)
         {
             DataTable velo = velomax.dataLoader(connection, veloCleUnitaire);
@@ -234,6 +266,13 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 }
             }
             return commande;
+            //Cette fonction est une de celle sur lesquelles j'ai eu le plus de bugs
+            //Elle créée et renvoie une liste de pièces à partir des pièces qui sont en stock faibles
+            //Grace a la fonction checkQuantity
+            //La fonction n'est as compliquée en soi, mais il y a pleins d'exceptions à gérer 
+            //qui sont difficiles à comprendre au début quand 
+            //on ne sait pas encore bien comment utiliser les DataTable
+            //Il faut aussi modifier un peu les constructeurs des classes pièces et vélo
         }
         public void serialisePiece()
         {
@@ -250,7 +289,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             xs.Serialize(wr, commande);
             wr.Close();
             MessageBox.Show("La commande : " + nomFichierCommande + " a été créée avec succès !");
+            //Cette fonction est une simple fonction de sérialisation
+            //Elle permet de sérialiser un groupe d'objets en les stockant dans un fichier XML 
+            //avec un compteur qui s'incrémente pour ne pas écraser les fichiers précédents
         }
-
     }
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfPiece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Piece>
+    <Numero_piece_catalogue>Digikey_P3</Numero_piece_catalogue>
+    <Numero_piece>P3</Numero_piece>
+    <Description_piece>cadre</Description_piece>
+    <Date_introduction_piece>2017-01-01T00:00:00</Date_introduction_piece>
+    <Date_discontinuation_piece>8888-08-08T00:00:00</Date_discontinuation_piece>
+    <Prix_piece>126</Prix_piece>
+    <Date_approvisionnement_piece>25</Date_approvisionnement_piece>
+  </Piece>
+  <Piece>
+    <Numero_piece_catalogue>Mouser_P4</Numero_piece_catalogue>
+    <Numero_piece>P4</Numero_piece>
+    <Description_piece>cadre</Description_piece>
+    <Date_introduction_piece>2020-01-01T00:00:00</Date_introduction_piece>
+    <Date_discontinuation_piece>8888-08-08T00:00:00</Date_discontinuation_piece>
+    <Prix_piece>29</Prix_piece>
+    <Date_approvisionnement_piece>25</Date_approvisionnement_piece>
+  </Piece>
+  <Piece>
+    <Numero_piece_catalogue>Mouser_P8</Numero_piece_catalogue>
+    <Numero_piece>P8</Numero_piece>
+    <Description_piece>freins</Description_piece>
+    <Date_introduction_piece>2010-01-01T00:00:00</Date_introduction_piece>
+    <Date_discontinuation_piece>2014-12-02T00:00:00</Date_discontinuation_piece>
+    <Prix_piece>119</Prix_piece>
+    <Date_approvisionnement_piece>5</Date_approvisionnement_piece>
+  </Piece>
+  <Piece>
+    <Numero_piece_catalogue>RS_P9</Numero_piece_catalogue>
+    <Numero_piece>P9</Numero_piece>
+    <Description_piece>freins</Description_piece>
+    <Date_introduction_piece>2012-01-01T00:00:00</Date_introduction_piece>
+    <Date_discontinuation_piece>2016-12-01T00:00:00</Date_discontinuation_piece>
+    <Prix_piece>48</Prix_piece>
+    <Date_approvisionnement_piece>1</Date_approvisionnement_piece>
+  </Piece>
+</ArrayOfPiece>

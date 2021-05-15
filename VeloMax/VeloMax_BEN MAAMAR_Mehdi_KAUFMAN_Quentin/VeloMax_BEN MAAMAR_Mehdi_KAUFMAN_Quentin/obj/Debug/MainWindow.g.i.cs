@@ -48,6 +48,14 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin {
         #line default
         #line hidden
         
+        
+        #line 30 "..\..\MainWindow.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Button butQuit;
+        
+        #line default
+        #line hidden
+        
         private bool _contentLoaded;
         
         /// <summary>
@@ -122,9 +130,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin {
             this.MainFrame = ((System.Windows.Controls.Frame)(target));
             return;
             case 7:
+            this.butQuit = ((System.Windows.Controls.Button)(target));
             
             #line 30 "..\..\MainWindow.xaml"
-            ((System.Windows.Controls.Button)(target)).Click += new System.Windows.RoutedEventHandler(this.Quitter);
+            this.butQuit.Click += new System.Windows.RoutedEventHandler(this.Quitter);
             
             #line default
             #line hidden
