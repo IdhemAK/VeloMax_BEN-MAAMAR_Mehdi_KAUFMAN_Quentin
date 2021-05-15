@@ -156,15 +156,14 @@ INSERT INTO liste_piece_commande VALUES ('Farnell_P20',78,7);
 -- 1a
 #rapport statistique piece
 #piece de chaque catalogue
-select numero_piece_catalogue_commande as 'Ref fournisseur', 
-sum(quantite_piece_commande) as 'Quantité vendue'
+select numero_piece_catalogue_commande, sum(quantite_piece_commande) 
 from liste_piece_commande 
 group by numero_piece_catalogue_commande;
 
 -- on prend ça
 #chaque piece 
-select SUBSTRING_INDEX(numero_piece_catalogue_commande,'_',-1) as 'Numéro pièce', 
-sum(quantite_piece_commande) as 'Quantité vendue'
+select SUBSTRING_INDEX(numero_piece_catalogue_commande,'_',-1) as "Numéro pièce", 
+sum(quantite_piece_commande) as "Quantité vendue"
 from liste_piece_commande 
 group by SUBSTRING_INDEX(numero_piece_catalogue_commande,'_',-1);
 
@@ -172,15 +171,13 @@ group by SUBSTRING_INDEX(numero_piece_catalogue_commande,'_',-1);
 -- 1b
 #rapport statistique velo
 #par nom de velo
-select v.nom_velo as 'Modele', 
-sum(l.quantite_velo_commande) as 'Quantité vendue'
+select v.nom_velo, sum(l.quantite_velo_commande)
 from liste_velo_commande l
 join velo v on v.numero_velo=l.numero_velo
 group by v.nom_velo;
 
 #par grandeur
-select v.grandeur_velo as 'Taille', 
-sum(l.quantite_velo_commande) as 'Quantité vendue'
+select v.grandeur_velo, sum(l.quantite_velo_commande)
 from liste_velo_commande l
 join velo v on v.numero_velo=l.numero_velo
 group by v.grandeur_velo;
@@ -219,61 +216,30 @@ join programme p on p.numero_programme=c.numero_programme;
 
 
 # combinaison 2  et 3
-select ID_client_particulier as 'ID client', nom_programme as 'Programme',  
-nom_client_particulier as 'Nom', prenom_client_particulier as 'Prenom', 
-DATE_FORMAT(date_adhesion_programme, '%Y-%m-%d') as 'Date adhésion',
-
-DATE_FORMAT(DATE_ADD(date_adhesion_programme, INTERVAL duree_programme YEAR), '%Y-%m-%d') as 'Date expiration'
+select nom_programme as Programme, ID_client_particulier as "ID client", 
+nom_client_particulier as Nom, prenom_client_particulier as Prenom, 
+date_adhesion_programme as "Date d'adhésion",
+DATE_ADD(date_adhesion_programme, INTERVAL duree_programme YEAR) as "Date d'expiration"
 from client_particulier c
 join programme p on p.numero_programme=c.numero_programme;
 
 #DATE_FORMAT(date_adhesion_programme, "%Y-%m-%d"),
 
 
--- Pour l'export en JSON
-select ID_client_particulier as 'ID client', 
-nom_client_particulier as 'Nom', 
-prenom_client_particulier as 'Prenom', 
-DATE_FORMAT(date_adhesion_programme, '%Y-%m-%d') as 'Date adhésion',
-DATE_FORMAT(DATE_ADD(date_adhesion_programme, INTERVAL duree_programme YEAR), '%Y-%m-%d') as 'Date expiration',
-courriel_particulier as 'Courriel',
-telephone_particulier as 'Telephone',
-nom_programme as 'Programme'
-from client_particulier c
-join programme p on p.numero_programme=c.numero_programme;
-
-
-
-
 
 -- 4
 #quantite nombre piece vendues clients particuliers
 select cp.ID_client_particulier as "ID client particulier", 
-sum(l.quantite_piece_commande) as "Quantité commandée (pièces)"
+sum(l.quantite_piece_commande) as "Quantité commandée"
 from liste_piece_commande l
 join commande c on c.numero_commande=l.numero_commande_piece
 join client_particulier cp on cp.ID_client_particulier=c.ID_client_particulier
 group by cp.ID_client_particulier;
 
--- 4 V2 (ajouts de Quentin)
-#quantite nombre piece vendues clients particuliers
-select cp.ID_client_particulier as 'ID client particulier', 
-cp.nom_client_particulier as 'Nom',
-cp.prenom_client_particulier as 'Prenom',
-sum(l.quantite_piece_commande) as 'Quantité commandée (pièces)'
-from liste_piece_commande l
-join commande c on c.numero_commande=l.numero_commande_piece
-join client_particulier cp on cp.ID_client_particulier=c.ID_client_particulier
-group by cp.ID_client_particulier
-order by sum(l.quantite_piece_commande) desc;
-
-
 #montant cumulé sur les piece des 
-#clients particuliers V2
-select cp.ID_client_particulier as 'ID particulier', 
-cp.nom_client_particulier as 'Nom',
-cp.prenom_client_particulier as 'Prenom',
-sum(l.quantite_piece_commande*p.prix_piece) as 'Dépense totale de pièces (en €)'
+#clients particuliers
+select cp.ID_client_particulier as "ID particulier", 
+	sum(l.quantite_piece_commande*p.prix_piece) as "Montant cumulé"
 from liste_piece_commande l
 join piece p on p.numero_piece_catalogue=l.numero_piece_catalogue_commande
 join commande c on c.numero_commande=l.numero_commande_piece
@@ -284,7 +250,7 @@ order by sum(l.quantite_piece_commande*p.prix_piece) DESC;
 
 #verification quantité cumulée
 select l.numero_piece_catalogue_commande, l.quantite_piece_commande,
-p.prix_piece, cp.ID_client_particulier
+	p.prix_piece, cp.ID_client_particulier
 from liste_piece_commande l
 join piece p on p.numero_piece_catalogue=l.numero_piece_catalogue_commande
 join commande c on c.numero_commande=l.numero_commande_piece
@@ -292,9 +258,8 @@ join client_particulier cp on cp.ID_client_particulier=c.ID_client_particulier;
 
 
 #quantite nombre piece vendues clients entrerprises
-select ce.ID_client_entreprise as 'ID entreprise', 
-ce.nom_client_entreprise as 'Nom',
-sum(l.quantite_piece_commande) as 'Quantité commandée (pièces)'
+select ce.ID_client_entreprise as "ID entreprise", 
+sum(l.quantite_piece_commande) as "Quantité commandée"
 from liste_piece_commande l
 join commande c on c.numero_commande=l.numero_commande_piece
 join client_entreprise ce on ce.ID_client_entreprise=c.ID_client_entreprise
@@ -302,9 +267,8 @@ group by ce.ID_client_entreprise;
 
 #montant cumulé piece
 #client_entreprise
-select ce.ID_client_entreprise as 'ID entreprise', 
-ce.nom_client_entreprise as 'Nom',
-sum(l.quantite_piece_commande*p.prix_piece) as 'Dépense totale de pièces (en €)'
+select ce.ID_client_entreprise as "ID entreprise", 
+	sum(l.quantite_piece_commande*p.prix_piece) as "Montant cumulé" 
 from liste_piece_commande l
 join piece p on p.numero_piece_catalogue=l.numero_piece_catalogue_commande
 join commande c on c.numero_commande=l.numero_commande_piece
@@ -327,18 +291,17 @@ group by numero_commande
 order by numero_commande;
 */
 
-#on sélectionne le prix total des vélo par commande
-select numero_commande as 'NumCommandeVelo', 
-sum(prix_velo*quantite_velo_commande) as 'SommeVelo'
+#on sélectionne le prix total des pièces par commande
+select numero_commande, 
+sum(prix_velo*quantite_velo_commande) 
 from commande c
 join liste_velo_commande lv on lv.numero_commande_velo=c.numero_commande
 join velo v on v.numero_velo=lv.numero_velo
 group by numero_commande
 order by numero_commande;
 
-#on sélectionne le prix total des piece par commande
-select numero_commande as 'NumCommandePiece', 
-sum(prix_piece*quantite_piece_commande) as 'SommePiece'
+#on sélectionne le prix total des vélos par commande
+select numero_commande, sum(prix_piece*quantite_piece_commande)
 from commande c
 join liste_piece_commande lp on lp.numero_commande_piece=c.numero_commande
 join piece p on p.numero_piece_catalogue=lp.numero_piece_catalogue_commande
@@ -353,53 +316,19 @@ select count(numero_commande) from commande;
 
 
 -- 5b
-select numero_commande as 'NumCommande', 
-numero_velo as 'NumVelo',  
-sum(quantite_velo_commande) as 'SommeVelo'
+select numero_commande, numero_velo, sum(quantite_velo_commande)
 from commande c
 join liste_velo_commande lv on lv.numero_commande_velo=c.numero_commande
 group by numero_commande
 order by numero_commande;
 
-
--- moyenne velo commande FINAL
-select avg(newtable.SommeVelo) as 'SommeVelo'
-from 
-(
-select numero_commande as 'NumCommande', 
-numero_velo as 'NumVelo',  
-sum(quantite_velo_commande) as 'SommeVelo'
-from commande c
-join liste_velo_commande lv on lv.numero_commande_velo=c.numero_commande
-group by numero_commande
-)newtable;
-
-
-select numero_commande as 'NumCommande',
-numero_piece_catalogue_commande as 'NumPiece', 
-sum(quantite_piece_commande)as 'SommePiece'
+select numero_commande, numero_piece_catalogue_commande, sum(quantite_piece_commande)
 from commande c
 join liste_piece_commande lp on lp.numero_commande_piece=c.numero_commande
 group by numero_commande
 order by numero_commande;
 
--- moyenne piece commande FINAL
-select avg(newtable.SommePiece) as 'SommePiece'
-from 
-(
-select numero_commande as 'NumCommande',
-numero_piece_catalogue_commande as 'NumPiece', 
-sum(quantite_piece_commande)as 'SommePiece'
-from commande c
-join liste_piece_commande lp on lp.numero_commande_piece=c.numero_commande
-group by numero_commande
-order by numero_commande
-)newtable;
-
-
-
-
-
+select count(numero_commande) from commande;
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
 -- Nouveaux Utilisateurs 
@@ -428,7 +357,7 @@ join client_particulier ce on ce.ID_client_particulier=c.ID_client_particulier;
 
 
 
-SELECT ID_client_particulier AS ID,
+SELECT SUBSTRING(ID_client_particulier, 6), ID_client_particulier AS ID,
 nom_client_particulier AS 'Nom',
 prenom_client_particulier AS 'Prénom',
 date_adhesion_programme AS 'Date adhésion programme',
@@ -436,7 +365,8 @@ courriel_particulier AS 'Courriel',
 telephone_particulier AS 'Téléphone',
 numero_programme AS 'Numéro programme',
 ID_adresse_client_particulier AS 'Adresse'
-FROM client_particulier;
+FROM client_particulier
+order by CONVERT(SUBSTRING(ID_client_particulier, 6), UNSIGNED INT);
 
 select ID_client_entreprise as 'ID',
 nom_client_entreprise as 'Entreprise',
@@ -445,7 +375,8 @@ courriel_entreprise as 'Courriel',
 telephone_entreprise as 'Téléphone',
 nom_contact_entreprise as 'Nom contact',
 ID_adresse_client_entreprise as 'ID adresse'
-from client_entreprise;
+from client_entreprise
+order by CONVERT(SUBSTRING(ID_client_entreprise, 4), UNSIGNED INT);
 
 select * from client_entreprise;
 
@@ -467,7 +398,16 @@ select * from adresse;
 select * from adresse where ID_adresse=0;
 select count(*) from client_entreprise;
 
-select * from velo;
+select * from commande;
 
-select CONVERT(SUBSTRING(numero_piece, 2), UNSIGNED INT) from piece;
+select * from client_entreprise;
 
+select * from client_particulier;
+
+select max(CONVERT(SUBSTRING(numero_piece, 2), UNSIGNED INT)) from piece;
+
+select * from client_particulier order by CONVERT(SUBSTRING(ID_client_particulier, 6), UNSIGNED INT);
+
+SELECT * FROM programme ORDER BY numero_programme;
+
+select SUBSTRING(numero_piece, 1) from piece;

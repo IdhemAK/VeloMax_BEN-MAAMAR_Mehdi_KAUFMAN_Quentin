@@ -65,12 +65,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 isClient_entreprise, isClient_particulier, isAdresse };
 
             isChanged = false;
-            /*
-            MySqlDataReader reader = commande.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(reader);
-            reader.Close();
-            */
         }
 
         public void Visibilities()
@@ -86,6 +80,36 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }
         }
 
+        public void DisplayTypeClient(string typeClient)
+        {
+            string chain = null;
+            List<string> ids = velomax.SelectColumn(connection, typeClient,
+                "CONVERT(SUBSTRING(ID_" + typeClient + ", 6), UNSIGNED INT)",
+                "CONVERT(SUBSTRING(ID_" + typeClient + ", 6), UNSIGNED INT)");
+
+            if (typeClient == "client_entreprise")
+            {
+                List<string> nomE = velomax.SelectColumn(connection, "client_entreprise", "nom_client_entreprise",
+                    "CONVERT(SUBSTRING(ID_" + typeClient + ", 6), UNSIGNED INT)");
+                for (int i = 0; i < nomE.Count(); i++)
+                {
+                    chain += "\n" + ids[i] + " : " + nomE[i];
+                }
+            }
+            else
+            {
+                List<string> nomP = velomax.SelectColumn(connection, "client_particulier", "nom_client_particulier",
+                    "CONVERT(SUBSTRING(ID_" + typeClient + ", 6), UNSIGNED INT)");
+                List<string> prenomP = velomax.SelectColumn(connection, "client_particulier", "prenom_client_particulier",
+                    "CONVERT(SUBSTRING(ID_" + typeClient + ", 6), UNSIGNED INT)");
+                for (int i = 0; i < nomP.Count(); i++)
+                {
+                    chain += "\n" + ids[i] + " : " + nomP[i] + " " + prenomP[i];
+                }
+            }
+            MessageBox.Show("Entrer l'un des ID correspondant à l'un des clients existant suivants :\n" + chain);
+        }
+
         private void Creer(object sender, RoutedEventArgs e)
         {
             DataRowView rowview = IODataGrid.SelectedItem as DataRowView;
@@ -94,9 +118,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 MessageBox.Show("DataGrid NULL");
             }
             else
-            {
-                if (isTab[0] == true)
-                {                    
+            {                
+                if (isTab[0] == true) //velo 
+                {                   
                     string[] velo = new string[rowview.Row.ItemArray.Length];
                     for(int i = 1; i < velo.Length; i++)
                     {
@@ -139,6 +163,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                                 velo[6] = "null";
                                 velomax.Create(connection, "velo", velo, new int[] { 0, 3, 6, 7 });
                             }
+                            else velomax.Create(connection, "velo", velo, new int[] { 0, 3, 7 });
 
                             DataTable newVelo = velomax.dataLoader(connection, velomax.GetVelo);
                             IODataGrid.ItemsSource = newVelo.DefaultView;
@@ -148,8 +173,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                     {
                         MessageBox.Show("Mauvais format de date\nBon format : YYYY/MM/DD");
                     }
-                }
-                else if (isTab[1] == true)
+                } //velo
+                else if (isTab[1] == true) //piece
                 {
                     string[] piece = new string[rowview.Row.ItemArray.Length];
                     
@@ -158,25 +183,29 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                         piece[i] = Convert.ToString(rowview.Row.ItemArray[i]);
                     }
 
-                    if (DateTime.TryParse(piece[3], out DateTime dateIntro) || DateTime.TryParse(piece[4], out DateTime dateDiscont)
-                        || piece[3] == "" || piece[4] == "")
+                    if (!DateTime.TryParse(piece[3], out DateTime dateIntro) || !DateTime.TryParse(piece[4], out DateTime dateDiscont)
+                        || piece[3] != "" || piece[4] != "")
+                    {
+                        MessageBox.Show("Mauvais format de date\nBon format : YYYY/MM/DD");
+                    }
+                    else
                     {
                         string test = null;
 
                         bool okInt = true;
-                        for(int i = 5; i < piece.Length && okInt == true; i++)
+                        for (int i = 5; i < piece.Length && okInt == true; i++)
                         {
                             if (!int.TryParse(piece[i], out int result)) okInt = false;
                             test += piece[i] + " ";
                         }
-                       
+
                         if (okInt == false) MessageBox.Show("Entrer un nombre entier pour : \n-Prix\n-Délai\n-Stock");
                         else
                         {
                             if (comboBoxFournisseur.Text == "") MessageBox.Show("Entrer un fournisseur dans le menu déroulant");
                             else
                             {
-                                int numeroPiece = velomax.IDMaxPlusOne(connection, "piece", "numero_piece", 2);
+                                int numeroPiece = velomax.IDMaxPlusOne(connection, "piece", "numero_piece", 2, true);
 
                                 piece[0] = comboBoxFournisseur.Text + "_P" + numeroPiece;
                                 piece[1] = "P" + numeroPiece;
@@ -198,25 +227,63 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                                     piece[4] = "null";
                                     velomax.Create(connection, "piece", piece, new int[] { 4, 5, 6, 7 });
                                 }
+                                else velomax.Create(connection, "piece", piece, new int[] { 5, 6, 7 });
 
                                 //MessageBox.Show(piece[3] + " " + piece[4]);
                                 //MessageBox.Show(test);
 
                                 DataTable newPiece = velomax.dataLoader(connection, velomax.GetPiece);
                                 IODataGrid.ItemsSource = newPiece.DefaultView;
-                            }                          
-                        }                      
+                            }
+                        }
+                    }
+                } //piece
+                else if (isTab[2] == true) //commande
+                {
+                    string id = Convert.ToString(rowview.Row.ItemArray[4]);
+                    string idClient = (Entreprises.IsChecked == true ? "cliE_" : "cliP_") + id;
+
+                    //start
+                    string typeClient = Entreprises.IsChecked == true ? "client_entreprise" : "client_particulier";
+                    if (!int.TryParse(id, out int res))
+                    {
+                        DisplayTypeClient(typeClient);
+                    }
+                    else if (!velomax.ExistsInDataBase(connection, typeClient, "ID_" + typeClient, idClient, false))
+                    {
+                        DisplayTypeClient(typeClient);
                     }
                     else
                     {
-                        MessageBox.Show("Mauvais format de date\nBon format : YYYY/MM/DD");
-                    }
-                }
-                else if (isCommande == true)
-                {
+                        string[] fullCommande = new string[6];
+                        fullCommande[0] = Convert.ToString(velomax.IDMaxPlusOne(connection, "commande", "numero_commande", 0, false));
+                        DateTime now = DateTime.Now;
+                        fullCommande[1] = now.ToString("yyyy/MM/dd");
+                        fullCommande[2] = (now + new TimeSpan(new Random().Next(1, 30), 0, 0, 0)).ToString("yyyy/MM/dd");
+                        fullCommande[3] = velomax.SelectColumnFromWhere(connection, typeClient, "ID_adresse_" + typeClient, "ID_" + typeClient, idClient)[0];
+                        
+                        string test = null;
 
-                }
-                else if (isTab[3] == true)
+                        DataTable newCommande = null;
+                        if (Entreprises.IsChecked == true)
+                        {
+                            fullCommande[4] = idClient;
+                            fullCommande[5] = "null";
+                            velomax.Create(connection, "commande", fullCommande, new int[] { 0, 3, 5 });
+                            newCommande = velomax.dataLoader(connection, velomax.GetCommande_entreprise);
+                        }
+                        else
+                        {
+                            fullCommande[4] = "null";
+                            fullCommande[5] = idClient;
+                            velomax.Create(connection, "commande", fullCommande, new int[] { 0, 3, 4 });
+                            newCommande = velomax.dataLoader(connection, velomax.GetCommande_particulier);
+                        }                      
+                        //MessageBox.Show(test);
+                        IODataGrid.ItemsSource = newCommande.DefaultView;
+                    }
+                } //commande
+                else if (isTab[3] == true) //fournisseur
                 {
                     string[] fournisseur = new string[rowview.Row.ItemArray.Length];                        
                     for (int i = 0; i < fournisseur.Length; i++)
@@ -224,35 +291,31 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                         fournisseur[i] = Convert.ToString(rowview.Row.ItemArray[i]);
                     }
                     
-
                     if (!int.TryParse(fournisseur[4], out int result))
                     {
                         MessageBox.Show("Entrer un nombre pour l'identifiant adresse");
                     }
                     else
-                    {
-                        
+                    {                        
                         if (!velomax.ExistsInDataBase(connection, "adresse", "ID_adresse", fournisseur[4], true))
                         {
                             MessageBox.Show("Entrer un identifiant adresse existant");
                         }
                         else
-                        {
-                            
+                        {                           
                             if(velomax.ExistsInDataBase(connection, "fournisseur", "siret_fournisseur", fournisseur[0], false))
                             {
                                 MessageBox.Show("Entrer un siret non existant");
                             }
                             else
                             {
-                                velomax.Create(connection, "fournisseur", fournisseur, new int[] { 4 });                                
+                                velomax.Create(connection, "fournisseur", fournisseur, new int[] { 4 });
+                                DataTable newFournisseur = velomax.dataLoader(connection, velomax.GetFournisseur);
+                                IODataGrid.ItemsSource = newFournisseur.DefaultView;
                             }                           
                         }
-                    }                   
-
-                    DataTable newFournisseur = velomax.dataLoader(connection, velomax.GetFournisseur);
-                    IODataGrid.ItemsSource = newFournisseur.DefaultView;
-                }
+                    }                                      
+                } //fournisseur
                 else if (isClient_entreprise == true)
                 {
 
@@ -276,7 +339,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                     {
                         adresse[i] = Convert.ToString(rowview.Row.ItemArray[i]);
                     }
-                    MessageBox.Show(adresse[0]);
                     velomax.Create(connection, "adresse", adresse, new int[] { 0 });
                     
                     //if (!velomax.ExistsInDataBase(connection, "adresse", "ID_adresse", rowview.Row[0].ToString()))
@@ -357,11 +419,11 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             Particuliers.Visibility = Visibility.Collapsed;
             stackPanelFournisseur.Visibility = Visibility.Collapsed;
 
+            newPageCommande.Visibility = Visibility.Collapsed;
+
             DataTable particuliers = velomax.dataLoader(connection, velomax.GetVelo);
             IODataGrid.ItemsSource = particuliers.DefaultView;
             IsTableChecking(0);
-
-
         }
 
         private void Piece(object sender, RoutedEventArgs e)
@@ -372,13 +434,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             Particuliers.IsChecked = false;
             Entreprises.Visibility = Visibility.Collapsed;
             Particuliers.Visibility = Visibility.Collapsed;
+            stackPanelFournisseur.Visibility = Visibility.Visible;
 
-            
+            newPageCommande.Visibility = Visibility.Collapsed;
 
             DataTable piece = velomax.dataLoader(connection, velomax.GetPiece);
-
-            stackPanelFournisseur.Visibility = Visibility.Visible;
-            comboBoxFournisseur.ItemsSource = velomax.NomDesFournisseurs(connection);
+            comboBoxFournisseur.ItemsSource = velomax.SelectColumn(connection, "fournisseur", "nom_fournisseur", "nom_fournisseur");
 
             IODataGrid.ItemsSource = piece.DefaultView;
             IsTableChecking(1);
@@ -394,13 +455,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             Particuliers.Visibility = Visibility.Collapsed;
             stackPanelFournisseur.Visibility = Visibility.Collapsed;
 
+            newPageCommande.Visibility = Visibility.Collapsed;
+
             DataTable fournisseur = velomax.dataLoader(connection, velomax.GetFournisseur);
             IODataGrid.ItemsSource = fournisseur.DefaultView;
             
             IsTableChecking(3);
-
-            //comboboxAdresse.SelectedItemBinding = fournisseur.Columns[4];
-            //comboboxAdresse.ItemsSource = new List<string>() { "A", "B", "C", "D" };
         }
 
         private void Commande(object sender, RoutedEventArgs e)
@@ -413,6 +473,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             Particuliers.IsChecked = false;
             IODataGrid.ItemsSource = null;
             stackPanelFournisseur.Visibility = Visibility.Collapsed;
+
+            newPageCommande.Visibility = Visibility.Visible;
+
+            IsTableChecking(2);
         }
 
         private void Client(object sender, RoutedEventArgs e)
@@ -425,6 +489,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             Particuliers.IsChecked = false;
             IODataGrid.ItemsSource = null;
             stackPanelFournisseur.Visibility = Visibility.Collapsed;
+
+            newPageCommande.Visibility = Visibility.Collapsed;
         }
 
         private void Entreprises_Checked(object sender, RoutedEventArgs e)
@@ -469,12 +535,141 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             Particuliers.Visibility = Visibility.Collapsed;
             stackPanelFournisseur.Visibility = Visibility.Collapsed;
 
+            newPageCommande.Visibility = Visibility.Collapsed;
+
             DataTable adresse = velomax.dataLoader(connection, velomax.GetAdresse);        
             IODataGrid.ItemsSource = adresse.DefaultView;
             
             IsTableChecking(6);           
         }
 
+        
+        private void newPageCommande_Checked(object sender, RoutedEventArgs e)
+        {
+            DataRowView rowview = IODataGrid.SelectedItem as DataRowView;
+            if (rowview == null)
+            {
+                MessageBox.Show("Item NULL");
+                newPageCommande.IsChecked = false;
+            }
+            else
+            {
+                if (!int.TryParse(rowview.Row[0].ToString(), out int res))
+                {
+                    MessageBox.Show("Choisir une case avec un numéro commande");
+                    newPageCommande.IsChecked = false;
+                }
+                else
+                {
+                    if (rowview.Row[1].ToString() == "" || rowview.Row[2].ToString() == "" || rowview.Row[3].ToString() == ""
+                            || rowview.Row[4].ToString() == "")
+                    {
+                        MessageBox.Show("Sélectionner une commande existante");
+                        newPageCommande.IsChecked = false;
+                    }
+                    else if (!velomax.ExistsInDataBase(connection, "commande", "numero_commande", Convert.ToString(res), true))
+                    {
+                        MessageBox.Show("Numéro commande non existant");
+                        newPageCommande.IsChecked = false;
+                    }
+                    else
+                    {
+                        #region DataGrids parameters
+                        //taille datagrid original : Height=269 && Width=550
+                        //nouvelle taille : Height=220 then 190 && Width =250
+                        IODataGrid.ItemsSource = null;
+                        IODataGrid.Height = 150;
+                        IODataGrid.Width = 250;
+                        IODataGrid.Margin = new Thickness(IODataGrid.Margin.Left, IODataGrid.Margin.Top + 50,
+                            IODataGrid.Margin.Right, IODataGrid.Margin.Bottom);
+                        IODataGrid.CanUserAddRows = false;
+                        IODataGrid.IsReadOnly = true;
 
+                        IODataGridBis.Visibility = Visibility.Visible;
+                        IODataGridTer.Visibility = Visibility.Visible;
+
+                        Entreprises.Visibility = Visibility.Collapsed;
+                        Particuliers.Visibility = Visibility.Collapsed;
+
+                        AddVelo.Visibility = Visibility.Visible;
+                        AddPiece.Visibility = Visibility.Visible;
+
+                        DataGridVeloCommand.Visibility = Visibility.Visible;
+                        DataGridPieceCommand.Visibility = Visibility.Visible;
+                        #endregion DataGrids parameters
+
+                        string requeteCommandToEdit = "select numero_commande as 'Numéro commande'," +
+                            "DATE_FORMAT(date_commande, '%Y-%m-%d') as 'Date de commande'," +
+                            "DATE_FORMAT(date_livraison_commande, '%Y-%m-%d') as 'Date de livraison'," +
+                            "ID_adresse_commande as 'ID adresse',";
+                            
+
+                        if(Entreprises.IsChecked == true)
+                        {
+                            requeteCommandToEdit += "c.ID_client_entreprise as 'ID entreprise' " +
+                            "from commande c " +
+                            "join client_entreprise ce on ce.ID_client_entreprise = c.ID_client_entreprise " +
+                            "where numero_commande=" + rowview.Row[0].ToString()  + ";";
+                        }
+                        else
+                        {
+                            requeteCommandToEdit += "c.ID_client_particulier as 'ID particulier' " +
+                            "from commande c " +
+                            "join client_particulier cp on cp.ID_client_particulier = c.ID_client_particulier " +
+                            "where numero_commande=" + rowview.Row[0].ToString() + ";";
+                        }
+
+                        DataTable commandToEdit = velomax.dataLoader(connection, requeteCommandToEdit);
+
+                        IODataGridTer.ItemsSource = commandToEdit.DefaultView;
+
+                        DataTable velo = velomax.dataLoader(connection, velomax.GetVelo);
+                        IODataGrid.ItemsSource = velo.DefaultView;
+
+                        DataTable piece = velomax.dataLoader(connection, velomax.GetPiece);
+                        IODataGridBis.ItemsSource = piece.DefaultView;
+                    }
+                }
+            }
+        }
+
+        private void newPageCommande_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if(IODataGrid.Margin.Top == 150)
+            {
+                IODataGrid.ItemsSource = null;
+                IODataGrid.Height = 269;
+                IODataGrid.Width = 550;
+                IODataGrid.Margin = new Thickness(IODataGrid.Margin.Left, IODataGrid.Margin.Top - 50,
+                                IODataGrid.Margin.Right, IODataGrid.Margin.Bottom);                
+                IODataGrid.CanUserAddRows = true;
+                IODataGrid.IsReadOnly = false;
+
+                IODataGridBis.Visibility = Visibility.Collapsed;
+                IODataGridTer.Visibility = Visibility.Collapsed;
+
+                Entreprises.Visibility = Visibility.Visible;
+                Particuliers.Visibility = Visibility.Visible;
+
+                AddVelo.Visibility = Visibility.Collapsed;
+                AddPiece.Visibility = Visibility.Collapsed;
+
+                DataGridVeloCommand.Visibility = Visibility.Collapsed;
+                DataGridPieceCommand.Visibility = Visibility.Collapsed;
+
+                if (Entreprises.IsChecked == true) Entreprises_Checked(sender, e);
+                else Particuliers_Checked(sender, e);
+            }
+        }
+
+        private void AjoutVelo(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AjoutPiece(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

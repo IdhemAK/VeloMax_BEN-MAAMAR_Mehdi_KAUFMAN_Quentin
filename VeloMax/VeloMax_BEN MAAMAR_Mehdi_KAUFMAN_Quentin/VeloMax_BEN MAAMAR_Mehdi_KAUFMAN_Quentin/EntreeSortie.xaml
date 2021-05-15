@@ -8,8 +8,9 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EntreeSortie">
 
-    
+
     <Grid Background="White">
+        <Frame x:Name="CommandeFrame" Margin="0,69,0,-0.4" NavigationUIVisibility="Hidden"/>
         <Button Content="Créer" HorizontalAlignment="Left" Margin="419,10,0,0" VerticalAlignment="Top" Width="76" Click="Creer"/>
         <Button Content="Supprimer" HorizontalAlignment="Left" Margin="538,10,0,0" VerticalAlignment="Top" Width="75" Click="Supprimer" RenderTransformOrigin="1.083,0.729"/>
         <Button Content="Modifier" HorizontalAlignment="Left" Margin="653,10,0,0" VerticalAlignment="Top" Width="75"/>
@@ -19,8 +20,8 @@
         <Button Content="Vélo" HorizontalAlignment="Left" Margin="42,270,0,0" VerticalAlignment="Top" Width="75" Click="Velo"/>
         <Button Content="Pièce" HorizontalAlignment="Left" Margin="42,327,0,0" VerticalAlignment="Top" Width="75" Click="Piece"/>
         <Button Content="Adresse" HorizontalAlignment="Left" Margin="42,50,0,0" VerticalAlignment="Top" Width="75" Click="Adresse"/>
-        <CheckBox Name="Entreprises" Content="Entreprises" HorizontalAlignment="Left" Margin="537,80,0,0" VerticalAlignment="Top" Checked="Entreprises_Checked"/>
-        <CheckBox Name="Particuliers" Content="Particuliers" HorizontalAlignment="Left" Margin="663,80,0,0" VerticalAlignment="Top" Checked="Particuliers_Checked"/>
+        <CheckBox Name="Entreprises" Content="Entreprises" HorizontalAlignment="Left" Margin="599,80,0,0" VerticalAlignment="Top" Checked="Entreprises_Checked"/>
+        <CheckBox Name="Particuliers" Content="Particuliers" HorizontalAlignment="Left" Margin="700,80,0,0" VerticalAlignment="Top" Checked="Particuliers_Checked"/>
 
 
         <DataGrid 
@@ -28,13 +29,13 @@
             x:Name="IODataGrid"
             HorizontalAlignment="Left" 
             Height="269" 
-            Margin="247,100,0,0" 
+            Margin="233,100,0,0" 
             VerticalAlignment="Top" 
-            Width="543"
+            Width="550"            
+            AlternatingRowBackground="#9CDFFF"
             CanUserAddRows="True"
             CanUserDeleteRows="False"
             IsReadOnly="False"
-            AlternatingRowBackground="#9CDFFF"
             CanUserResizeRows="False" 
             >
 
@@ -52,7 +53,7 @@
                 </DataGridTemplateColumn.CellEditingTemplate>
             </DataGridTemplateColumn>
             -->
-           
+
             <!--
             <DataGrid.Columns>
                 <DataGridComboBoxColumn Header="Fournisseur" x:Name="comboBoxFournisseur"
@@ -65,13 +66,74 @@
         </DataGrid>
         <TextBlock HorizontalAlignment="Left" Margin="42,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Date : YYYY"/><Run Text="/"/><Run Text="MM"/><Run Text="/"/><Run Text="DD"/></TextBlock>
 
-
-        <StackPanel Name="stackPanelFournisseur" Visibility="Collapsed" HorizontalAlignment="Left" Height="54" Margin="240,41,0,0" VerticalAlignment="Top" Width="143">
-            <ComboBox Name="comboBoxFournisseur" HorizontalAlignment="Left" Margin="11,30,0,35" VerticalAlignment="Top" Width="120"/>
-        <TextBlock HorizontalAlignment="Left" Margin="40,-80,0,0" TextWrapping="Wrap" Text="Fournisseur" VerticalAlignment="Top" RenderTransformOrigin="0.75,0.713"/>
+        <StackPanel Name="stackPanelFournisseur" Visibility="Collapsed" HorizontalAlignment="Left" Height="54" Margin="233,41,0,0" VerticalAlignment="Top" Width="105">
+            <ComboBox Name="comboBoxFournisseur" HorizontalAlignment="Left" Margin="5,30,0,35" VerticalAlignment="Top" Width="90"/>
+            <TextBlock Name="indicationText" HorizontalAlignment="Left" Margin="20,-80,0,0" TextWrapping="Wrap" Text="Fournisseur" VerticalAlignment="Top" RenderTransformOrigin="0.75,0.713"/>
         </StackPanel>
 
+        <CheckBox Name="newPageCommande" 
+                  Visibility="Collapsed" 
+                  Content="Voir/Compléter commande" 
+                  HorizontalAlignment="Left" 
+                  Margin="391,80,0,0" 
+                  VerticalAlignment="Top" 
+                  Checked="newPageCommande_Checked"
+                  Unchecked="newPageCommande_Unchecked"/>
 
+        <DataGrid x:Name="IODataGridBis" 
+                  Visibility="Collapsed" 
+                  HorizontalAlignment="Left" 
+                  Height="150" 
+                  Margin="533,150,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="250"
+                  AlternatingRowBackground="#9CDFFF"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  CanUserResizeRows="False"/>
+
+        <DataGrid x:Name="IODataGridTer" 
+                  Visibility="Collapsed" 
+                  HorizontalAlignment="Left" 
+                  Height="45" 
+                  Margin="233,100,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="550"
+                  AlternatingRowBackground="Silver"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  CanUserResizeRows="False" />
+
+        <Button Name="AddVelo" Content="Ajouter Vélo" Visibility="Collapsed" HorizontalAlignment="Left" Margin="233,335,0,0" VerticalAlignment="Top" Width="75" Click="AjoutVelo"/>
+        <Button Name="AddPiece" Content="Ajouter Pièce" Visibility="Collapsed" HorizontalAlignment="Left" Margin="533,335,0,0" VerticalAlignment="Top" Width="75" Click="AjoutPiece"/>
+
+        <DataGrid x:Name="DataGridVeloCommand" 
+                  Visibility="Collapsed"
+                  HorizontalAlignment="Left" 
+                  Height="64" 
+                  Margin="333,305,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="150"
+                  AlternatingRowBackground="Snow"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  CanUserResizeRows="False"/>
+
+        <DataGrid x:Name="DataGridPieceCommand" 
+                  Visibility="Collapsed"
+                  HorizontalAlignment="Left" 
+                  Height="64" 
+                  Margin="633,305,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="150"
+                  AlternatingRowBackground="Snow"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  CanUserResizeRows="False"/>
 
     </Grid>
 </Page>

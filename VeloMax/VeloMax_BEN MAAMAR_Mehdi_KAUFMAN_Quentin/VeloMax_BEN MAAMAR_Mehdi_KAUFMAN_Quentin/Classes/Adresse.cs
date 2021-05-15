@@ -56,5 +56,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             set { province_adresse = value; }
         }
         #endregion Accesseurs
+
+        public override string ToString()
+        {
+            return ID_Adresse + " : " + rue_adresse + " " + ville_adresse + " " + code_postal_adresse + " " + province_adresse;
+        }
     }
 }

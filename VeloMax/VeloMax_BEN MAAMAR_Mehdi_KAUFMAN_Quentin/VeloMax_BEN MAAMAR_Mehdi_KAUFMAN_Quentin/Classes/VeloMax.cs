@@ -59,7 +59,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 "DATE_FORMAT(p.date_discontinuation_piece, '%Y-%m-%d') as 'Fin production'," +
                 " p.prix_piece as 'Prix'," +
                 " p.delai_approvisionnement_piece as 'Délai'," +
-                " p.stock_piece as 'Stock' from piece p;";
+                " p.stock_piece as 'Stock' from piece p " +
+                "ORDER BY CONVERT(SUBSTRING(numero_piece, 2), UNSIGNED INT);";
 
             getCommande_entreprise = "select numero_commande as 'Numéro commande'," +
                 "DATE_FORMAT(date_commande, '%Y-%m-%d') as 'Date de commande'," +
@@ -91,7 +92,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 "telephone_entreprise as 'Téléphone'," +
                 "nom_contact_entreprise as 'Nom contact'," +
                 "ID_adresse_client_entreprise as 'ID adresse'" +
-                "from client_entreprise;";
+                "from client_entreprise " +
+                "order by CONVERT(SUBSTRING(ID_client_entreprise, 6), UNSIGNED INT);";
 
             getClient_particulier = "SELECT ID_client_particulier AS 'ID'," +
                 "nom_client_particulier AS 'Nom'," +
@@ -101,7 +103,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 "telephone_particulier AS 'Téléphone'," +
                 "numero_programme AS 'Numéro programme'," +
                 "ID_adresse_client_particulier AS 'Adresse'" +
-                "FROM client_particulier; ";
+                "FROM client_particulier " +
+                "order by CONVERT(SUBSTRING(ID_client_particulier, 6), UNSIGNED INT); ";
 
             getAdresse = "select ID_adresse as 'ID adresse'," +
                 "rue_adresse as 'Rue'," +
@@ -133,6 +136,73 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             this.catalogue = catalogue;
         }
         #endregion Constructeurs
+
+
+        public object SelectAllFromTable(MySqlConnection connection, string table)
+        {
+            connection.Open();
+
+            MySqlCommand command = connection.CreateCommand();
+            MySqlDataReader reader;
+
+            object liste = null;
+
+            switch(table)
+            {
+                case "adresse":
+                    command.CommandText = "SELECT * FROM adresse order by ID_adresse;";
+                    reader = command.ExecuteReader();
+                    adresse = new List<Adresse>();
+                    while (reader.Read())
+                    {
+                        adresse.Add(new Adresse(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                            reader.GetString(3), reader.GetString(4)));
+                    }
+                    liste = adresse;
+                    break;                  
+
+                case "client_entreprise":
+                    command.CommandText = "SELECT * FROM client_entreprise ORDER BY CONVERT(SUBSTRING(ID_client_entreprise, 6), UNSIGNED INT);";
+                    reader = command.ExecuteReader();
+                    client = new List<Client>();
+                    while (reader.Read())
+                    {
+                        client.Add(new Client_entreprise(reader.GetString(0), reader.GetString(3), reader.GetString(4),
+                            adresse.Find(ad => ad.ID_Adresse == reader.GetInt32(6)), reader.GetString(1), reader.GetFloat(2),
+                            reader.GetString(5)));
+                    }
+                    liste = client;
+                    break;
+
+                case "client_particulier":
+                    command.CommandText = "SELECT * FROM client_particulier ORDER BY CONVERT(SUBSTRING(ID_client_particulier, 6), UNSIGNED INT);";
+                    reader = command.ExecuteReader();
+                    client = new List<Client>();
+                    while (reader.Read())
+                    {
+                        client.Add(new Client_particulier(reader.GetString(0), reader.GetString(4), reader.GetString(5),
+                            adresse.Find(ad => ad.ID_Adresse == reader.GetInt32(7)), reader.GetString(1), reader.GetString(2),
+                            reader.GetDateTime(3), programme.Find(prog => prog.Numero_programme == reader.GetInt32(6))));
+                    }
+                    liste = client;
+                    break;
+
+                case "programme":
+                    command.CommandText = "SELECT * FROM programme ORDER BY numero_programme;";
+                    reader = command.ExecuteReader();
+                    programme = new List<Programme>();
+                    while (reader.Read())
+                    {
+                        programme.Add(new Programme(reader.GetInt32(0), reader.GetString(1), reader.GetFloat(2),
+                            reader.GetInt32(3), reader.GetFloat(4)));
+                    }
+                    liste = programme;
+                    break;
+            }           
+            connection.Close();
+            return liste;
+        }
+
 
         #region Accesseurs Listes
         //Tables
@@ -263,8 +333,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }
             catch (MySqlException e)
             {
-                Console.WriteLine(" ErreurConnexion : " + e.ToString());
-                Console.ReadLine();
+                MessageBox.Show(" ErreurConnexion : " + e.ToString());
                 return;
             }
             connection.Close();
@@ -291,8 +360,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 if (!indexNb.Contains(i)) variables[i] = "'" + variables[i] + "'";
                 test += variables[i] + " ";
             }
-            MessageBox.Show(test);
+            
             Query(connection, Concatenate_Create(table, variables));
+            //MessageBox.Show(test);
         }
 
         /// <summary>
@@ -398,12 +468,31 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             return take == null ? false : true;
         }
 
-        public List<string> NomDesFournisseurs(MySqlConnection connection)
+        public int IDMaxPlusOne(MySqlConnection connection, string table, string column, int nbCharSubstr, bool isSubstr)
+        {
+            connection.Open();
+            MySqlCommand command = connection.CreateCommand();
+
+            command.CommandText = isSubstr == true ? "select max(CONVERT(SUBSTRING(" + column + ", " + nbCharSubstr + "), UNSIGNED INT)) " + "from " + table + ";" :
+                "SELECT max(" + column + ") FROM " + table;
+
+            MySqlDataReader reader;
+            reader = command.ExecuteReader();
+
+            int take = 0;
+            while (reader.Read()) take = reader.GetInt32(0);
+
+            connection.Close();
+
+            return take + 1;
+        }
+
+        public List<string> SelectColumn(MySqlConnection connection, string table, string column, string orderBy)
         {
             connection.Open();
 
             MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT nom_fournisseur FROM fournisseur";
+            command.CommandText = "SELECT " + column + " FROM " + table + " order by " + orderBy + ";";
 
             MySqlDataReader reader;
             reader = command.ExecuteReader();
@@ -415,22 +504,22 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             return take;
         }
 
-        public int IDMaxPlusOne(MySqlConnection connection, string table, string column, int nbCharSubstr)
+        public List<string> SelectColumnFromWhere(MySqlConnection connection, string table, string columnFind, string columnWhere, string where)
         {
             connection.Open();
-            MySqlCommand command = connection.CreateCommand();
 
-            command.CommandText = "select max(CONVERT(SUBSTRING(" + column + ", " + nbCharSubstr + "), UNSIGNED INT)) " + "from " + table + ";";
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT " + columnFind + " FROM " + table + 
+                " WHERE " + columnWhere + " = " + (int.TryParse(where, out int res) ? where:("'" + where + "'")) + ";";
 
             MySqlDataReader reader;
             reader = command.ExecuteReader();
 
-            int take = 0;
-            while (reader.Read()) take = reader.GetInt32(0);
+            List<string> take = new List<string>();
+            while (reader.Read()) take.Add(reader.GetString(0));
 
             connection.Close();
-
-            return take + 1;
+            return take;
         }
     }
 }

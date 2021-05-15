@@ -52,5 +52,99 @@ namespace Program_Velomax
             //int numV = new Velo().Variables_velo.IndexOf(column)
         }
         */
+
+        /* ancienne structure commande EntreeSortie
+                    //Possibility if DateTime condition
+                    if (!int.TryParse(commande[3], out int idAdresse))
+                    {
+                        MessageBox.Show("Entrer un nombre entier pour ID adresse ");
+                    }
+                    else if (!velomax.ExistsInDataBase(connection, "adresse", "ID_adresse", commande[3], true))
+                    {
+                        string chain = null;
+                        List<Adresse> adresse = (List<Adresse>)velomax.SelectAllFromTable(connection, "adresse");
+                        for (int i = 0; i < adresse.Count(); i++)
+                        {
+                            chain += "\n" + adresse[i];
+                        }
+                        MessageBox.Show("Entrer l'un des ID correspondant à l'une des adresses existante suivante : \n" + chain);
+                    }
+                    else if (!int.TryParse(commande[4], out int idClient))
+                    {
+                        string typeClient = Entreprises.IsChecked == true ? "client_entreprise" : "client_particulier";
+                        DisplayTypeClient(typeClient);                        
+                    }
+                    else
+                    {
+                                   
+                    }
+                    
+                    if (DateTime.TryParse(commande[1], out DateTime dateIntro) || DateTime.TryParse(commande[2], out DateTime dateDiscont)
+                        || commande[1] == "" || commande[2] == "")
+                    {
+                                       
+                    }
+                    else MessageBox.Show("Mauvais format de date\nBon format : YYYY/MM/DD");
+
+                    if (commande[1] == "" && commande[2] == "")
+                        {
+                            commande[3] = "null";
+                            commande[4] = "null";
+                            velomax.Create(connection, "commande", commande, new int[] { 0, 1, 2, 3 });
+                        }
+                        else if (commande[1] == "")
+                        {
+                            commande[1] = "null";
+                            velomax.Create(connection, "commande", commande, new int[] { 0, 1, 3 });
+                        }
+                        else if (commande[2] == "")
+                        {
+                            commande[2] = "null";
+                            velomax.Create(connection, "commande", commande, new int[] { 0, 2, 3 });
+                        }
+                        else velomax.Create(connection, "commande", commande, new int[] { 0, 3 });
+                    */
+
+        /* Je ne prends qu'un string dans commande
+                        commande[0] = Convert.ToString(velomax.IDMaxPlusOne(connection, "commande", "numero_commande", 0, false));
+
+                        DateTime now = DateTime.Now;
+                        commande[1] = now.ToString("yyyy/MM/dd");
+                        commande[2] = (now + new TimeSpan(new Random().Next(1, 30), 0, 0, 0)).ToString("yyyy/MM/dd");
+                        commande[3] = velomax.SelectColumnFromWhere(connection, typeClient, "ID_adresse_" + typeClient, "ID_" + typeClient, commande[4])[0];
+                        string[] fullCommande = new string[commande.Length + 1];
+
+                        string test = null;
+
+                        DataTable newCommande = null;
+                        if (Entreprises.IsChecked == true)
+                        {
+                            for (int i = 0; i < commande.Length; i++)
+                            {
+                                fullCommande[i] = commande[i];
+                                test += fullCommande[i] + " ";
+                            }
+                            fullCommande[fullCommande.Length - 1] = "null";
+                            test += fullCommande[fullCommande.Length - 1];
+
+                            MessageBox.Show(test);
+
+                            velomax.Create(connection, "commande", fullCommande, new int[] { 0, 3 });
+                            newCommande = velomax.dataLoader(connection, velomax.GetCommande_entreprise);
+                        }
+                        else
+                        {
+                            for (int i = 0; i < commande.Length - 1; i++) fullCommande[i] = commande[i];
+                            fullCommande[fullCommande.Length - 2] = "null";
+                            fullCommande[fullCommande.Length - 1] = commande[4];
+
+                            velomax.Create(connection, "commande", fullCommande, new int[] { 0, 3 });
+                            newCommande = velomax.dataLoader(connection, velomax.GetCommande_particulier);
+                        }
+                        */
+
+
+        //comboboxAdresse.SelectedItemBinding = fournisseur.Columns[4];
+        //comboboxAdresse.ItemsSource = new List<string>() { "A", "B", "C", "D" };
     }
 }
