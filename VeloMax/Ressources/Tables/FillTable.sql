@@ -410,4 +410,46 @@ select * from client_particulier order by CONVERT(SUBSTRING(ID_client_particulie
 
 SELECT * FROM programme ORDER BY numero_programme;
 
-select SUBSTRING(numero_piece, 1) from piece;
+select numero_piece from piece order by CONVERT(SUBSTRING(numero_piece, 2), UNSIGNED INT);
+
+select SUBSTRING(numero_commande, 1) from commande;
+
+select * from liste_velo_commande where numero_commande_velo=77;
+select * from liste_piece_commande where numero_commande_piece=77;
+
+select * from liste_velo_commande;
+
+select * from liste_piece_commande where numero_commande_piece=1;
+
+select * from piece;
+
+
+
+
+select quantite_velo_commande from liste_velo_commande where numero_commande_velo=1;
+
+select quantite_velo_commande from liste_velo_commande where numero_commande_velo=2;
+select * from liste_velo_commande where numero_commande_velo=2;
+
+select * from client_entreprise;
+
+SELECT * FROM velo order by numero_velo;
+
+select * from client_particulier;
+DELETE FROM adresse where ID_adresse=1;
+
+
+
+DELIMITER |
+CREATE TRIGGER delete_call
+BEFORE INSERT
+ON adresse
+FOR EACH ROW
+BEGIN
+	IF new.date_livraison IS NULL OR new.date_livraison = "0001-01-01" THEN
+    SET new.date_livraison = DATE_ADD(new.date_commande, INTERVAL 1 year);
+	END IF;
+END |
+
+
+select SUBSTRING(numero_piece_catalogue, 1) from piece order by CONVERT(SUBSTRING(numero_piece, 2), UNSIGNED INT);

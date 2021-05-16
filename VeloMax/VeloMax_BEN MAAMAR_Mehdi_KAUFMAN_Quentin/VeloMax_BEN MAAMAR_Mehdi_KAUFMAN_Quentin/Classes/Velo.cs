@@ -98,5 +98,11 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             set { stock_velo = value; }
         }
         #endregion Accesseurs
+
+        public override string ToString()
+        {
+            return numero_velo + " : " + nom_velo + " " + grandeur_velo + " " + prix_velo + "€ " + ligne_produit_velo +
+               " stock-" + stock_velo;
+        }
     }
 }

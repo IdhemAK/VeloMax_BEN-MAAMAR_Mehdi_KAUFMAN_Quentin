@@ -21,3 +21,5 @@ C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFM
 C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\Program_Velomax\obj\Debug\Program_Velomax.csproj.CopyComplete
 C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\Program_Velomax\obj\Debug\Program_Velomax.exe
 C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\Program_Velomax\obj\Debug\Program_Velomax.pdb
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\Program_Velomax\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\Program_Velomax\bin\Debug\Newtonsoft.Json.xml

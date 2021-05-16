@@ -257,10 +257,16 @@ namespace Program_Velomax
             //velomax.Remove(connection, "velo", "numero_velo", "21", true);
             //velomax.Update(connection, "velo", "numero_velo", "nom_velo", "21", "Nocturne", true, false);
 
-            Console.WriteLine(DateTime.TryParse(null, out DateTime res));
+            Console.WriteLine(DateTime.TryParse("2000/05/24", out DateTime res));
+            Console.WriteLine(res.ToString("yyyy-MM-dd"));
 
+            string testStr = "letters";
+            Console.WriteLine(testStr.Substring(2, 5));
             #region Test queries
-            
+
+
+
+
 
             /*
             VeloMax velo = new VeloMax();
@@ -274,6 +280,9 @@ namespace Program_Velomax
 
             string queryUpdate = "UPDATE velo SET nom_velo = 'ALPHABETA' WHERE nom_velo ='Riverside';";
             test.Query(connection, queryUpdate);
+
+            string queryInsert = "INSERT INTO client_entreprise VALUES('cliE_10','reretest',0.08,'Decathlon@gmail.com','15195','gamin',20);";
+            velo.Query(connection, queryInsert);
             */
             #endregion Test queries
 

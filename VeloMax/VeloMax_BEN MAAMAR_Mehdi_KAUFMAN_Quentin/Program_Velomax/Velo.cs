@@ -55,7 +55,6 @@ namespace Program_Velomax
         }
         #endregion Constructeurs
 
-
         #region Accesseurs
         public int Numero_velo
         {
@@ -98,5 +97,12 @@ namespace Program_Velomax
             set { stock_velo = value; }
         }
         #endregion Accesseurs
+
+        public override string ToString()
+        {
+            return numero_velo + " : " + nom_velo + " " + grandeur_velo + " " + prix_velo + "€ " + ligne_produit_velo +
+               "introduction - " + date_introduction_velo.ToString("yyyy-MM-dd") + " discontinuation - " +
+               date_discontinuation_velo.ToString("yyyy-MM-dd") + " stock - " + stock_velo;
+        }
     }
 }

@@ -10,18 +10,143 @@
 
 
     <Grid Background="White">
-        <Frame x:Name="CommandeFrame" Margin="0,69,0,-0.4" NavigationUIVisibility="Hidden"/>
-        <Button Content="Créer" HorizontalAlignment="Left" Margin="419,10,0,0" VerticalAlignment="Top" Width="76" Click="Creer"/>
-        <Button Content="Supprimer" HorizontalAlignment="Left" Margin="538,10,0,0" VerticalAlignment="Top" Width="75" Click="Supprimer" RenderTransformOrigin="1.083,0.729"/>
-        <Button Content="Modifier" HorizontalAlignment="Left" Margin="653,10,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Commande" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="42,112,0,0" Click="Commande"/>
-        <Button Content="Client" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="42,164,0,0" Click="Client"/>
-        <Button Content="Fournisseur" HorizontalAlignment="Left" Margin="42,216,0,0" VerticalAlignment="Top" Width="75" Click="Fournisseur"/>
-        <Button Content="Vélo" HorizontalAlignment="Left" Margin="42,270,0,0" VerticalAlignment="Top" Width="75" Click="Velo"/>
-        <Button Content="Pièce" HorizontalAlignment="Left" Margin="42,327,0,0" VerticalAlignment="Top" Width="75" Click="Piece"/>
-        <Button Content="Adresse" HorizontalAlignment="Left" Margin="42,50,0,0" VerticalAlignment="Top" Width="75" Click="Adresse"/>
-        <CheckBox Name="Entreprises" Content="Entreprises" HorizontalAlignment="Left" Margin="599,80,0,0" VerticalAlignment="Top" Checked="Entreprises_Checked"/>
-        <CheckBox Name="Particuliers" Content="Particuliers" HorizontalAlignment="Left" Margin="700,80,0,0" VerticalAlignment="Top" Checked="Particuliers_Checked"/>
+
+        <Frame x:Name="CommandeFrame" Margin="0,69,0,-0.4" NavigationUIVisibility="Hidden" Grid.RowSpan="2"/>
+        
+        <Button Content="Créer" 
+                HorizontalAlignment="Left" 
+                Margin="363,10,0,0" 
+                VerticalAlignment="Top"  
+                Click="Creer"
+                Background="Aquamarine" 
+                Width="120" 
+                Height="25" 
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3" />
+        
+        <Button Content="Supprimer" 
+                HorizontalAlignment="Left" 
+                Margin="488,10,0,0" 
+                VerticalAlignment="Top" 
+                Click="Supprimer" 
+                RenderTransformOrigin="1.083,0.729"
+                Background="Aquamarine" 
+                Width="120" 
+                Height="25" 
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3" />
+        
+        <Button Content="Modifier" 
+                HorizontalAlignment="Left" 
+                Margin="613,10,0,0" 
+                VerticalAlignment="Top" 
+                Click="Modifier"
+                Background="Aquamarine" 
+                Width="120" 
+                Height="25" 
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3" />
+        
+        <Button Name="CommandeButton" 
+                Content="Commande" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Margin="20,140,0,0" 
+                Click="Commande"
+                Background="LightBlue"
+                Width="150" 
+                Height="35" 
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3"/>
+        
+        <Button Name="ClientButton" 
+                Content="Client" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Margin="20,180,0,0" 
+                Click="Client"
+                Background="LightBlue"
+                Width="150" 
+                Height="35" 
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3"/>
+        
+        <Button Name="FournisseurButton" 
+                Content="Fournisseur" 
+                HorizontalAlignment="Left" 
+                Margin="20,220,0,0" 
+                VerticalAlignment="Top"  
+                Click="Fournisseur"
+                Background="LightBlue"
+                Width="150" 
+                Height="35" 
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3"/>
+        
+        <Button Name="VeloButton" 
+                Content="Vélo" 
+                HorizontalAlignment="Left" 
+                Margin="20,260,0,0" 
+                VerticalAlignment="Top" 
+                Click="Velo"
+                Background="LightBlue"
+                Width="150" 
+                Height="35" 
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3"/>
+        
+        <Button Name="PieceButton" 
+                Content="Pièce" 
+                HorizontalAlignment="Left" 
+                Margin="20,300,0,0" 
+                VerticalAlignment="Top" 
+                Click="Piece"
+                Background="LightBlue"
+                Width="150" 
+                Height="35" 
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3"/>
+        
+        <Button Name="AdresseButton" 
+                Content="Adresse" 
+                HorizontalAlignment="Left" 
+                Margin="20,100,0,0"
+                VerticalAlignment="Top"                 
+                Click="Adresse"
+                Background="LightBlue"
+                Width="150" 
+                Height="35" 
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3" />
+
+        <TextBlock HorizontalAlignment="Left" 
+                   Margin="20,22,0,0" 
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top"
+                   FontStyle="Italic"
+                   FontSize="18"
+                   FontWeight="SemiBold">
+            <Run Text="Date : YYYY"/><Run Text="/"/><Run Text="MM"/><Run Text="/"/><Run Text="DD"/></TextBlock>
+
+        <CheckBox Name="Entreprises" 
+                  Content="Entreprises" 
+                  HorizontalAlignment="Left" 
+                  Margin="561,80,0,0" 
+                  VerticalAlignment="Top" 
+                  Checked="Entreprises_Checked"
+                  FontSize="15"
+                  FontWeight="DemiBold"
+                  Background="AliceBlue"/>
+        
+        <CheckBox Name="Particuliers" 
+                  Content="Particuliers" 
+                  HorizontalAlignment="Left" 
+                  Margin="669,80,0,0" 
+                  VerticalAlignment="Top" 
+                  Checked="Particuliers_Checked"
+                  FontSize="15"
+                  FontWeight="DemiBold"
+                  Background="AliceBlue"/>
 
 
         <DataGrid 
@@ -36,10 +161,168 @@
             CanUserAddRows="True"
             CanUserDeleteRows="False"
             IsReadOnly="False"
-            CanUserResizeRows="False" 
+            CanUserResizeRows="False" Grid.RowSpan="2" 
             >
 
-            <!--
+        </DataGrid>
+        
+        <StackPanel Name="stackPanelFournisseur" Visibility="Collapsed" HorizontalAlignment="Left" Height="54" Margin="233,41,0,0" VerticalAlignment="Top" Width="105">
+            <ComboBox Name="comboBoxFournisseur" 
+                      HorizontalAlignment="Left" 
+                      Margin="5,30,0,35" 
+                      VerticalAlignment="Top" 
+                      Width="90"
+                      BorderBrush="Aquamarine"
+                      BorderThickness="3"/>
+            <TextBlock Name="indicationText" 
+                       HorizontalAlignment="Left" 
+                       Margin="20,-80,0,0" 
+                       TextWrapping="Wrap" 
+                       Text="Fournisseur" 
+                       VerticalAlignment="Top" 
+                       RenderTransformOrigin="0.75,0.713"
+                       FontStyle="Normal"
+                       FontSize="12"
+                       FontWeight="SemiBold"/>
+        </StackPanel>
+
+        <CheckBox Name="newPageCommande" 
+                  Visibility="Collapsed" 
+                  Content="Voir/Compléter commande" 
+                  HorizontalAlignment="Left" 
+                  Margin="343,80,0,0" 
+                  VerticalAlignment="Top" 
+                  Checked="newPageCommande_Checked"
+                  Unchecked="newPageCommande_Unchecked"
+                  FontSize="15"
+                  FontWeight="DemiBold"
+                  Background="AliceBlue"/>
+
+        <DataGrid x:Name="IODataGridBis" 
+                  Visibility="Collapsed" 
+                  HorizontalAlignment="Left" 
+                  Height="130" 
+                  Margin="533,150,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="250"
+                  AlternatingRowBackground="#9CDFFF"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  CanUserResizeRows="False" Grid.RowSpan="2"
+                  FrozenColumnCount ="1"/>
+
+        <DataGrid x:Name="IODataGridTer" 
+                  Visibility="Collapsed" 
+                  HorizontalAlignment="Left" 
+                  Height="45" 
+                  Margin="233,100,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="550"
+                  AlternatingRowBackground="Silver"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  CanUserResizeRows="False" 
+                  FrozenColumnCount ="1"/>
+
+        <Button Name="AddVelo" 
+                Content="Ajouter &#x0a;  Vélo" 
+                Visibility="Collapsed" 
+                HorizontalAlignment="Left" 
+                Margin="233,280,0,0" 
+                VerticalAlignment="Top" 
+                Width="50" Height="42" 
+                Click="AjoutVelo"
+                Background="SkyBlue"
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3"/>
+        
+        <Button Name="AddPiece" 
+                Content="Ajouter &#x0a;  Pièce" 
+                Visibility="Collapsed" 
+                HorizontalAlignment="Left" 
+                Margin="533,280,0,0" 
+                VerticalAlignment="Top" 
+                Width="50" Height="42" 
+                Click="AjoutPiece"
+                Background="SkyBlue"
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3"/>
+
+        <Button Name="RemoveVelo" 
+                Content="Retirer &#x0a;  Vélo" 
+                Visibility="Collapsed" 
+                HorizontalAlignment="Left" 
+                Margin="233,327,0,0" 
+                VerticalAlignment="Top" 
+                Width="50" Height="42" 
+                Click="RemoveVelo_Click"
+                Background="SkyBlue"
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3"/>
+        
+        <Button Name="RemovePiece" 
+                Content="Retirer &#x0a; Pièce" 
+                Visibility="Collapsed" 
+                HorizontalAlignment="Left" 
+                Margin="533,327,0,0" 
+                VerticalAlignment="Top" 
+                Width="50" Height="42" 
+                Click="RemovePiece_Click"
+                Background="SkyBlue"
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3"/>
+
+        <Button Name="SendCommand" 
+                Content="  Envoyer&#x0a;Commande" 
+                Visibility="Collapsed" 
+                HorizontalAlignment="Left" 
+                Margin="708,60,0,0" 
+                VerticalAlignment="Top" 
+                Width="75" 
+                Click="SendCommand_Click"
+                Background="Aqua"
+                BorderBrush="#FF4E95AA" 
+                BorderThickness="3"/>
+
+        <DataGrid x:Name="DataGridVeloCommand" 
+                  Visibility="Collapsed"
+                  HorizontalAlignment="Left" 
+                  Height="89" 
+                  Margin="283,280,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="200"
+                  AlternatingRowBackground="Snow"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  CanUserResizeRows="False"
+                  FrozenColumnCount ="1"/>
+
+        <DataGrid x:Name="DataGridPieceCommand" 
+                  Visibility="Collapsed"
+                  HorizontalAlignment="Left" 
+                  Height="89" 
+                  Margin="583,280,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="200"
+                  AlternatingRowBackground="Snow"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  CanUserResizeRows="False"
+                  FrozenColumnCount ="1"/>
+
+        <Image Name="livreur" Visibility="Collapsed" Margin="0,69,567,80.6" 
+               Source="livreur.jpg"/>
+
+        <!-- Collapsed Visible -->
+    </Grid>
+</Page>
+
+<!-- Recherches et tests sur les DataGrids -->
+<!--
             <DataGridTemplateColumn Header="Velo">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
@@ -54,86 +337,9 @@
             </DataGridTemplateColumn>
             -->
 
-            <!--
+<!--
             <DataGrid.Columns>
                 <DataGridComboBoxColumn Header="Fournisseur" x:Name="comboBoxFournisseur"
                 SelectedValueBinding="{Binding Fournisseur, Mode=TwoWay}" SelectedItemBinding="{Binding Status}" Visibility="Collapsed"/>
             </DataGrid.Columns>
             -->
-
-
-
-        </DataGrid>
-        <TextBlock HorizontalAlignment="Left" Margin="42,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Date : YYYY"/><Run Text="/"/><Run Text="MM"/><Run Text="/"/><Run Text="DD"/></TextBlock>
-
-        <StackPanel Name="stackPanelFournisseur" Visibility="Collapsed" HorizontalAlignment="Left" Height="54" Margin="233,41,0,0" VerticalAlignment="Top" Width="105">
-            <ComboBox Name="comboBoxFournisseur" HorizontalAlignment="Left" Margin="5,30,0,35" VerticalAlignment="Top" Width="90"/>
-            <TextBlock Name="indicationText" HorizontalAlignment="Left" Margin="20,-80,0,0" TextWrapping="Wrap" Text="Fournisseur" VerticalAlignment="Top" RenderTransformOrigin="0.75,0.713"/>
-        </StackPanel>
-
-        <CheckBox Name="newPageCommande" 
-                  Visibility="Collapsed" 
-                  Content="Voir/Compléter commande" 
-                  HorizontalAlignment="Left" 
-                  Margin="391,80,0,0" 
-                  VerticalAlignment="Top" 
-                  Checked="newPageCommande_Checked"
-                  Unchecked="newPageCommande_Unchecked"/>
-
-        <DataGrid x:Name="IODataGridBis" 
-                  Visibility="Collapsed" 
-                  HorizontalAlignment="Left" 
-                  Height="150" 
-                  Margin="533,150,0,0" 
-                  VerticalAlignment="Top" 
-                  Width="250"
-                  AlternatingRowBackground="#9CDFFF"
-                  CanUserAddRows="False"
-                  CanUserDeleteRows="False"
-                  IsReadOnly="True"
-                  CanUserResizeRows="False"/>
-
-        <DataGrid x:Name="IODataGridTer" 
-                  Visibility="Collapsed" 
-                  HorizontalAlignment="Left" 
-                  Height="45" 
-                  Margin="233,100,0,0" 
-                  VerticalAlignment="Top" 
-                  Width="550"
-                  AlternatingRowBackground="Silver"
-                  CanUserAddRows="False"
-                  CanUserDeleteRows="False"
-                  IsReadOnly="True"
-                  CanUserResizeRows="False" />
-
-        <Button Name="AddVelo" Content="Ajouter Vélo" Visibility="Collapsed" HorizontalAlignment="Left" Margin="233,335,0,0" VerticalAlignment="Top" Width="75" Click="AjoutVelo"/>
-        <Button Name="AddPiece" Content="Ajouter Pièce" Visibility="Collapsed" HorizontalAlignment="Left" Margin="533,335,0,0" VerticalAlignment="Top" Width="75" Click="AjoutPiece"/>
-
-        <DataGrid x:Name="DataGridVeloCommand" 
-                  Visibility="Collapsed"
-                  HorizontalAlignment="Left" 
-                  Height="64" 
-                  Margin="333,305,0,0" 
-                  VerticalAlignment="Top" 
-                  Width="150"
-                  AlternatingRowBackground="Snow"
-                  CanUserAddRows="False"
-                  CanUserDeleteRows="False"
-                  IsReadOnly="True"
-                  CanUserResizeRows="False"/>
-
-        <DataGrid x:Name="DataGridPieceCommand" 
-                  Visibility="Collapsed"
-                  HorizontalAlignment="Left" 
-                  Height="64" 
-                  Margin="633,305,0,0" 
-                  VerticalAlignment="Top" 
-                  Width="150"
-                  AlternatingRowBackground="Snow"
-                  CanUserAddRows="False"
-                  CanUserDeleteRows="False"
-                  IsReadOnly="True"
-                  CanUserResizeRows="False"/>
-
-    </Grid>
-</Page>

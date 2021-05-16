@@ -149,6 +149,31 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
             switch(table)
             {
+                case "velo":
+                    command.CommandText = "SELECT * FROM velo order by numero_velo;";
+                    reader = command.ExecuteReader();
+                    velo = new List<Velo>();
+
+                    while (reader.Read())
+                    {               
+                        velo.Add(new Velo(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetFloat(3),
+                                reader.GetString(4), DateTime.MinValue, DateTime.MinValue, reader.GetInt32(7)));
+                    }
+                    liste = velo;
+                    break;
+
+                case "piece":
+                    command.CommandText = "SELECT * FROM piece order by CONVERT(SUBSTRING(numero_piece, 2), UNSIGNED INT);";
+                    reader = command.ExecuteReader();
+                    piece = new List<Piece>();
+                    while (reader.Read())
+                    {
+                        piece.Add(new Piece(reader.GetString(0), reader.GetString(1), reader.GetString(2), DateTime.MinValue,
+                            DateTime.MinValue, reader.GetFloat(5), reader.GetInt32(6), reader.GetInt32(7)));
+                    }
+                    liste = piece;
+                    break;
+
                 case "adresse":
                     command.CommandText = "SELECT * FROM adresse order by ID_adresse;";
                     reader = command.ExecuteReader();
@@ -202,7 +227,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             connection.Close();
             return liste;
         }
-
 
         #region Accesseurs Listes
         //Tables
@@ -323,13 +347,14 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         }
         #endregion string des queries
         public void Query(MySqlConnection connection, string query)
-        {
+        {            
             connection.Open();
             MySqlCommand command = connection.CreateCommand();
             command.CommandText = query;
             try
             {
-                command.ExecuteNonQuery();
+                //MessageBox.Show(query);
+                command.ExecuteNonQuery();                
             }
             catch (MySqlException e)
             {
@@ -467,6 +492,23 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             connection.Close();
             return take == null ? false : true;
         }
+        public bool ExistsInDataBaseWhereAnd(MySqlConnection connection, string table, string columnKeyOne, string keyOne,
+            string columnKeyTwo, string keyTwo)
+        {
+            connection.Open();
+            MySqlCommand command = connection.CreateCommand();
+
+            command.CommandText = QuerySelectColumnFromWhereAnd(connection, table, columnKeyOne, keyOne, columnKeyTwo, keyTwo);
+
+            MySqlDataReader reader;
+            reader = command.ExecuteReader();
+
+            string take = null;
+            while (reader.Read()) take = reader.GetString(0);
+
+            connection.Close();
+            return take == null ? false : true;
+        }
 
         public int IDMaxPlusOne(MySqlConnection connection, string table, string column, int nbCharSubstr, bool isSubstr)
         {
@@ -487,6 +529,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             return take + 1;
         }
 
+        
         public List<string> SelectColumn(MySqlConnection connection, string table, string column, string orderBy)
         {
             connection.Open();
@@ -504,21 +547,55 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             return take;
         }
 
-        public List<string> SelectColumnFromWhere(MySqlConnection connection, string table, string columnFind, string columnWhere, string where)
+     
+        public string QuerySelectColumnFromWhere(string table, string columnFind, string columnWhere, string where)
+        {
+            return "SELECT " + columnFind + " FROM " + table +
+                " WHERE " + columnWhere + " = " + (int.TryParse(where, out int res) ? where : ("'" + where + "'")) + ";";
+        }
+        public string QuerySelectColumnFromWhereAnd(MySqlConnection connection, string table, string columnKeyOne, string keyOne,
+            string columnKeyTwo, string keyTwo)
+        {
+            return "SELECT * FROM " + table +
+                " WHERE " + columnKeyOne + "=" + (int.TryParse(keyOne, out int res1) ? keyOne : ("'" + keyOne + "'")) + " AND " +
+                columnKeyTwo + "=" + (int.TryParse(keyTwo, out int res2) ? keyTwo : ("'" + keyTwo + "'")) + ";";
+        }
+
+        public List<string> SelectColumnFromWhere(MySqlConnection connection, string table, string columnFind, string columnWhere, string where, 
+            int index)
         {
             connection.Open();
 
             MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT " + columnFind + " FROM " + table + 
-                " WHERE " + columnWhere + " = " + (int.TryParse(where, out int res) ? where:("'" + where + "'")) + ";";
+            command.CommandText = QuerySelectColumnFromWhere(table, columnFind, columnWhere, where);
 
             MySqlDataReader reader;
             reader = command.ExecuteReader();
 
             List<string> take = new List<string>();
-            while (reader.Read()) take.Add(reader.GetString(0));
+            while (reader.Read()) take.Add(reader.GetString(index));
+
+            //if(table == "piece") MessageBox.Show(take[0]);
+            connection.Close();
+            return take;
+        }
+
+        public List<string> SelectColumnFromWhereAnd(MySqlConnection connection, string table, string columnKeyOne, string keyOne,
+            string columnKeyTwo, string keyTwo, int index)
+        {
+            connection.Open();
+
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = QuerySelectColumnFromWhereAnd(connection, table, columnKeyOne, keyOne, columnKeyTwo, keyTwo);
+
+            MySqlDataReader reader;
+            reader = command.ExecuteReader();
+
+            List<string> take = new List<string>();
+            while (reader.Read()) take.Add(reader.GetString(index));
 
             connection.Close();
+
             return take;
         }
     }

@@ -56,5 +56,11 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             set { rabais_programme = value; }
         }
         #endregion Accesseurs
+
+        public override string ToString()
+        {
+            return Convert.ToString(numero_programme) + " : " + nom_programme + " " + Convert.ToString(prix_programme) + "€ - "
+                + duree_programme + " an - " + rabais_programme + " de rabais";
+        }
     }
 }
