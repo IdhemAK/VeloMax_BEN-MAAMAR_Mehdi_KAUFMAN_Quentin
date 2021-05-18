@@ -404,13 +404,18 @@ order by numero_commande
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
 -- Nouveaux Utilisateurs 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-create user 'bozo' identified by 'bozo';
+DROP USER 'bozo'@'localhost';
+create user 'bozo'@'localhost' identified by 'bozo';
 grant show view on *.* to 'bozo';
-#show grants for 'bozo'@'localhost' ;
+show grants for 'bozo'@'localhost' ;
+
+
+/*
+DROP USER 'root'@'localhost';
+create user 'root'@'localhost' identified by 'root';
+grant all on *.* to 'root';
+show grants for 'root'@'localhost' ;
 */
-
-
 
 
 
