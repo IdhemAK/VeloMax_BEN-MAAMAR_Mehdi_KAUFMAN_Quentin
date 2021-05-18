@@ -26,7 +26,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         private List<Tuple<Commande, Piece, int>> liste_piece_commande;
         private List<Tuple<Commande, Velo, int>> liste_velo_commande;
         private List<Tuple<Piece, Fournisseur, int>> catalogue;
-        // = new List<Tuple<Velo, Piece, int>>();
         #endregion Attributs
 
         #region Requête
@@ -41,6 +40,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         #endregion Requête
 
         #region Constructeurs
+        /// <summary>
+        /// Constructeur principal initialisant toutes les requêtes
+        /// </summary>
         public VeloMax()
         {
             getVelo = "select numero_velo as 'Numéro'," +
@@ -113,6 +115,22 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 "province_adresse as 'Province' " +
                 "from adresse;";
         }
+        
+        /// <summary>
+        /// Constructeur définit avec toutes les listes de la BDD au cas où
+        /// Nous le laissons ici bien que nous ne l'ayons pas utilisé
+        /// </summary>
+        /// <param name="velo"></param>
+        /// <param name="piece"></param>
+        /// <param name="commande"></param>
+        /// <param name="fournisseur"></param>
+        /// <param name="client"></param>
+        /// <param name="adresse"></param>
+        /// <param name="programme"></param>
+        /// <param name="liste_assemblage"></param>
+        /// <param name="liste_piece_commande"></param>
+        /// <param name="liste_velo_commande"></param>
+        /// <param name="catalogue"></param>
         public VeloMax(List<Velo> velo, List<Piece> piece, List<Commande> commande, List<Fournisseur> fournisseur,
             List<Client> client, List<Adresse> adresse, List<Programme> programme,
             List<Tuple<Velo, Piece, int>> liste_assemblage,
@@ -137,7 +155,16 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         }
         #endregion Constructeurs
 
-
+        /// <summary>
+        /// Sélectionne tous les tuples de la table indiquée en paramètre dans une liste
+        /// définie en attribut de la classe VeloMax
+        /// On peut voir dans la structure switch case les différentes
+        /// tables implémentée
+        /// En effet nous n'avons pas eu besoin de mettre toutes les tables
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="table"></param>
+        /// <returns></returns>
         public object SelectAllFromTable(MySqlConnection connection, string table)
         {
             connection.Open();
@@ -153,7 +180,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                     command.CommandText = "SELECT * FROM velo order by numero_velo;";
                     reader = command.ExecuteReader();
                     velo = new List<Velo>();
-
                     while (reader.Read())
                     {               
                         velo.Add(new Velo(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetFloat(3),
@@ -325,7 +351,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         #endregion Accesseurs Requêtes
 
         #region Gestion (velo, piece, client, fournisseur, commande)
-        #region chaîne de caractère pour les queries
+        /// <summary>
+        /// Renvoie un string contenant une requête d'insertion
+        /// </summary>
+        /// <param name="table">table dans laquelle insérer le tuple</param>
+        /// <param name="variables">variables du tuple à créer</param>
+        /// <returns></returns>
         public string Concatenate_Create(string table, string[] variables)
         {
             string conc = "INSERT INTO " + table + " VALUES (";
@@ -335,17 +366,40 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }
             return conc + variables[variables.Length - 1] + ");";
         }
+        /// <summary>
+        /// Renvoie un string contenant une requête de mise à jour
+        /// d'un tuple
+        /// </summary>
+        /// <param name="table">table du tuple à modifier</param>
+        /// <param name="columnFind">colonne dans laquelle chercher le tuple</param>
+        /// <param name="columnChange">colonne de la valeur à modifier</param>
+        /// <param name="variableFind">variable de la colonne à chercher</param>
+        /// <param name="variableChange">variable de la colonne à modifier</param>
+        /// <returns></returns>
         public string Concatenate_Update(string table, string columnFind, string columnChange, string variableFind, string variableChange)
         {
             return "UPDATE " + table + " SET " + columnChange + "=" + variableChange +
                 " WHERE " + columnFind + "=" + variableFind + ";";
         }
+        /// <summary>
+        /// Renvoie un string contenant une requête de suppression
+        /// </summary>
+        /// <param name="table">table du tuple à supprimer</param>
+        /// <param name="column">colonne du tuple à supprimer</param>
+        /// <param name="nameVariable">nom de la variable de la colonne dans laquelle 
+        /// chercher le tuple à supprimer</param>
+        /// <returns></returns>
         public string Concatenate_Remove(string table, string column, string nameVariable)
         {
             return "DELETE FROM " + table +
                 " WHERE " + column + " ='" + nameVariable + "';";
         }
-        #endregion string des queries
+
+        /// <summary>
+        /// Envoie une requête SQL
+        /// </summary>
+        /// <param name="connection">connexion MySQL</param>
+        /// <param name="query">requête MySQL</param>
         public void Query(MySqlConnection connection, string query)
         {            
             connection.Open();
@@ -363,11 +417,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }
             connection.Close();
         }
-
-        //Pensez à vérifier si les string entrés sont bons
-        //à partir du Mainwindow WPF
-        //==> format date - int - nombre de variables
-        //voir si on ouvre la connexion dans Query
 
         /// <summary>
         /// Créer un tuple dans une table
@@ -425,10 +474,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         }
         #endregion Gestion (velo, piece, client, fournisseur, commande)
 
-        #region Module Statistiques
-
-        #endregion Module Statistiques
-
         /// <summary>
         /// Renvoie un DataTable contenant les éléments d'une requête
         /// </summary>
@@ -450,10 +495,19 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             return data;
         }
 
+        #region SQL Queries
+        /// <summary>
+        /// Renvoie le nombre de tuple contenu dans 
+        /// une table de la BDD
+        /// </summary>
+        /// <param name="connection">connexion MySQL</param>
+        /// <param name="table">table dans laquelle chercher</param>
+        /// <returns>nombre de tuple contenu dans la table</returns>
         public int CountTuple(MySqlConnection connection, string table)
         {
             connection.Open();
             MySqlCommand command = connection.CreateCommand();
+            //Requête sql
             command.CommandText = "SELECT count(*) FROM " + table + ";";
 
             MySqlDataReader reader;
@@ -466,6 +520,17 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             return count;        
         }
 
+        /// <summary>
+        /// Renvoie un bool indiquant si un tuple existe
+        /// dans l'une des tables de la BDD à l'aide d'une 
+        /// requête SQL
+        /// </summary>
+        /// <param name="connection">connesion MySQL</param>
+        /// <param name="table">table du tuple à chercher</param>
+        /// <param name="columnPrimaryKey">colonne du tuple à chercher</param>
+        /// <param name="primaryKey">variable du tuple à chercher dans columnPrimaryKey</param>
+        /// <param name="keyIntOrNull">true si primaryKey est un int ou null et false sinon</param>
+        /// <returns></returns>
         public bool ExistsInDataBase(MySqlConnection connection, string table, string columnPrimaryKey, string primaryKey, bool keyIntOrNull)
         {
             connection.Open();
@@ -482,7 +547,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 " WHERE " + columnPrimaryKey + " = '" + primaryKey + "';";
             }
             
-
             MySqlDataReader reader;
             reader = command.ExecuteReader();
 
@@ -492,13 +556,26 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             connection.Close();
             return take == null ? false : true;
         }
+        /// <summary>
+        /// Renvoie un bool indiquant si un tuple existe
+        /// dans l'une des tables de la BDD à l'aide d'une 
+        /// requête SQL ayant la structure 
+        /// Select ... From ... Where ... And...
+        /// </summary>
+        /// <param name="connection">connexion MySQL</param>
+        /// <param name="table">table du tuple à chercher</param>
+        /// <param name="columnKeyOne">colonne 1 du tuple à chercher</param>
+        /// <param name="keyOne">variable du tuple à chercher dans columnKeyOne</param>
+        /// <param name="columnKeyTwo">colonne 2 du tuple à chercher</param>
+        /// <param name="keyTwo">variable du tuple à chercher dans columnKeyTwo</param>
+        /// <returns></returns>
         public bool ExistsInDataBaseWhereAnd(MySqlConnection connection, string table, string columnKeyOne, string keyOne,
             string columnKeyTwo, string keyTwo)
         {
             connection.Open();
             MySqlCommand command = connection.CreateCommand();
 
-            command.CommandText = QuerySelectColumnFromWhereAnd(connection, table, columnKeyOne, keyOne, columnKeyTwo, keyTwo);
+            command.CommandText = QuerySelectAllFromWhereAnd(table, columnKeyOne, keyOne, columnKeyTwo, keyTwo);
 
             MySqlDataReader reader;
             reader = command.ExecuteReader();
@@ -510,6 +587,16 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             return take == null ? false : true;
         }
 
+        /// <summary>
+        /// Renvoie l'indice maximal+1 d'un tuple d'une table
+        /// ayant des valeurs incrémentales
+        /// </summary>
+        /// <param name="connection">connexion MySQL</param>
+        /// <param name="table">table du tuple à chercher</param>
+        /// <param name="column">colonne du tuple à chercher</param>
+        /// <param name="nbCharSubstr">nombre de caractères à soustraire de la chaîne à chercher</param>
+        /// <param name="isSubstr">true si on doit soustraire des caractères à la chaîne et false sinon</param>
+        /// <returns>indice maximal+1 d'un tuple</returns>
         public int IDMaxPlusOne(MySqlConnection connection, string table, string column, int nbCharSubstr, bool isSubstr)
         {
             connection.Open();
@@ -529,7 +616,15 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             return take + 1;
         }
 
-        
+        /// <summary>
+        /// Renvoie toute la colonne d'une table avec la structure
+        /// Select... From... order by...
+        /// </summary>
+        /// <param name="connection">connexion MySQL</param>
+        /// <param name="table">table à étudier</param>
+        /// <param name="column">colonne à renvoyer</param>
+        /// <param name="orderBy">comment les tuples son classés dans la requête order by</param>
+        /// <returns>colonne d'une table</returns>
         public List<string> SelectColumn(MySqlConnection connection, string table, string column, string orderBy)
         {
             connection.Open();
@@ -548,19 +643,50 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         }
 
      
+        /// <summary>
+        /// Construit et retourne une requête SQL ayant la structure
+        /// Select... Column... From... Where...
+        /// permettant e retourner tout une colonne
+        /// </summary>
+        /// <param name="table">table SQL à sélectionner</param>
+        /// <param name="columnFind">colonne de la table à retourner</param>
+        /// <param name="columnWhere">colonne de la table dans laquelle chercher</param>
+        /// <param name="where">nom de la variable qu'on doit trouver dans les tuples à sélectionner</param>
+        /// <returns></returns>
         public string QuerySelectColumnFromWhere(string table, string columnFind, string columnWhere, string where)
         {
             return "SELECT " + columnFind + " FROM " + table +
                 " WHERE " + columnWhere + " = " + (int.TryParse(where, out int res) ? where : ("'" + where + "'")) + ";";
         }
-        public string QuerySelectColumnFromWhereAnd(MySqlConnection connection, string table, string columnKeyOne, string keyOne,
-            string columnKeyTwo, string keyTwo)
+        /// <summary>
+        /// Construit et retourne une requête SQL ayant la structure
+        /// Select... Column... From... Where... And...
+        /// Avec tous les tupeles d'une table
+        /// </summary>
+        /// <param name="table">table SQL à sélectionner</param>
+        /// <param name="columnKeyOne">colonne 1 de la table dans laquelle chercher</param>
+        /// <param name="keyOne">variable de la colonne 1</param>
+        /// <param name="columnKeyTwo">colonne 2 de la table dans laquelle chercher</param>
+        /// <param name="keyTwo">variable de la colonne 2</param>
+        /// <returns></returns>
+        public string QuerySelectAllFromWhereAnd(string table, string columnKeyOne, string keyOne, string columnKeyTwo, string keyTwo)
         {
             return "SELECT * FROM " + table +
                 " WHERE " + columnKeyOne + "=" + (int.TryParse(keyOne, out int res1) ? keyOne : ("'" + keyOne + "'")) + " AND " +
                 columnKeyTwo + "=" + (int.TryParse(keyTwo, out int res2) ? keyTwo : ("'" + keyTwo + "'")) + ";";
         }
 
+        /// <summary>
+        /// Renvoie toute la colonne d'une table avec la structure
+        /// Select... From... Where...
+        /// </summary>
+        /// <param name="connection">connexion MySQL</param>
+        /// <param name="table">table dans laquelle chercher</param>
+        /// <param name="columnFind">colonne à retourner</param>
+        /// <param name="columnWhere">colonne de la clause Where</param>
+        /// <param name="where">variable de columnWhere</param>
+        /// <param name="index">index de la table à prendre ==> utile si Select * (All)</param>
+        /// <returns>retourne la colonne recherchée</returns>
         public List<string> SelectColumnFromWhere(MySqlConnection connection, string table, string columnFind, string columnWhere, string where, 
             int index)
         {
@@ -580,13 +706,25 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             return take;
         }
 
+        /// <summary>
+        /// Renvoie toute la colonne d'une table avec la structure
+        /// Select... From... Where... And...
+        /// </summary>
+        /// <param name="connection">connexion MySQl</param>
+        /// <param name="table">table dans laquelle chercher</param>
+        /// <param name="columnKeyOne">colonne 1 de la clause where</param>
+        /// <param name="keyOne">variable de colonne 1</param>
+        /// <param name="columnKeyTwo">colonne 2 de la clause where</param>
+        /// <param name="keyTwo">variable de colonne 2</param>
+        /// <param name="index">index de la colonne à retourner</param>
+        /// <returns>retourne la colonne recherchée</returns>
         public List<string> SelectColumnFromWhereAnd(MySqlConnection connection, string table, string columnKeyOne, string keyOne,
             string columnKeyTwo, string keyTwo, int index)
         {
             connection.Open();
 
             MySqlCommand command = connection.CreateCommand();
-            command.CommandText = QuerySelectColumnFromWhereAnd(connection, table, columnKeyOne, keyOne, columnKeyTwo, keyTwo);
+            command.CommandText = QuerySelectAllFromWhereAnd(table, columnKeyOne, keyOne, columnKeyTwo, keyTwo);
 
             MySqlDataReader reader;
             reader = command.ExecuteReader();
@@ -598,5 +736,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
             return take;
         }
+        #endregion SQL Queries
     }
 }

@@ -23,6 +23,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 {
     /// <summary>
     /// Logique d'interaction pour EntreeSortie.xaml
+    /// Permet de Créer/Modifier/Supprimer et voir les tuples
+    /// des tables : velo, pièce, commande, liste_piece_commande,
+    /// liste_velo_commande, client_entreprise, client_particulier
+    /// fournisseur et adresse
     /// </summary>
     public partial class EntreeSortie : Page
     {
@@ -35,7 +39,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         bool isFournisseur;
         bool isClient;
         bool isAdresse;
-        bool[] isTab;
+        bool[] isTab; 
+        //isTab contient tous les bool ci-dessus
+        //isTab est utilisée pour parcourir tous les bools 
+        //Un bool est mis à true lorsque on clique sur le bouton éponyme
 
         //Requête utilisé pour compléter les commandes
         string columnFindVeloC = "numero_commande_velo AS 'Numéro commande', numero_velo AS 'Numéro vélo'," +
@@ -44,6 +51,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                             "quantite_piece_commande AS 'Quantité pièce'";
         string numCommandeTemp;
 
+        /// <summary>
+        /// Initialise EntreeSortie et des bool à mettre à true
+        /// lorsque on étudie une certaine table
+        /// </summary>
+        /// <param name="connection">connexion MySQL</param>
+        /// <param name="velomax">BDD VeloMax</param>
         public EntreeSortie(MySqlConnection connection, VeloMax velomax)
         {
             this.connection = connection;
@@ -64,6 +77,11 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             isTab = new bool[] { isVelo , isPiece, isCommande, isFournisseur, isClient, isAdresse };         
         }
 
+        /// <summary>
+        /// Toutes les valeurs du tableau de bool sont mises à false
+        /// hormis une valeur indiquée en paramètre
+        /// </summary>
+        /// <param name="index">index du boolenan mis à true</param>
         public void IsTableChecking(int index)  //index du tableau isTab
         {
             for(int i = 0; i < isTab.Length; i++)
@@ -72,6 +90,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }
         }
 
+        #region Fonctions d'affichage
+        /// <summary>
+        /// Affiche les ID de chaque clients associés au
+        /// reste de leurs données dans une MessageBox
+        /// </summary>
+        /// <param name="typeClient">indique client_entreprise ou client_particulier</param>
         public void DisplayTypeClient(string typeClient)
         {
             string chain = null;
@@ -79,6 +103,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 "CONVERT(SUBSTRING(ID_" + typeClient + ", 6), UNSIGNED INT)",
                 "CONVERT(SUBSTRING(ID_" + typeClient + ", 6), UNSIGNED INT)");
 
+            //On dissocie les cas clients_entreprise et client_particulier
             if (typeClient == "client_entreprise")
             {
                 List<string> nomE = velomax.SelectColumn(connection, "client_entreprise", "nom_client_entreprise",
@@ -102,6 +127,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             MessageBox.Show("Entrer l'un des ID correspondant à l'un des clients existant suivants :\n" + chain);
         }
 
+        /// <summary>
+        /// Affiche toutes les adresses avec leurs identifiants
+        /// </summary>
         public void DisplayAdresses()
         {
             List<Adresse> adresses = (List<Adresse>)velomax.SelectAllFromTable(connection, "adresse");
@@ -114,6 +142,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             MessageBox.Show(chainAdresses);
         }
 
+        /// <summary>
+        /// Affiche tous les programmes avec leurs identifiants
+        /// </summary>
         public void DisplayProgramme()
         {
             List<Programme> programmes = (List<Programme>)velomax.SelectAllFromTable(connection, "programme");
@@ -124,16 +155,31 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }
             MessageBox.Show(chainProgrammes);
         }
+        #endregion Fonctions d'affichage
 
+        #region Creer/Supprimer/Modifier
+        /// <summary>
+        /// Fonction de création d'un tuple
+        /// Sélectionner le tuple puis appuyer sur le bouton
+        /// après pour le créer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Creer(object sender, RoutedEventArgs e)
         {
-            
+            //On lit la rangée sélectionnée dans la DataGrid puis on l'analyse
             DataRowView rowview = IODataGrid.SelectedItem as DataRowView;
             if(rowview == null)
             {
                 MessageBox.Show("DataGrid NULL");
             }
-            else
+            else //Si la rangée n'est pas null on vérifie tous les cas 
+                 //7 cas sont définis selon la même idée mais avec plusieurs 
+                 //cas particuliers différents à chaque fois
+                 //On initialise toujours un tableau de string correspondant 
+                 //aux données à insérer dans la BDD
+                 //On vérifie ensuite que chaque variables peut être rentrée 
+                 //dans la BDD en vérifiant leur type
             {                
                 if (isTab[0] == true) //velo 
                 {                   
@@ -145,7 +191,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
                     if ((DateTime.TryParse(velo[5], out DateTime dateIntro) || velo[5] == "") && (DateTime.TryParse(velo[6], out DateTime dateDiscont) || velo[6] == ""))
                     {
-                        velo[0] = Convert.ToString(velomax.CountTuple(connection, "velo") + 1);
+                        //velo[0] = Convert.ToString(velomax.CountTuple(connection, "velo") + 1);
+                        velo[0] = Convert.ToString((velomax.IDMaxPlusOne(connection, "velo", "numero_velo", 0, false)));
 
                         if (!double.TryParse(velo[3], out double prix))
                         {
@@ -293,8 +340,13 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                     {
                         string[] fullCommande = new string[6];
                         fullCommande[0] = Convert.ToString(velomax.IDMaxPlusOne(connection, "commande", "numero_commande", 0, false));
+                        
+                        //On prend la date actuelle pour effectuer la commande
                         DateTime now = DateTime.Now;
                         fullCommande[1] = now.ToString("yyyy/MM/dd");
+                        
+                        //On prend la date actuelle plus un nombre de jours au hasard entre 1 et 30
+                        //Pour créer une date de livraison
                         fullCommande[2] = (now + new TimeSpan(new Random().Next(1, 30), 0, 0, 0)).ToString("yyyy/MM/dd");
                         fullCommande[3] = velomax.SelectColumnFromWhere(connection, typeClient, "ID_adresse_" + typeClient, "ID_" + typeClient, idClient, 0)[0];
                         
@@ -440,7 +492,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                 {                    
                     string[] adresse = new string[rowview.Row.ItemArray.Length];
                     adresse[0] = Convert.ToString(velomax.CountTuple(connection, "adresse") + 1);
-
                     
                     while(velomax.ExistsInDataBase(connection, "adresse", "ID_adresse", adresse[0], true))
                     {
@@ -488,6 +539,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }
         }
 
+        /// <summary>
+        /// Fonction activée lorsque l'utilisateur appuie sur le bouton supprimer
+        /// Marche pour toutes les tables
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Supprimer(object sender, RoutedEventArgs e)
         {
             DataRowView rowview = IODataGrid.SelectedItem as DataRowView;
@@ -495,7 +552,10 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             {
                 MessageBox.Show("DataGrid NULL");
             }
-            else
+            else //On différencie les différents cas 
+                 //en fonction de la table étudiée
+                 //La fonction est structurée de la même manière
+                 //que la fonction Creer
             {
                 if (isTab[0] == true) //supprimer vélo
                 {
@@ -541,6 +601,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }           
         }
 
+        /// <summary>
+        /// Fonction de modificaion d'un tuple pour toutes les tables
+        /// Est activée après avoir appuyé sur le bouton création
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Modifier(object sender, RoutedEventArgs e)
         {            
             DataRowView rowview = IODataGrid.SelectedItem as DataRowView;
@@ -548,7 +614,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             {
                 MessageBox.Show("DataGrid NULL");
             }
-            else
+            else //On différencie les différents cas 
+                 //en fonction de la table étudiée
+                 //La fonction est structurée de la même manière 
+                 //que Creer et Supprimer
+                 //On vérifie bien que les velrus rentrées par 
+                 //l'utilisateur peuvent être insérer dans la BDD
             {
                 string query = null;
                 if (isTab[0] == true) //modifier vélo
@@ -676,7 +747,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                     string id = Convert.ToString(rowview.Row.ItemArray[4]);
                     string idClient = (Entreprises.IsChecked == true ? "cliE_" : "cliP_") + id;
 
-                    //start
+                    //On regarde si le tuple pris est un client_entreprise ou un client_particulier
                     string typeClient = Entreprises.IsChecked == true ? "client_entreprise" : "client_particulier";
                     if (rowview.Row[0].ToString() == "")
                     {
@@ -722,7 +793,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                             " WHERE numero_commande=" + fullCommande[0] + ";";
 
                             velomax.Query(connection, query);
-
                             newCommande = velomax.dataLoader(connection, velomax.GetCommande_entreprise);
                         }
                         else
@@ -739,13 +809,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                             "' WHERE numero_commande=" + fullCommande[0] + ";";
 
                             velomax.Query(connection, query);
-
                             newCommande = velomax.dataLoader(connection, velomax.GetCommande_particulier);
                         }
                         //MessageBox.Show(test);
                         IODataGrid.ItemsSource = newCommande.DefaultView;
                     }
-                }
+                } //modifier commande
                 else if (isTab[3] == true) //modifier fournisseur
                 {
                     //Attention : Les noms des pièces ne sont pas modifiés
@@ -791,7 +860,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                             IODataGrid.ItemsSource = newFournisseur.DefaultView;
                         }
                     }
-                }
+                } //modifier fournisseur
                 else if (isTab[4] == true && Entreprises.IsChecked == true) //modifier entreprise
                 {
                     string[] clientE = new string[rowview.Row.ItemArray.Length];
@@ -844,7 +913,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                         DataTable newClientE = velomax.dataLoader(connection, velomax.GetClient_entreprise);
                         IODataGrid.ItemsSource = newClientE.DefaultView;
                     }
-                }
+                } //modifier entreprise
                 else if (isTab[4] == true && Particuliers.IsChecked == true) //modifier particulier
                 {
                     string[] clientP = new string[rowview.Row.ItemArray.Length];
@@ -901,7 +970,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                         DataTable newClientP = velomax.dataLoader(connection, velomax.GetClient_particulier);
                         IODataGrid.ItemsSource = newClientP.DefaultView;
                     }
-                }
+                } //modifier particulier
                 else if (isTab[5] == true) //modifier adresse
                 {
                     if (rowview.Row[0].ToString() == "")
@@ -917,11 +986,19 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                         "province_adresse='" + rowview.Row[4].ToString() +
                         "' WHERE ID_adresse=" + rowview.Row[0].ToString() + ";";
                         velomax.Query(connection, query);
-                    }                  
-                }
+                    }
+                } //modifier adresse
             }
         }
+        #endregion Creer/Supprimer/Modifier
 
+        #region Buttons/CheckBoxes
+        /// <summary>
+        /// Activé avec le bouton vélo
+        /// Affiche les vélos dans la DataGrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Velo(object sender, RoutedEventArgs e)
         {
             isCommande = false;
@@ -941,6 +1018,14 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             IsTableChecking(0);
         }
 
+        /// <summary>
+        /// Activé avec le bouton pièce
+        /// Affiche les pièces dans la DataGrid
+        /// Affiche aussi une combobox avec les
+        /// noms des fournisseurs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Piece(object sender, RoutedEventArgs e)
         {
             isCommande = false;
@@ -954,14 +1039,23 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             newPageCommande.Visibility = Visibility.Collapsed;
 
             DataTable piece = velomax.dataLoader(connection, velomax.GetPiece);
-            comboBoxFournisseur.ItemsSource = velomax.SelectColumn(connection, "fournisseur", "nom_fournisseur", "nom_fournisseur");
+            List<string> displayComboBox = velomax.SelectColumn(connection, "fournisseur", "nom_fournisseur", "nom_fournisseur");
+            displayComboBox.Add("");
+            comboBoxFournisseur.ItemsSource = displayComboBox;           
 
             IODataGrid.ItemsSource = piece.DefaultView;
             IODataGrid.Columns[0].IsReadOnly = true;
+            IODataGrid.Columns[1].IsReadOnly = true;
 
             IsTableChecking(1);
         }
 
+        /// <summary>
+        /// Activé avec le bouton fournisseur
+        /// Affiche les fournisseurs dans la DataGrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Fournisseur(object sender, RoutedEventArgs e)
         {
             isCommande = false;
@@ -980,6 +1074,13 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             IsTableChecking(3);
         }
 
+        /// <summary>
+        /// Activé avec le bouton commande
+        /// Affiche les commandes dans la DataGrid
+        /// Affiche aussi les checkbox Entreprises et Particuliers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Commande(object sender, RoutedEventArgs e)
         {
             isCommande = true;
@@ -996,6 +1097,13 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             IsTableChecking(2);
         }
 
+        /// <summary>
+        /// Activé avec le bouton client
+        /// Affiche les clients dans la DataGrid
+        /// Affiche aussi les checkbox Entreprises et Particuliers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Client(object sender, RoutedEventArgs e)
         {
             isCommande = false;
@@ -1012,17 +1120,27 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             IsTableChecking(4);
         }
 
+        /// <summary>
+        /// Définit ce qui est activé lorsque 
+        /// la valeur booléenne renvoyée par 
+        /// la checkbox Entreprises est à true
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Entreprises_Checked(object sender, RoutedEventArgs e)
         {
+            //Si le bouton commande est activée en même temps
             if (isCommande == true)
             {
                 Particuliers.IsChecked = false;
                 DataTable commandes = velomax.dataLoader(connection, velomax.GetCommande_entreprise);
                 IODataGrid.ItemsSource = commandes.DefaultView;
                 IODataGrid.Columns[0].IsReadOnly = true;
+                IODataGrid.Columns[1].IsReadOnly = true;
                 IODataGrid.Columns[2].IsReadOnly = true;
                 IODataGrid.Columns[3].IsReadOnly = true;
             }
+            //Si le bouton client est activé en même temps
             else if (isClient == true)
             {
                 Particuliers.IsChecked = false;
@@ -1032,17 +1150,27 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }
         }
 
+        /// <summary>
+        /// Définit ce qui est activé lorsque 
+        /// la valeur booléenne renvoyée par 
+        /// la checkbox Particuliers est à true
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Particuliers_Checked(object sender, RoutedEventArgs e)
         {
+            //Si le bouton commande est activée en même temps
             if (isCommande == true)
             {
                 Entreprises.IsChecked = false;
                 DataTable commandes = velomax.dataLoader(connection, velomax.GetCommande_particulier);
                 IODataGrid.ItemsSource = commandes.DefaultView;
                 IODataGrid.Columns[0].IsReadOnly = true;
+                IODataGrid.Columns[1].IsReadOnly = true;
                 IODataGrid.Columns[2].IsReadOnly = true;
                 IODataGrid.Columns[3].IsReadOnly = true;
             }
+            //Si le bouton client est activée en même temps
             else if (isClient == true)
             {
                 Entreprises.IsChecked = false;
@@ -1052,6 +1180,12 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }
         }
 
+        /// <summary>
+        /// Activé avec le bouton adresse
+        /// Affiche les adresses dans la DataGrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Adresse(object sender, RoutedEventArgs e)
         {
             isCommande = false;
@@ -1070,11 +1204,23 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
             IsTableChecking(5);           
         }
-        
+        #endregion Buttons/CheckBoxes
+
+        #region Buttons/MessageBox Détails commandes
+        /// <summary>
+        /// Activé lorsque la valeur booléenne de la 
+        /// checkbox Voir/Compléter commande est à true
+        /// Enclenche un code pour afficher les détails
+        /// des commandes et les ajuster au besoin
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void newPageCommande_Checked(object sender, RoutedEventArgs e)
         {
             DataRowView rowview = IODataGrid.SelectedItem as DataRowView;
             
+            //On vérifie dans plusieurs if si la commande 
+            //sélectionnée par l'utilisateur est valide dans la BDD
             if (rowview == null)
             {
                 MessageBox.Show("Item NULL");
@@ -1100,7 +1246,8 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                         MessageBox.Show("Numéro commande non existant");
                         newPageCommande.IsChecked = false;
                     }
-                    else
+                    else //si toutes les conditions sont vérifiées 
+                         //on peut afficher les détails de la commande
                     {
                         numCommandeTemp = rowview.Row[0].ToString();
                         
@@ -1119,9 +1266,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                         IODataGridTer.Visibility = Visibility.Visible;                      
 
                         DataGridVeloCommand.Visibility = Visibility.Visible;
-                        DataGridPieceCommand.Visibility = Visibility.Visible;
-
-                        
+                        DataGridPieceCommand.Visibility = Visibility.Visible;                      
                         #endregion DataGrids parameters
 
                         #region Buttons/Checkboxes parameters
@@ -1146,11 +1291,11 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                        
                         livreur.Visibility = Visibility.Visible;
 
+                        #region Création requête détails commandes
                         string requeteCommandToEdit = "select numero_commande as 'Numéro commande'," +
                             "DATE_FORMAT(date_commande, '%Y-%m-%d') as 'Date de commande'," +
                             "DATE_FORMAT(date_livraison_commande, '%Y-%m-%d') as 'Date de livraison'," +
-                            "ID_adresse_commande as 'ID adresse',";
-                            
+                            "ID_adresse_commande as 'ID adresse',";                         
 
                         if(Entreprises.IsChecked == true)
                         {
@@ -1166,32 +1311,39 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                             "join client_particulier cp on cp.ID_client_particulier = c.ID_client_particulier " +
                             "where numero_commande=" + numCommandeTemp + ";";
                         }
+                        #endregion Création requête détails commandes
 
+                        #region Affichage des DataGrids
                         DataTable commandToEdit = velomax.dataLoader(connection, requeteCommandToEdit);
-
                         IODataGridTer.ItemsSource = commandToEdit.DefaultView;
 
                         DataTable velo = velomax.dataLoader(connection, velomax.GetVelo);
                         IODataGrid.ItemsSource = velo.DefaultView;
-
                         DataTable piece = velomax.dataLoader(connection, velomax.GetPiece);
                         IODataGridBis.ItemsSource = piece.DefaultView;
 
-                        //Les listes commandes
-                        
+                        //Les listes commandes                       
                         DataTable listeVeloCommande = velomax.dataLoader(connection, 
                             velomax.QuerySelectColumnFromWhere("liste_velo_commande", columnFindVeloC, "numero_commande_velo", numCommandeTemp));
                         DataGridVeloCommand.ItemsSource = listeVeloCommande.DefaultView;
 
-                        
                         DataTable listePieceCommande = velomax.dataLoader(connection,
                             velomax.QuerySelectColumnFromWhere("liste_piece_commande", columnFindPieceC, "numero_commande_piece", numCommandeTemp));
                         DataGridPieceCommand.ItemsSource = listePieceCommande.DefaultView;
+                        #endregion  Affichage des DataGrids
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Activé lorsque la valeur booléenne de la 
+        /// checkbox Voir/Compléter commande est à false
+        /// Enclenche un code pour retourner sur le menu 
+        /// des commandes en rendant invisibles les objets
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void newPageCommande_Unchecked(object sender, RoutedEventArgs e)
         {
             if(IODataGrid.Margin.Top == 150)
@@ -1241,10 +1393,20 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }
         }
 
+        /// <summary>
+        /// Activé lorsque on clique sur le bouton 
+        /// Ajout Vélo dans le menu des détails de la commande
+        /// Permet d'ajouter un vélo à la commande sélectionnée
+        /// dans le menu commande
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AjoutVelo(object sender, RoutedEventArgs e)
         {
             DataRowView rowview = IODataGrid.SelectedItem as DataRowView;
 
+            //On vérifie si le vélo sélectionné par l'utilisateur
+            //est valide pour la commande
             if(rowview == null)
             {
                 MessageBox.Show("Sélectionner un vélo sur la liste des vélo pour l'ajouter à la commande");
@@ -1257,10 +1419,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                     velomax.Create(connection, "liste_velo_commande",
                         new string[] { numCommandeTemp, rowview.Row[0].ToString(), "1" }, new int[] { 0, 1, 2 });
                 }
-                else
+                else //si toutes les conditions sont valides
+                     //on peut ajouter le vélo sélectionné dans la liste
                 {
-                    //"UPDATE velo SET nom_velo = 'ALPHABETA' WHERE nom_velo ='Riverside';";
-
                     int qteVelo = Convert.ToInt32(velomax.SelectColumnFromWhereAnd(connection, "liste_velo_commande", "numero_commande_velo", numCommandeTemp,
                         "numero_velo", rowview.Row[0].ToString(), 2)[0]) + 1;
 
@@ -1274,25 +1435,38 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }           
         }
 
+        /// <summary>
+        /// Activé lorsque on clique sur le bouton 
+        /// Ajout Pièce dans le menu des détails de la commande
+        /// Permet d'ajouter une pièce à la commande sélectionnée
+        /// dans le menu commande
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AjoutPiece(object sender, RoutedEventArgs e)
         {
             DataRowView rowview = IODataGridBis.SelectedItem as DataRowView;
 
-            if(rowview == null)
+            //On vérifie si la pièce sélectionnée par l'utilisateur
+            //est valide pour la commande
+            if (rowview == null)
             {
                 MessageBox.Show("Sélectionner une pièce sur la liste des pièces pour l'ajouter à la commande");
+            }
+            else if(!velomax.ExistsInDataBase(connection, "catalogue", "numero_piece_catalogue", rowview.Row[0].ToString(), false))
+            {
+                MessageBox.Show("Vous ne pouvez plus acheter cette pièce car le fournisseur n'existe plus");
             }
             else
             {
                 if (!velomax.ExistsInDataBaseWhereAnd(connection, "liste_piece_commande", "numero_commande_piece", numCommandeTemp,
                 "numero_piece_catalogue_commande", rowview.Row[0].ToString()))
-                {
-                    
+                {                    
                     velomax.Create(connection, "liste_piece_commande",
                         new string[] { rowview.Row[0].ToString(), numCommandeTemp, "1" }, new int[] { 1, 2 });
-                    //MessageBox.Show(rowview.Row[0].ToString());
                 }
-                else
+                else//si toutes les conditions sont valides
+                    //on peut ajouter la pièce sélectionnée dans la liste
                 {
                     int qtePiece = Convert.ToInt32(velomax.SelectColumnFromWhereAnd(connection, "liste_piece_commande", "numero_commande_piece", numCommandeTemp,
                         "numero_piece_catalogue_commande", rowview.Row[0].ToString(), 2)[0]) + 1;
@@ -1307,18 +1481,27 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }           
         }
 
+        /// <summary>
+        /// Activé lorsque on clique sur le bouton 
+        /// Retirer Vélo dans le menu des détails de la commande
+        /// Permet de retirer un vélo de la commande sélectionnée
+        /// dans le menu commande
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveVelo_Click(object sender, RoutedEventArgs e)
         {
-            //queryRemove = "DELETE FROM velo WHERE nom_velo ='Btwin';";
             DataRowView rowview = DataGridVeloCommand.SelectedItem as DataRowView;
 
-            if(rowview == null)
+            //On vérifie si le vélo sélectionné par l'utilisateur
+            //est valide pour le retirer de la commande
+            if (rowview == null)
             {
                 MessageBox.Show("Sélectionner un item sur la liste des vélos à commander pour le supprimer");
             }
-            else
+            else //si toutes les conditions sont valides
+                 //on peut retirer le vélo sélectionné dans la liste
             {
-                //MessageBox.Show(rowview.Row[0].ToString());
                 int qteVelo = Convert.ToInt32(velomax.SelectColumnFromWhereAnd(connection, "liste_velo_commande", "numero_commande_velo", numCommandeTemp,
                     "numero_velo", rowview.Row[1].ToString(), 2)[0]);
 
@@ -1340,18 +1523,27 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             }                    
         }
 
+        /// <summary>
+        /// Activé lorsque on clique sur le bouton 
+        /// Retirer Pièce dans le menu des détails de la commande
+        /// Permet de retirer une pièce de la commande sélectionnée
+        /// dans le menu commande
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemovePiece_Click(object sender, RoutedEventArgs e)
         {
-            //queryRemove = "DELETE FROM velo WHERE nom_velo ='Btwin';";
             DataRowView rowview = DataGridPieceCommand.SelectedItem as DataRowView;
 
+            //On vérifie si la pièce sélectionnée par l'utilisateur
+            //est valide pour la retirer de la commande
             if (rowview == null)
             {
                 MessageBox.Show("Sélectionner un item sur la liste des pièces à commander pour le supprimer");
             }
-            else
+            else //si toutes les conditions sont valides
+                 //on peut retirer la pièce sélectionnée dans la liste
             {
-                //MessageBox.Show(rowview.Row[0].ToString());
                 int qtePiece = Convert.ToInt32(velomax.SelectColumnFromWhereAnd(connection, "liste_piece_commande", "numero_commande_piece", numCommandeTemp,
                     "numero_piece_catalogue_commande", rowview.Row[1].ToString(), 2)[0]);
 
@@ -1361,7 +1553,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                     velomax.Query(connection, "UPDATE liste_piece_commande SET quantite_piece_commande =" + Convert.ToString(qtePiece) +
                         " WHERE numero_commande_piece =" + numCommandeTemp + " AND numero_piece_catalogue_commande='" + rowview.Row[1].ToString() + "';");
                 }
-                else
+                else 
                 {
                     velomax.Query(connection, "DELETE FROM liste_piece_commande WHERE numero_commande_piece= " + numCommandeTemp +
                         " AND numero_piece_catalogue_commande='" + rowview.Row[1].ToString() + "';");
@@ -1417,8 +1609,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
                     "numero_commande_piece", numCommandeTemp, 0);
                 int[] qtePieceStock = new int[qtePieceCommande.Count()];
 
-                //MessageBox.Show(Convert.ToString(qtePieceCommande.Count()));
-
                 if (qtePieceCommande.Count() > 0)
                 {
                     commandIsEmpty = false;
@@ -1457,53 +1647,21 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
                         MessageBox.Show("Commande " + numCommandeTemp + " envoyée");
 
-                        /*
-                        #region Stocks checking                      
-                        if (qteVeloStock.Length > 0) //On vérifie les stocks des vélos 
-                                                     //s'il y a des vélos dans la commande
-                        {
-                            bool checkVelo = true;  //true == tous les stocks sont ok
-                            string chainVelo = "Attention le stock des vélos suivants sont vides : \n";
-                            for (int i = 0; i < qteVeloStock.Length; i++)
-                            {
-                                if(qteVeloStock[i] == 0)
-                                {
-                                    checkVelo = false;
-                                    chainVelo += "\n " + numVeloCommande[i];
-                                }
-                            }
-
-                            if (!checkVelo) MessageBox.Show(chainVelo);                                
-                        }
-
-                        if (qtePieceStock.Length > 0) //On vérifie le stock des pièces
-                                                      //s'il y a des pièces dans la commande
-                        {
-                            bool checkPiece = true;  //true == tous les stocks sont ok
-                            string chainPiece = "Attention le stock des pièces suivantes sont vides : \n";
-                            for (int i = 0; i < qtePieceStock.Length; i++)
-                            {
-                                if (qtePieceStock[i] == 0)
-                                {
-                                    checkPiece = false;
-                                    chainPiece += "\n " + numPieceCommande[i];
-                                }
-                            }
-
-                            if (!checkPiece) MessageBox.Show(chainPiece);
-                        }
-                        #endregion Stocks checking
-                        */
-
                         newPageCommande.IsChecked = false;
                         newPageCommande_Unchecked(sender, e);
                     }
                 }
                 if (commandIsEmpty) MessageBox.Show("Commande vide");
             }
+            //On vérifie toujours tous les stocks une fois que la commande est finie
             CheckStock();
         }
 
+        /// <summary>
+        /// Fonction vérifiant l'état des stocks des vélos 
+        /// et des pièces et renvoie une MessageBox des articles
+        /// en rupture de stock
+        /// </summary>
         private void CheckStock()
         {
             List<Velo> velo = (List<Velo>)velomax.SelectAllFromTable(connection, "velo");
@@ -1533,6 +1691,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
             if (checkVeloStock) MessageBox.Show(veloStock);
             if (checkPieceStock) MessageBox.Show(pieceStock);
-        }       
+        }
+        #endregion Buttons/MessageBox Détails commandes
     }
 }

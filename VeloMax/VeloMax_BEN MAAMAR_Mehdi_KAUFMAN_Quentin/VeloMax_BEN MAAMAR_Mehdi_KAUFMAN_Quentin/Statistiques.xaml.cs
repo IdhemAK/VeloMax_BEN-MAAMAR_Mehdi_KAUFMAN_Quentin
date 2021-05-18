@@ -18,7 +18,6 @@ using System.Xml.XPath;
 using System.IO;
 using System.Xml.Serialization;
 using System.Data;
-using System.IO;
 using Newtonsoft.Json;
 
 namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
@@ -29,12 +28,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
     /// <summary>
     /// Logique d'interaction pour Statistiques.xaml
     /// </summary>
-    /// 
-
-
-
-
-
+ 
     public partial class Statistiques : Page
     {
         VeloMax velomax;
@@ -51,9 +45,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             button_Items_Velos.Visibility = Visibility.Visible;
             button_Items_Velos_Modele.Visibility = Visibility.Visible;
             button_Items_Velos_Taille.Visibility = Visibility.Visible;
-
-
-
 
             button_Meilleurs_Clients_E.Visibility = Visibility.Collapsed;
             button_Meilleurs_Clients_E_Prix.Visibility = Visibility.Collapsed;

@@ -11,8 +11,8 @@
 
     <Grid Background="White">
 
-        <Frame x:Name="CommandeFrame" Margin="0,69,0,-0.4" NavigationUIVisibility="Hidden" Grid.RowSpan="2"/>
-        
+        <Frame x:Name="CommandeFrame" Margin="0,0,0,-0.4" NavigationUIVisibility="Hidden"/>
+
         <Button Content="Créer" 
                 HorizontalAlignment="Left" 
                 Margin="363,10,0,0" 
@@ -23,7 +23,7 @@
                 Height="25" 
                 BorderBrush="#FF4E95AA" 
                 BorderThickness="3" />
-        
+
         <Button Content="Supprimer" 
                 HorizontalAlignment="Left" 
                 Margin="488,10,0,0" 
@@ -35,7 +35,7 @@
                 Height="25" 
                 BorderBrush="#FF4E95AA" 
                 BorderThickness="3" />
-        
+
         <Button Content="Modifier" 
                 HorizontalAlignment="Left" 
                 Margin="613,10,0,0" 
@@ -46,7 +46,7 @@
                 Height="25" 
                 BorderBrush="#FF4E95AA" 
                 BorderThickness="3" />
-        
+
         <Button Name="CommandeButton" 
                 Content="Commande" 
                 HorizontalAlignment="Left" 
@@ -58,7 +58,7 @@
                 Height="35" 
                 BorderBrush="#FF4E95AA" 
                 BorderThickness="3"/>
-        
+
         <Button Name="ClientButton" 
                 Content="Client" 
                 HorizontalAlignment="Left" 
@@ -70,7 +70,7 @@
                 Height="35" 
                 BorderBrush="#FF4E95AA" 
                 BorderThickness="3"/>
-        
+
         <Button Name="FournisseurButton" 
                 Content="Fournisseur" 
                 HorizontalAlignment="Left" 
@@ -82,7 +82,7 @@
                 Height="35" 
                 BorderBrush="#FF4E95AA" 
                 BorderThickness="3"/>
-        
+
         <Button Name="VeloButton" 
                 Content="Vélo" 
                 HorizontalAlignment="Left" 
@@ -94,7 +94,7 @@
                 Height="35" 
                 BorderBrush="#FF4E95AA" 
                 BorderThickness="3"/>
-        
+
         <Button Name="PieceButton" 
                 Content="Pièce" 
                 HorizontalAlignment="Left" 
@@ -106,7 +106,7 @@
                 Height="35" 
                 BorderBrush="#FF4E95AA" 
                 BorderThickness="3"/>
-        
+
         <Button Name="AdresseButton" 
                 Content="Adresse" 
                 HorizontalAlignment="Left" 
@@ -137,7 +137,7 @@
                   FontSize="15"
                   FontWeight="DemiBold"
                   Background="AliceBlue"/>
-        
+
         <CheckBox Name="Particuliers" 
                   Content="Particuliers" 
                   HorizontalAlignment="Left" 
@@ -165,7 +165,7 @@
             >
 
         </DataGrid>
-        
+
         <StackPanel Name="stackPanelFournisseur" Visibility="Collapsed" HorizontalAlignment="Left" Height="54" Margin="233,41,0,0" VerticalAlignment="Top" Width="105">
             <ComboBox Name="comboBoxFournisseur" 
                       HorizontalAlignment="Left" 
@@ -237,7 +237,7 @@
                 Background="SkyBlue"
                 BorderBrush="#FF4E95AA" 
                 BorderThickness="3"/>
-        
+
         <Button Name="AddPiece" 
                 Content="Ajouter &#x0a;  Pièce" 
                 Visibility="Collapsed" 
@@ -261,7 +261,7 @@
                 Background="SkyBlue"
                 BorderBrush="#FF4E95AA" 
                 BorderThickness="3"/>
-        
+
         <Button Name="RemovePiece" 
                 Content="Retirer &#x0a; Pièce" 
                 Visibility="Collapsed" 
@@ -297,8 +297,7 @@
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
                   IsReadOnly="True"
-                  CanUserResizeRows="False"
-                  FrozenColumnCount ="1"/>
+                  CanUserResizeRows="False"/>
 
         <DataGrid x:Name="DataGridPieceCommand" 
                   Visibility="Collapsed"
@@ -311,35 +310,10 @@
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
                   IsReadOnly="True"
-                  CanUserResizeRows="False"
-                  FrozenColumnCount ="1"/>
+                  CanUserResizeRows="False"/>
 
         <Image Name="livreur" Visibility="Collapsed" Margin="0,69,567,80.6" 
                Source="livreur.jpg"/>
 
-        <!-- Collapsed Visible -->
     </Grid>
 </Page>
-
-<!-- Recherches et tests sur les DataGrids -->
-<!--
-            <DataGridTemplateColumn Header="Velo">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Début production}"/>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-                <DataGridTemplateColumn.CellEditingTemplate>
-                    <DataTemplate>
-                        <DatePicker SelectedDate="{Binding Début production}"/>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellEditingTemplate>
-            </DataGridTemplateColumn>
-            -->
-
-<!--
-            <DataGrid.Columns>
-                <DataGridComboBoxColumn Header="Fournisseur" x:Name="comboBoxFournisseur"
-                SelectedValueBinding="{Binding Fournisseur, Mode=TwoWay}" SelectedItemBinding="{Binding Status}" Visibility="Collapsed"/>
-            </DataGrid.Columns>
-            -->

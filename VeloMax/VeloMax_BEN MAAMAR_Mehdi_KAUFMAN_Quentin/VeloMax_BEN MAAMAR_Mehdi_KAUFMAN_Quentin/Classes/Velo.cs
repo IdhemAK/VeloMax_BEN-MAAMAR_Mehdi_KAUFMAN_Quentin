@@ -11,13 +11,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
 
     public class Velo
     {
-        //Noms des variables de Velo
-        /*
-        private List<string> variables_velo =
-            new List<string>() { "numero_velo", "nom_velo", "grandeur_velo", "prix_velo", "ligne_produit_velo," +
-                "date_introduction_velo", "date_discontinuation_velo", "stock_velo" };
-                */
-
         #region Attributs
         private int numero_velo;    //clé primaire
         private string nom_velo;
@@ -28,15 +21,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         private DateTime date_discontinuation_velo;
         private int stock_velo;
         #endregion Attributs
-
-        /*
-        public enum variables_velo
-        {
-            numero_velo = Numero_velo, nom_velo, grandeur_velo, prix_velo, ligne_produit_velo,
-            date_introduction_velo, date_discontinuation_velo, stock_velo
-        }
-        */
-
 
         #region Constructeurs
         public Velo() { }
@@ -54,7 +38,6 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             this.stock_velo = stock_velo;
         }
         #endregion Constructeurs
-
 
         #region Accesseurs
         public int Numero_velo

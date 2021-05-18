@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Program_Velomax
 {
+    /// <summary>
+    /// Cette classe sert uniquement à entreposer des
+    /// idées de code 
+    /// </summary>
     class Brouillon
     {
 
@@ -146,5 +150,89 @@ namespace Program_Velomax
 
         //comboboxAdresse.SelectedItemBinding = fournisseur.Columns[4];
         //comboboxAdresse.ItemsSource = new List<string>() { "A", "B", "C", "D" };
+
+
+        /* idée pour vérifier les stocks lorsque on crée la commande
+                        #region Stocks checking                      
+                        if (qteVeloStock.Length > 0) //On vérifie les stocks des vélos 
+                                                     //s'il y a des vélos dans la commande
+                        {
+                            bool checkVelo = true;  //true == tous les stocks sont ok
+                            string chainVelo = "Attention le stock des vélos suivants sont vides : \n";
+                            for (int i = 0; i < qteVeloStock.Length; i++)
+                            {
+                                if(qteVeloStock[i] == 0)
+                                {
+                                    checkVelo = false;
+                                    chainVelo += "\n " + numVeloCommande[i];
+                                }
+                            }
+
+                            if (!checkVelo) MessageBox.Show(chainVelo);                                
+                        }
+
+                        if (qtePieceStock.Length > 0) //On vérifie le stock des pièces
+                                                      //s'il y a des pièces dans la commande
+                        {
+                            bool checkPiece = true;  //true == tous les stocks sont ok
+                            string chainPiece = "Attention le stock des pièces suivantes sont vides : \n";
+                            for (int i = 0; i < qtePieceStock.Length; i++)
+                            {
+                                if (qtePieceStock[i] == 0)
+                                {
+                                    checkPiece = false;
+                                    chainPiece += "\n " + numPieceCommande[i];
+                                }
+                            }
+
+                            if (!checkPiece) MessageBox.Show(chainPiece);
+                        }
+                        #endregion Stocks checking
+                        */
+
+
+
+        /* //Utilisatio de enum pour Velo
+        public enum variables_velo
+        {
+            numero_velo = Numero_velo, nom_velo, grandeur_velo, prix_velo, ligne_produit_velo,
+            date_introduction_velo, date_discontinuation_velo, stock_velo
+        }
+        */
+
+        /* Noms des variables de Velo
+        private List<string> variables_velo =
+            new List<string>() { "numero_velo", "nom_velo", "grandeur_velo", "prix_velo", "ligne_produit_velo," +
+                "date_introduction_velo", "date_discontinuation_velo", "stock_velo" };
+                */
+
+
+        /* Recherche sur les DataGrid
+         <!-- Recherches et tests sur les DataGrids -->
+<!--
+            <DataGridTemplateColumn Header="Velo">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Début production}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+                <DataGridTemplateColumn.CellEditingTemplate>
+                    <DataTemplate>
+                        <DatePicker SelectedDate="{Binding Début production}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellEditingTemplate>
+            </DataGridTemplateColumn>
+            -->
+
+<!--
+            <DataGrid.Columns>
+                <DataGridComboBoxColumn Header="Fournisseur" x:Name="comboBoxFournisseur"
+                SelectedValueBinding="{Binding Fournisseur, Mode=TwoWay}" SelectedItemBinding="{Binding Status}" Visibility="Collapsed"/>
+            </DataGrid.Columns>
+            -->
+
+
+
+         */
     }
 }
