@@ -16,14 +16,14 @@ namespace Program_Velomax
         private DateTime date_introduction_piece;
         private DateTime date_discontinuation_piece;
         private float prix_piece;
-        private DateTime date_approvisionnement_piece;
-        private int stock_piece;
+        private DateTime delai_approvisionnement_piece;
+        public int stock_piece;
         #endregion Attributs
 
         #region Constructeurs
         public Piece(string numero_piece_catalogue, string numero_piece, string description_piece,
             DateTime date_introduction_piece, DateTime date_discontinuation_piece, float prix_piece,
-            DateTime date_approvisionnement_piece, int stock_piece)
+            DateTime delai_approvisionnement_piece, int stock_piece)
         {
             this.numero_piece_catalogue = numero_piece_catalogue;
             this.numero_piece = numero_piece;
@@ -31,10 +31,12 @@ namespace Program_Velomax
             this.date_introduction_piece = date_introduction_piece;
             this.date_discontinuation_piece = date_discontinuation_piece;
             this.prix_piece = prix_piece;
-            this.date_approvisionnement_piece = date_approvisionnement_piece;
+            this.delai_approvisionnement_piece = delai_approvisionnement_piece;
             this.stock_piece = stock_piece;
         }
         #endregion Constructeurs
+
+        
 
         #region Accesseurs
         public string Numero_piece_catalogue
@@ -67,12 +69,12 @@ namespace Program_Velomax
             get { return prix_piece; }
             set { prix_piece = value; }
         }
-        public DateTime Date_approvisionnement_piece
+        public DateTime Delai_approvisionnement_piece
         {
-            get { return date_approvisionnement_piece; }
-            set { date_approvisionnement_piece = value; }
+            get { return delai_approvisionnement_piece; }
+            set { delai_approvisionnement_piece = value; }
         }
-        private int Stock_piece
+        public int Stock_piece
         {
             get { return stock_piece; }
             set { stock_piece = value; }

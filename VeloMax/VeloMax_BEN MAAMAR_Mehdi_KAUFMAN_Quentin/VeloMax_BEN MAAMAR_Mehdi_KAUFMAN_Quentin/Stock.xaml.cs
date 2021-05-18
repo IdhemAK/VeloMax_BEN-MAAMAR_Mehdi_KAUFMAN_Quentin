@@ -95,6 +95,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         }
         #endregion
 
+
         #region REQUETES
         //Comme vous pouvez le voir, il s'agit d'une zone dans laquelle toutes le requêtes sont stockées
         string getPiece = "select * from piece;";
@@ -163,9 +164,9 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             // si vous avez encore du mal à comprendre son fonctionnement attendez d'arriver aux fonctions suivantes
         }
         public void affichePieceV2()
-        {
-            DataTable pieces = dataLoader(getPieceV2);
-            DataTable piecesManque = checkQuantity(pieces, "Stock", 35);
+        { 
+            DataTable pieces = velomax.dataLoader(connection, getPieceV2);
+            DataTable piecesManque = checkQuantity(pieces, "Stock",35);
             piecesManque.Columns.Remove("Numéro");
             piecesManque.Columns.Remove("Début production");
             piecesManque.Columns.Remove("Fin production");
@@ -181,10 +182,11 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             //On termine par définir la source du contenu des DataGrid comme étant les DataTable sus-crées
             //La fonction suivante fonctionne exactement de la même manière mais avec des vélos
         }
+
         public void afficheVeloV2()
-        {
-            DataTable velos = dataLoader(getVeloV2);
-            DataTable veloManque = checkQuantity(velos, "Stock", 120);
+        { 
+            DataTable velos = velomax.dataLoader(connection, getVeloV2);
+            DataTable veloManque = checkQuantity(velos, "Stock",120);
             veloManque.Columns.Remove("Type");
             veloManque.Columns.Remove("Taille");
             veloManque.Columns.Remove("Début production");
@@ -198,45 +200,42 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         //Exemple trieVeloParTaille affiche le trie des vélos par taille  
         private void trieVeloCleUnitaire(object sender, RoutedEventArgs e)
         {
-            DataTable velo = dataLoader(veloCleUnitaire);
+            DataTable velo = velomax.dataLoader(connection, veloCleUnitaire);
             mainDataGrid.ItemsSource = velo.DefaultView;
         }
         private void trieVeloParTaille(object sender, RoutedEventArgs e)
         {
-            DataTable velo = dataLoader(veloTaille);
+            DataTable velo = velomax.dataLoader(connection, veloTaille);
             mainDataGrid.ItemsSource = velo.DefaultView;
         }
         private void trieVeloParModele(object sender, RoutedEventArgs e)
-        {
-            DataTable velo = dataLoader(veloModele);
-            mainDataGrid.ItemsSource = velo.DefaultView;
-
-
+        { 
+            DataTable velo = velomax.dataLoader(connection, veloModele);
+            mainDataGrid.ItemsSource = velo.DefaultView;                       
         }
         private void trieVeloParLigneProduit(object sender, RoutedEventArgs e)
         {
-            DataTable velo = dataLoader(veloLigne);
+            DataTable velo = velomax.dataLoader(connection, veloLigne);
             mainDataGrid.ItemsSource = velo.DefaultView;
         }
         private void triePieceNumero(object sender, RoutedEventArgs e)
         {
-            DataTable piece = dataLoader(pieceNumero);
+            DataTable piece = velomax.dataLoader(connection, pieceNumero);
             mainDataGrid.ItemsSource = piece.DefaultView;
         }
-
         private void triePieceRefFournisseur(object sender, RoutedEventArgs e)
         {
-            DataTable piece = dataLoader(pieceRefFournisseur);
+            DataTable piece = velomax.dataLoader(connection, pieceRefFournisseur);
             mainDataGrid.ItemsSource = piece.DefaultView;
         }
         private void triePieceFournisseur(object sender, RoutedEventArgs e)
         {
-            DataTable piece = dataLoader(pieceFournisseur);
+            DataTable piece = velomax.dataLoader(connection, pieceFournisseur);
             mainDataGrid.ItemsSource = piece.DefaultView;
         }
         private void triePieceType(object sender, RoutedEventArgs e)
         {
-            DataTable piece = dataLoader(pieceType);
+            DataTable piece = velomax.dataLoader(connection, pieceType);
             mainDataGrid.ItemsSource = piece.DefaultView;
         }
         #endregion

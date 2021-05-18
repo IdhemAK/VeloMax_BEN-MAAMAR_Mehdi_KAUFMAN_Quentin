@@ -65,3 +65,5 @@ C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFM
 C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\obj\Debug\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin.pdb
 C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\Newtonsoft.Json.dll
 C:\Users\quent\Documents\Info\Esilv\S6\BDD\ProjetFinal\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Mehdi\source\repos\VeloMax Final\VeloMax\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\VeloMax_BEN MAAMAR_Mehdi_KAUFMAN_Quentin\bin\Debug\Newtonsoft.Json.xml

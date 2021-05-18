@@ -16,14 +16,14 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
         private DateTime date_introduction_piece;
         private DateTime date_discontinuation_piece;
         private float prix_piece;
-        private int date_approvisionnement_piece;
+        private int delai_approvisionnement_piece;
         private int stock_piece;
         #endregion Attributs
 
         #region Constructeurs
         public Piece(string numero_piece_catalogue, string numero_piece, string description_piece,
             DateTime date_introduction_piece, DateTime date_discontinuation_piece, float prix_piece,
-            int date_approvisionnement_piece, int stock_piece)
+            int delai_approvisionnement_piece, int stock_piece)
         {
             this.numero_piece_catalogue = numero_piece_catalogue;
             this.numero_piece = numero_piece;
@@ -31,7 +31,7 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             this.date_introduction_piece = date_introduction_piece;
             this.date_discontinuation_piece = date_discontinuation_piece;
             this.prix_piece = prix_piece;
-            this.date_approvisionnement_piece = date_approvisionnement_piece;
+            this.delai_approvisionnement_piece = delai_approvisionnement_piece;
             this.stock_piece = stock_piece;
         }
         public Piece()
@@ -73,16 +73,22 @@ namespace VeloMax_BEN_MAAMAR_Mehdi_KAUFMAN_Quentin
             get { return prix_piece; }
             set { prix_piece = value; }
         }
-        public int Date_approvisionnement_piece
+        public int Delai_approvisionnement_piece
         {
-            get { return date_approvisionnement_piece; }
-            set { date_approvisionnement_piece = value; }
+            get { return delai_approvisionnement_piece; }
+            set { delai_approvisionnement_piece = value; }
         }
-        private int Stock_piece
+        public int Stock_piece
         {
             get { return stock_piece; }
             set { stock_piece = value; }
         }
         #endregion Accesseurs
+
+        public override string ToString()
+        {
+            return numero_piece_catalogue + " - " + numero_piece + " : " + description_piece +
+                " " + prix_piece + "€ delai-" + delai_approvisionnement_piece + " stock " + stock_piece;
+        }
     }
 }
